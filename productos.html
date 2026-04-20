@@ -107,62 +107,65 @@ input {
 </div>
 
 <script>
-const modelos = [
-    "toyota corolla",
-    "toyota hilux",
-    "chevrolet aveo",
-    "chevrolet spark",
-    "hyundai accent",
-    "kia rio",
-    "nissan versa",
-    "mazda 3",
-    "ford ranger",
-    "volkswagen gol"
-];
+let data = [];
 
-const input = document.getElementById("input");
-const lista = document.getElementById("lista");
+fetch('productos.json')
+  .then(res => res.json())
+  .then(json => {
+    data = json;
+    cargarMarcas();
+  });
+
+const marcaSelect = document.getElementById("marca");
+const modeloSelect = document.getElementById("modelo");
 const resultado = document.getElementById("resultado");
-const whatsappBtn = document.getElementById("whatsappBtn");
 
-input.addEventListener("input", () => {
-    let valor = input.value.toLowerCase().trim();
-    lista.innerHTML = "";
-    resultado.innerHTML = "";
-    whatsappBtn.style.display = "none";
+function cargarMarcas() {
+  let marcas = [...new Set(data.map(p => p.marca))];
 
-    if (valor === "") return;
+  marcas.forEach(marca => {
+    let option = document.createElement("option");
+    option.value = marca;
+    option.textContent = marca.toUpperCase();
+    marcaSelect.appendChild(option);
+  });
+}
 
-    let filtrados = modelos.filter(m => m.includes(valor));
+marcaSelect.addEventListener("change", () => {
+  let marca = marcaSelect.value;
 
-    if (filtrados.length > 0) {
-        filtrados.forEach(m => {
-            let div = document.createElement("div");
-            div.classList.add("item");
-            div.textContent = m;
-            div.onclick = () => seleccionarModelo(m);
-            lista.appendChild(div);
-        });
-    } else {
-        // 🔥 AQUÍ ESTÁ LA MEJORA
-        resultado.innerHTML = "⚠️ No encontramos ese modelo, pero podemos ayudarte igual";
-        resultado.className = "resultado no-disponible";
+  modeloSelect.innerHTML = '<option value="">Selecciona modelo</option>';
+  resultado.innerHTML = "";
 
-        whatsappBtn.style.display = "inline-block";
-        whatsappBtn.innerText = "Consultar mi modelo";
-        whatsappBtn.href = `https://wa.me/569XXXXXXXX?text=Hola,%20no%20encontré%20mi%20modelo%20(${valor}),%20¿me%20pueden%20ayudar?`;
-    }
+  let modelos = data.filter(p => p.marca === marca);
+
+  modelos.forEach(p => {
+    let option = document.createElement("option");
+    option.value = p.modelo;
+    option.textContent = p.modelo;
+    modeloSelect.appendChild(option);
+  });
+
+  modeloSelect.disabled = false;
 });
 
-function seleccionarModelo(modelo) {
-    input.value = modelo;
-    lista.innerHTML = "";
+modeloSelect.addEventListener("change", () => {
+  let marca = marcaSelect.value;
+  let modelo = modeloSelect.value;
 
-    resultado.innerHTML = "✅ Disponible para tu vehículo";
-    resultado.className = "resultado disponible";
+  let producto = data.find(p => p.marca === marca && p.modelo === modelo);
 
-    whatsappBtn.style.display = "inline-block";
-    whatsappBtn.innerText = "Consultar por WhatsApp";
-    whatsappBtn.href = `https://wa.me/569XXXXXXXX?text=Hola,%20quiero%20fundas%20para%20${modelo}`;
-}
-        </script>
+  resultado.innerHTML = `
+    <div class="card">
+      <img src="img/${producto.imagen}">
+      <h3>${marca.toUpperCase()} ${modelo}</h3>
+      <div class="precio">$${producto.precio}</div>
+
+      <a class="btn" target="_blank"
+      href="https://wa.me/569XXXXXXXX?text=Hola,%20quiero%20fundas%20para%20${marca}%20${modelo}">
+      Comprar / Consultar
+      </a>
+    </div>
+  `;
+});
+</script>

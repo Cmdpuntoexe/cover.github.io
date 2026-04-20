@@ -1,130 +1,158 @@
 
-<h1 style="font-size: 19px; font-weight: 600; letter-spacing: 3px;">
-  Covering styles
-</h1>
-<p style="font-size: 10px; color: #777; margin-top: -10px;">
-  Protección para tu vehículo
-</p>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>CStyles - Fundas de Auto</title>
+<meta charset="UTF-8">
+<title>Consulta tu modelo</title>
+
 <style>
-  body {
+body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f2f2f2;
-    color: #222;
-  }
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1f1f1f, #3a3a3a);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-  .container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-  }
-
-  header {
+.box {
+    background: #ffffff;
+    color: #111;
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
     text-align: center;
-    padding: 60px 20px;
-  }
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+}
 
-  h1 {
-    font-size: 32px;
+h2 {
     margin-bottom: 10px;
-  }
+}
 
-  p {
-    color: #555;
-  }
+p {
+    color: #666;
+    margin-bottom: 25px;
+}
 
-  .card {
-    background: white;
-    padding: 25px;
-    margin: 20px 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  }
-
-  .btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 14px 24px;
-    background: #111;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: 0.3s;
-
-      }
-
-  .btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 14px 24px;
-    background: #111;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: 0.10s;
-  }
-
-  .btn:hover {
-    background: #25D366;
-  }
-
-  img {
+input {
     width: 100%;
-    max-width: 400px;
+    padding: 14px;
     border-radius: 10px;
-    margin-top: 15px;
-  }
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
 
-  ul {
+.resultado {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.disponible {
+    color: #1db954;
+}
+
+.no-disponible {
+    color: #e63946;
+}
+
+.lista {
+    margin-top: 10px;
     text-align: left;
-    padding-left: 20px;
-  }
+    background: #f9f9f9;
+    border-radius: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.item:hover {
+    background: #eee;
+}
+
+.btn {
+    margin-top: 20px;
+    display: none;
+    padding: 12px;
+    background: black;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    display: inline-block;
+}
 </style>
 </head>
+
 <body>
 
-<div class="container">
+<div class="box">
+    <h2>Encuentra tu modelo</h2>
+    <p>Consulta si tenemos fundas disponibles para tu vehículo</p>
 
-  <header>
-    <h1>Protección práctica para tu vehículo</h1>
-    <p>Fundas diseñadas para el uso diario, fáciles de limpiar y pensadas para durar.</p>
-    <a class="btn" href="https://wa.me/56961960385">Contactar por WhatsApp</a>
-     <a class="btn" href="index.html">Inicio</a>
-  </header>
+    <input type="text" id="input" placeholder="Ej: Toyota Corolla">
 
-  <div class="card">
-    <h2>¿Qué hacemos?</h2>
-    <p>Ofrecemos fundas de asiento diseñadas para proteger el interior del vehículo del desgaste, la suciedad y los líquidos, manteniendo su estado original por más tiempo.</p>
-  </div>
+    <div class="lista" id="lista"></div>
+    <div class="resultado" id="resultado"></div>
 
-  <div class="card">
-    <h2>Beneficios</h2>
-    <ul>
-      <li>Material impermeable</li>
-      <li>Fácil limpieza</li>
-      <li>Uso diario sin complicaciones</li>
-      <li>Protección del tapiz original</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>diseño clasico</h2>
-    <img src="funda.png" alt="Funda de auto">
-    <img src="IMG_20240201_203504.jpg" alt="Funda de auto">
-     <h2>Precio</h2>
-    <p>$135.000</p>
-    <a class="btn" href="https://wa.me/56961960385">Consultar</a>
-  <a href="mailto:2022cover@gmail.com?subject=Consulta%20de%20fundas&body=Hola,%20quiero%20información%20sobre%20las%20fundas" class="btn-email">
-  Contactar por correo
-</a>
-
+    <a id="whatsappBtn" class="btn" target="_blank">
+        Consultar por WhatsApp
+    </a>
 </div>
-  <video width="500" controls>
-  <source src="video.mp4" type="video/mp4">
-  Tu navegador no soporta video.
-</video>
+
+<script>
+const modelos = [
+    "toyota corolla",
+    "toyota hilux",
+    "chevrolet aveo",
+    "chevrolet spark",
+    "hyundai accent",
+    "kia rio",
+    "nissan versa",
+    "mazda 3",
+    "ford ranger",
+    "volkswagen gol"
+];
+
+const input = document.getElementById("input");
+const lista = document.getElementById("lista");
+const resultado = document.getElementById("resultado");
+const whatsappBtn = document.getElementById("whatsappBtn");
+
+input.addEventListener("input", () => {
+    let valor = input.value.toLowerCase();
+    lista.innerHTML = "";
+
+    if (valor === "") return;
+
+    let filtrados = modelos.filter(m => m.includes(valor));
+
+    filtrados.forEach(m => {
+        let div = document.createElement("div");
+        div.classList.add("item");
+        div.textContent = m;
+        div.onclick = () => seleccionarModelo(m);
+        lista.appendChild(div);
+    });
+});
+
+function seleccionarModelo(modelo) {
+    input.value = modelo;
+    lista.innerHTML = "";
+
+    resultado.innerHTML = "✅ Disponible para tu vehículo";
+    resultado.className = "resultado disponible";
+
+    whatsappBtn.style.display = "inline-block";
+    whatsappBtn.href = `https://wa.me/569XXXXXXXX?text=Hola,%20quiero%20fundas%20para%20${modelo}`;
+}
+</script>
+
+</body>
+</html>

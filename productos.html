@@ -126,20 +126,32 @@ const resultado = document.getElementById("resultado");
 const whatsappBtn = document.getElementById("whatsappBtn");
 
 input.addEventListener("input", () => {
-    let valor = input.value.toLowerCase();
+    let valor = input.value.toLowerCase().trim();
     lista.innerHTML = "";
+    resultado.innerHTML = "";
+    whatsappBtn.style.display = "none";
 
     if (valor === "") return;
 
     let filtrados = modelos.filter(m => m.includes(valor));
 
-    filtrados.forEach(m => {
-        let div = document.createElement("div");
-        div.classList.add("item");
-        div.textContent = m;
-        div.onclick = () => seleccionarModelo(m);
-        lista.appendChild(div);
-    });
+    if (filtrados.length > 0) {
+        filtrados.forEach(m => {
+            let div = document.createElement("div");
+            div.classList.add("item");
+            div.textContent = m;
+            div.onclick = () => seleccionarModelo(m);
+            lista.appendChild(div);
+        });
+    } else {
+        // 🔥 AQUÍ ESTÁ LA MEJORA
+        resultado.innerHTML = "⚠️ No encontramos ese modelo, pero podemos ayudarte igual";
+        resultado.className = "resultado no-disponible";
+
+        whatsappBtn.style.display = "inline-block";
+        whatsappBtn.innerText = "Consultar mi modelo";
+        whatsappBtn.href = `https://wa.me/569XXXXXXXX?text=Hola,%20no%20encontré%20mi%20modelo%20(${valor}),%20¿me%20pueden%20ayudar?`;
+    }
 });
 
 function seleccionarModelo(modelo) {
@@ -150,9 +162,7 @@ function seleccionarModelo(modelo) {
     resultado.className = "resultado disponible";
 
     whatsappBtn.style.display = "inline-block";
+    whatsappBtn.innerText = "Consultar por WhatsApp";
     whatsappBtn.href = `https://wa.me/569XXXXXXXX?text=Hola,%20quiero%20fundas%20para%20${modelo}`;
 }
-</script>
-
-</body>
-</html>
+        </script>

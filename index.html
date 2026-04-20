@@ -129,6 +129,148 @@
   Tu navegador no soporta video.
 </video>
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Menú Elegante</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #111;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+
+    z-index: 1000;
+}
+
+/* LOGO */
+.logo {
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* LINKS */
+.menu {
+    display: flex;
+    gap: 30px;
+}
+
+.menu a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 16px;
+    position: relative;
+    transition: 0.3s;
+}
+
+/* Línea animada */
+.menu a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: -5px;
+    background: #00ffff;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    color: #fff;
+}
+
+.menu a:hover::after {
+    width: 100%;
+}
+
+/* BOTÓN DESTACADO */
+.btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: linear-gradient(45deg, #00ffff, #0077ff);
+    color: #000 !important;
+    font-weight: bold;
+}
+
+/* MENÚ MÓVIL */
+.menu-toggle {
+    display: none;
+    font-size: 25px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .menu {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: #000;
+        flex-direction: column;
+        width: 200px;
+        padding: 20px;
+        display: none;
+    }
+
+    .menu.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">TuTienda</div>
+
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <div class="menu" id="menu">
+        <a href="#">Inicio</a>
+        <a href="#">Productos</a>
+        <a href="#">Ofertas</a>
+        <a href="#">Contacto</a>
+        <a href="#" class="btn">Comprar</a>
+    </div>
+</div>
+
+<script>
+function toggleMenu() {
+    document.getElementById("menu").classList.toggle("active");
+}
+</script>
+
+</body>
+</html>
+  
+
  </div>
   <div class="hero-box">
  </div>

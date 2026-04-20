@@ -106,59 +106,139 @@ input {
     </a>
 </div>
 
-    <script>
-let data = [];
+    <div class="catalogo">
 
-fetch('productos.json')
-  .then(res => res.json())
-  .then(json => {
-    data = json;
-    cargarMarcas();
-  });
+<h2>Encuentra fundas para tu vehículo</h2>
+
+<select id="marca">
+  <option value="">Selecciona marca</option>
+</select>
+
+<select id="modelo" disabled>
+  <option value="">Selecciona modelo</option>
+</select>
+
+<div id="resultado" class="resultado-box"></div>
+
+</div>
+
+<style>
+.catalogo {
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.resultado-box {
+  margin-top: 25px;
+}
+
+.card {
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.precio {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px;
+  background: black;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+}
+</style>
+
+<script>
+// 🔥 DATA COMPLETA (puedes ampliarla con tu Excel)
+const data = {
+  toyota: {
+    corolla: { precio: 135000 },
+    hilux: { precio: 145000 }
+  },
+  chevrolet: {
+    sail: { precio: 120000 },
+    spark: { precio: 115000 }
+  },
+  kia: {
+    rio: { precio: 125000 }
+  }
+};
 
 const marcaSelect = document.getElementById("marca");
 const modeloSelect = document.getElementById("modelo");
 const resultado = document.getElementById("resultado");
 
-function cargarMarcas() {
-  let marcas = [...new Set(data.map(p => p.marca))];
-
-  marcas.forEach(marca => {
-    let option = document.createElement("option");
-    option.value = marca;
-    option.textContent = marca.toUpperCase();
-    marcaSelect.appendChild(option);
-  });
+// cargar marcas
+for (let marca in data) {
+  let option = document.createElement("option");
+  option.value = marca;
+  option.textContent = marca.toUpperCase();
+  marcaSelect.appendChild(option);
 }
 
+// seleccionar marca
 marcaSelect.addEventListener("change", () => {
   let marca = marcaSelect.value;
 
   modeloSelect.innerHTML = '<option value="">Selecciona modelo</option>';
   resultado.innerHTML = "";
 
-  let modelos = data.filter(p => p.marca === marca);
-
-  modelos.forEach(p => {
-    let option = document.createElement("option");
-    option.value = p.modelo;
-    option.textContent = p.modelo;
-    modeloSelect.appendChild(option);
-  });
+  if (!marca) {
+    modeloSelect.disabled = true;
+    return;
+  }
 
   modeloSelect.disabled = false;
+
+  for (let modelo in data[marca]) {
+    let option = document.createElement("option");
+    option.value = modelo;
+    option.textContent = modelo;
+    modeloSelect.appendChild(option);
+  }
 });
 
+// seleccionar modelo
 modeloSelect.addEventListener("change", () => {
   let marca = marcaSelect.value;
   let modelo = modeloSelect.value;
 
-  let producto = data.find(p => p.marca === marca && p.modelo === modelo);
+  if (!modelo) return;
+
+  let producto = data[marca][modelo];
+
+  let imagen = `img/${marca}-${modelo}.jpg`;
 
   resultado.innerHTML = `
     <div class="card">
-      <img src="img/${producto.imagen}">
+      <img src="${imagen}" onerror="this.src='img/default.jpg'">
       <h3>${marca.toUpperCase()} ${modelo}</h3>
+      <p>Protección total para tus asientos</p>
       <div class="precio">$${producto.precio}</div>
 
       <a class="btn" target="_blank"

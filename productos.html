@@ -3,249 +3,182 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Consulta tu modelo</title>
+<title>Cover22 - Fundas de Auto</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #1f1f1f, #3a3a3a);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+body{
+  font-family: Arial, sans-serif;
+  margin:0;
+  background:#f5f5f5;
 }
 
-.box {
-    background: #ffffff;
-    color: #111;
-    padding: 40px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 450px;
-    text-align: center;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+/* HEADER */
+.header{
+  background:#111;
+  color:white;
+  padding:20px;
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
 }
 
-h2 {
-    margin-bottom: 10px;
+/* BUSCADOR */
+.buscador{
+  padding:20px;
+  text-align:center;
+  background:white;
 }
 
-p {
-    color: #666;
-    margin-bottom: 25px;
+input{
+  width:80%;
+  max-width:400px;
+  padding:10px;
+  border-radius:5px;
+  border:1px solid #ccc;
 }
 
-input {
-    width: 100%;
-    padding: 14px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 16px;
+/* FILTROS */
+.filtros{
+  text-align:center;
+  padding:10px;
 }
 
-.resultado {
-    margin-top: 20px;
-    font-size: 16px;
-    font-weight: 500;
+.filtros button{
+  margin:5px;
+  padding:8px 15px;
+  border:none;
+  border-radius:20px;
+  background:#ddd;
+  cursor:pointer;
 }
 
-.disponible {
-    color: #1db954;
+.filtros button:hover{
+  background:#111;
+  color:white;
 }
 
-.no-disponible {
-    color: #e63946;
+/* CATALOGO */
+#catalogo{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap:20px;
+  padding:20px;
 }
 
-.lista {
-    margin-top: 10px;
-    text-align: left;
-    background: #f9f9f9;
-    border-radius: 10px;
-    max-height: 150px;
-    overflow-y: auto;
+.card{
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  transition:0.3s;
 }
 
-.item {
-    padding: 10px;
-    cursor: pointer;
+.card:hover{
+  transform:scale(1.03);
 }
 
-.item:hover {
-    background: #eee;
+.card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
 }
 
-.btn {
-    margin-top: 20px;
-    display: none;
-    padding: 12px;
-    background: black;
-    color: white;
-    border-radius: 10px;
-    text-decoration: none;
-    display: inline-block;
+.card-body{
+  padding:15px;
+}
+
+.precio{
+  font-weight:bold;
+  font-size:18px;
+}
+
+.btn{
+  display:block;
+  text-align:center;
+  background:#25D366;
+  color:white;
+  padding:10px;
+  border-radius:5px;
+  text-decoration:none;
+  margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
-    <h2>Encuentra tu modelo</h2>
-    <p>Consulta si tenemos fundas disponibles para tu vehículo</p>
-
-    <input type="text" id="input" placeholder="Ej: Toyota Corolla">
-
-    <div class="lista" id="lista"></div>
-    <div class="resultado" id="resultado"></div>
-
-    <a id="whatsappBtn" class="btn" target="_blank">
-        Consultar por WhatsApp
-    </a>
+<div class="header">
+  COVER22 - Fundas de Auto
 </div>
 
-    <div class="catalogo">
-
-<h2>Encuentra fundas para tu vehículo</h2>
-
-<select id="marca">
-  <option value="">Selecciona marca</option>
-</select>
-
-<select id="modelo" disabled>
-  <option value="">Selecciona modelo</option>
-</select>
-
-<div id="resultado" class="resultado-box"></div>
-
+<div class="buscador">
+  <input type="text" id="buscar" placeholder="Busca tu modelo...">
 </div>
 
-<style>
-.catalogo {
-  background: #fff;
-  padding: 40px;
-  border-radius: 20px;
-  max-width: 500px;
-  margin: auto;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
+<div class="filtros" id="filtros"></div>
 
-select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 15px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-}
-
-.resultado-box {
-  margin-top: 25px;
-}
-
-.card {
-  border: 1px solid #eee;
-  padding: 20px;
-  border-radius: 15px;
-}
-
-.card img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.precio {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.btn {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 12px;
-  background: black;
-  color: white;
-  border-radius: 10px;
-  text-decoration: none;
-}
-</style>
+<div id="catalogo"></div>
 
 <script>
-// 🔥 DATA COMPLETA (puedes ampliarla con tu Excel)
-const data = {
-  toyota: {
-    corolla: { precio: 135000 },
-    hilux: { precio: 145000 }
-  },
-  chevrolet: {
-    sail: { precio: 120000 },
-    spark: { precio: 115000 }
-  },
-  kia: {
-    rio: { precio: 125000 }
-  }
-};
+const URL = "https://opensheet.elk.sh/17PFyOZPS4v_iN93isNzWe4SdB6MzHPRHzr6vGa9sYWY/hoja 1";
 
-const marcaSelect = document.getElementById("marca");
-const modeloSelect = document.getElementById("modelo");
-const resultado = document.getElementById("resultado");
+let datosGlobal = [];
 
-// cargar marcas
-for (let marca in data) {
-  let option = document.createElement("option");
-  option.value = marca;
-  option.textContent = marca.toUpperCase();
-  marcaSelect.appendChild(option);
+fetch(URL)
+.then(res => res.json())
+.then(data => {
+  datosGlobal = data;
+  mostrar(data);
+  crearFiltros(data);
+});
+
+/* MOSTRAR PRODUCTOS */
+function mostrar(data){
+  const contenedor = document.getElementById("catalogo");
+  contenedor.innerHTML = "";
+
+  data.forEach(item => {
+    contenedor.innerHTML += `
+      <div class="card">
+        <img src="${item.Imagen || 'https://via.placeholder.com/300'}">
+        <div class="card-body">
+          <h3>${item.Marca || ''} ${item.Modelo || ''}</h3>
+          <p>Año: ${item.Año || ''}</p>
+          <p class="precio">$${item.Precio || 'Consultar'}</p>
+          <a class="btn" href="https://wa.me/569XXXXXXXX?text=Hola quiero el modelo ${item.Modelo}" target="_blank">
+            Consultar
+          </a>
+        </div>
+      </div>
+    `;
+  });
 }
 
-// seleccionar marca
-marcaSelect.addEventListener("change", () => {
-  let marca = marcaSelect.value;
-
-  modeloSelect.innerHTML = '<option value="">Selecciona modelo</option>';
-  resultado.innerHTML = "";
-
-  if (!marca) {
-    modeloSelect.disabled = true;
-    return;
-  }
-
-  modeloSelect.disabled = false;
-
-  for (let modelo in data[marca]) {
-    let option = document.createElement("option");
-    option.value = modelo;
-    option.textContent = modelo;
-    modeloSelect.appendChild(option);
-  }
+/* BUSCADOR */
+document.getElementById("buscar").addEventListener("input", e=>{
+  const texto = e.target.value.toLowerCase();
+  const filtrados = datosGlobal.filter(item =>
+    (item.Modelo || '').toLowerCase().includes(texto)
+  );
+  mostrar(filtrados);
 });
 
-// seleccionar modelo
-modeloSelect.addEventListener("change", () => {
-  let marca = marcaSelect.value;
-  let modelo = modeloSelect.value;
+/* FILTROS POR MARCA */
+function crearFiltros(data){
+  const marcas = [...new Set(data.map(item => item.Marca))];
+  const contenedor = document.getElementById("filtros");
 
-  if (!modelo) return;
+  marcas.forEach(marca => {
+    contenedor.innerHTML += `<button onclick="filtrar('${marca}')">${marca}</button>`;
+  });
+}
 
-  let producto = data[marca][modelo];
+function filtrar(marca){
+  const filtrados = datosGlobal.filter(item => item.Marca === marca);
+  mostrar(filtrados);
+}
+</script>
 
-  let imagen = `img/${marca}-${modelo}.jpg`;
-
-  resultado.innerHTML = `
-    <div class="card">
-      <img src="${imagen}" onerror="this.src='img/default.jpg'">
-      <h3>${marca.toUpperCase()} ${modelo}</h3>
-      <p>Protección total para tus asientos</p>
-      <div class="precio">$${producto.precio}</div>
-
-      <a class="btn" target="_blank"
-      href="https://wa.me/569XXXXXXXX?text=Hola,%20quiero%20fundas%20para%20${marca}%20${modelo}">
-      Comprar / Consultar
-      </a>
-    </div>
-  `;
-});
+</body>
+</html>
 </script>

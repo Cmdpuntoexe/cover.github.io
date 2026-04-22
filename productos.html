@@ -1,42 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Producto</title>
+
+<style>
+body{
+    font-family:Arial;
+    text-align:center;
+    background:#f4f4f4;
+}
+
+img{
+    width:300px;
+    border-radius:10px;
+}
+
+button{
+    padding:12px 20px;
+    background:#25D366;
+    color:white;
+    border:none;
+    border-radius:8px;
+    margin-top:20px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1 id="titulo"></h1>
+<h2 id="precio"></h2>
+<img id="imagen">
+
+<br>
+
+<button id="whatsapp">Comprar por WhatsApp</button>
+
+<br><br>
+<a href="index.html">← Volver</a>
+
+<script>
+
+let producto = JSON.parse(localStorage.getItem("producto"));
+
+document.getElementById("titulo").innerText =
+`${producto.Marca} ${producto.Modelo} ${producto.Año || ""}`;
+
+document.getElementById("precio").innerText =
+`$${producto.Precio}`;
+
+document.getElementById("imagen").src =
+producto.Imagen || "https://via.placeholder.com/300x200";
+
+// 📲 WHATSAPP
+let mensaje = `Hola, quiero funda para ${producto.Marca} ${producto.Modelo} ${producto.Año}`;
+let link = `https://wa.me/569XXXXXXXX?text=${encodeURIComponent(mensaje)}`;
+
+document.getElementById("whatsapp").onclick = () => {
+    window.open(link, "_blank");
+};
 
 </script>
 
 </body>
 </html>
-<script>
-
-let productos = [];
-
-// Cargar tu archivo JSON
-fetch("hoja 1.json")
-.then(res => res.json())
-.then(data => {
-    productos = data;
-});
-
-function buscar() {
-    let input = document.getElementById("modelo").value.toLowerCase().trim();
-    let resultado = document.getElementById("resultado");
-
-    // Buscar coincidencia
-    let encontrado = productos.find(p => {
-        let nombre = (p.Modelo + " " + (p.Año || "")).toLowerCase().trim();
-        return nombre.includes(input);
-    });
-
-    if(encontrado) {
-        resultado.innerHTML = `✅ Disponible - $${encontrado.Precio}`;
-
-        // Guardamos el producto para la siguiente página
-        localStorage.setItem("producto", JSON.stringify(encontrado));
-
-        setTimeout(() => {
-            window.location.href = "producto.html";
-        }, 1000);
-
-    } else {
-        resultado.innerHTML = "❌ No disponible";
-    }
-}
-
-</script>

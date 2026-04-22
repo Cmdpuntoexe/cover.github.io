@@ -12,13 +12,22 @@ body{
     background:#f4f4f4;
 }
 
-/* HEADER */
-.header{
+/* HERO */
+.hero{
     background:#111;
     color:white;
-    padding:15px;
+    padding:40px 20px;
     text-align:center;
-    font-size:20px;
+}
+
+.hero h1{
+    margin:0;
+    font-size:28px;
+}
+
+.hero p{
+    margin-top:10px;
+    color:#ccc;
 }
 
 /* BUSCADOR */
@@ -34,23 +43,22 @@ input{
     border:1px solid #ccc;
 }
 
-/* FILTRO */
-.filtros{
+/* BENEFICIOS */
+.beneficios{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    padding:20px;
+    flex-wrap:wrap;
+}
+
+.beneficio{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    width:200px;
     text-align:center;
-    margin:20px;
-}
-
-button{
-    margin:5px;
-    padding:8px 15px;
-    border:none;
-    background:#ddd;
-    border-radius:20px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#bbb;
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
 /* GRID */
@@ -61,7 +69,6 @@ button:hover{
     padding:20px;
 }
 
-/* CARD */
 .card{
     background:white;
     border-radius:12px;
@@ -80,103 +87,87 @@ button:hover{
     padding:10px;
 }
 
-.titulo{
-    font-size:14px;
-    font-weight:bold;
-}
-
 .precio{
     color:#00a650;
     font-weight:bold;
+}
+
+/* BOTON WHATSAPP FLOTANTE */
+.whatsapp{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#25D366;
+    color:white;
+    padding:15px;
+    border-radius:50%;
+    font-size:20px;
+    text-decoration:none;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">COVER22</div>
-
-<div class="buscador">
-    <input type="text" id="buscar" placeholder="Buscar modelo...">
+<div class="hero">
+    <h1>Fundas Premium para tu vehículo</h1>
+    <p>Protege tus asientos • Fácil limpieza • Ajuste perfecto</p>
 </div>
 
-<div class="filtros" id="filtros"></div>
+<div class="buscador">
+    <input type="text" id="buscar" placeholder="Busca tu modelo...">
+</div>
+
+<div class="beneficios">
+    <div class="beneficio">💧 Impermeables</div>
+    <div class="beneficio">🧼 Fácil limpieza</div>
+    <div class="beneficio">🚗 Ajuste perfecto</div>
+</div>
 
 <div class="grid" id="productos"></div>
+
+<a class="whatsapp" href="https://wa.me/569XXXXXXXX" target="_blank">💬</a>
 
 <script>
 
 let productos = [];
-let productosFiltrados = [];
 
 fetch("hoja 1.json")
 .then(res => res.json())
 .then(data => {
     productos = data;
-    productosFiltrados = data;
-    crearFiltros();
-    mostrarProductos(productosFiltrados);
+    mostrarProductos(productos);
 });
 
-// 🔎 BUSCADOR
+// BUSCADOR
 document.getElementById("buscar").addEventListener("input", function(){
     let texto = this.value.toLowerCase();
 
-    productosFiltrados = productos.filter(p => {
+    let filtrados = productos.filter(p => {
         let nombre = `${p.Marca} ${p.Modelo} ${p.Año}`.toLowerCase();
         return nombre.includes(texto);
     });
 
-    mostrarProductos(productosFiltrados);
+    mostrarProductos(filtrados);
 });
 
-// 🎯 FILTROS POR MARCA
-function crearFiltros(){
-    let marcas = [...new Set(productos.map(p => p.Marca).filter(Boolean))];
-    let cont = document.getElementById("filtros");
-
-    marcas.forEach(marca => {
-        let btn = document.createElement("button");
-        btn.innerText = marca;
-
-        btn.onclick = () => {
-            productosFiltrados = productos.filter(p => p.Marca === marca);
-            mostrarProductos(productosFiltrados);
-        };
-
-        cont.appendChild(btn);
-    });
-}
-
-// 📦 MOSTRAR PRODUCTOS
+// MOSTRAR PRODUCTOS
 function mostrarProductos(lista){
     let cont = document.getElementById("productos");
     cont.innerHTML = "";
 
-    lista.slice(0,50).forEach(p => {
+    lista.slice(0,40).forEach(p => {
 
         let card = document.createElement("div");
         card.className = "card";
 
-        let img = document.createElement("img");
-        img.src = p.Imagen || "https://via.placeholder.com/300x200";
-
-        let info = document.createElement("div");
-        info.className = "info";
-
-        let titulo = document.createElement("div");
-        titulo.className = "titulo";
-        titulo.innerText = `${p.Marca} ${p.Modelo} ${p.Año || ""}`;
-
-        let precio = document.createElement("div");
-        precio.className = "precio";
-        precio.innerText = `$${p.Precio}`;
-
-        info.appendChild(titulo);
-        info.appendChild(precio);
-
-        card.appendChild(img);
-        card.appendChild(info);
+        card.innerHTML = `
+            <img src="${p.Imagen || 'https://via.placeholder.com/300'}">
+            <div class="info">
+                <div>${p.Marca} ${p.Modelo} ${p.Año || ""}</div>
+                <div class="precio">$${p.Precio}</div>
+            </div>
+        `;
 
         card.onclick = () => {
             localStorage.setItem("producto", JSON.stringify(p));

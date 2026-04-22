@@ -62,6 +62,10 @@ input{
 }
 
 /* GRID */
+    <h2 style="padding:20px;">🔥 Más vendidos</h2>
+<div class="grid" id="destacados"></div>
+
+<h2 style="padding:20px;">Todos los modelos</h2>
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -179,6 +183,93 @@ function mostrarProductos(lista){
         cont.appendChild(card);
     });
 }
+function mostrarDestacados(lista){
+    let cont = document.getElementById("destacados");
+    cont.innerHTML = "";
 
+    // puedes cambiar estos modelos por los que más vendas
+    let destacados = lista.filter(p =>
+        (p.Modelo || "").toLowerCase().includes("sail") ||
+        (p.Modelo || "").toLowerCase().includes("yaris") ||
+        (p.Modelo || "").toLowerCase().includes("accent")
+    ).slice(0,6);
+
+    destacados.forEach(p => {
+        let card = crearCard(p);
+        cont.appendChild(card);
+    });
+}
+function crearCard(p){
+
+    let card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+        <div style="position:relative;">
+            <img src="${p.Imagen || 'https://via.placeholder.com/300'}">
+
+            <div style="
+                position:absolute;
+                top:10px;
+                left:10px;
+                background:#00a650;
+                color:white;
+                padding:5px 10px;
+                border-radius:5px;
+                font-size:12px;
+            ">
+                Disponible
+            </div>
+        </div>
+
+        <div class="info">
+            <div>${p.Marca || ""} ${p.Modelo || ""} ${p.Año || ""}</div>
+            <div class="precio">$${p.Precio || ""}</div>
+        </div>
+    `;
+
+    card.onclick = () => {
+        localStorage.setItem("producto", JSON.stringify(p));
+        window.location.href = "producto.html";
+    };
+
+    return card;
+}
+    function crearCard(p){
+
+    let card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+        <div style="position:relative;">
+            <img src="${p.Imagen || 'https://via.placeholder.com/300'}">
+
+            <div style="
+                position:absolute;
+                top:10px;
+                left:10px;
+                background:#00a650;
+                color:white;
+                padding:5px 10px;
+                border-radius:5px;
+                font-size:12px;
+            ">
+                Disponible
+            </div>
+        </div>
+
+        <div class="info">
+            <div>${p.Marca || ""} ${p.Modelo || ""} ${p.Año || ""}</div>
+            <div class="precio">$${p.Precio || ""}</div>
+        </div>
+    `;
+
+    card.onclick = () => {
+        localStorage.setItem("producto", JSON.stringify(p));
+        window.location.href = "producto.html";
+    };
+
+    return card;
+}
 </script>
 </html>

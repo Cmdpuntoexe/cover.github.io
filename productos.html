@@ -83,3 +83,40 @@ function buscar() {
 
 </body>
 </html>
+<script>
+
+let productos = [];
+
+// Cargar tu archivo JSON
+fetch("hoja 1.json")
+.then(res => res.json())
+.then(data => {
+    productos = data;
+});
+
+function buscar() {
+    let input = document.getElementById("modelo").value.toLowerCase().trim();
+    let resultado = document.getElementById("resultado");
+
+    // Buscar coincidencia
+    let encontrado = productos.find(p => {
+        let nombre = (p.Modelo + " " + (p.Año || "")).toLowerCase().trim();
+        return nombre.includes(input);
+    });
+
+    if(encontrado) {
+        resultado.innerHTML = `✅ Disponible - $${encontrado.Precio}`;
+
+        // Guardamos el producto para la siguiente página
+        localStorage.setItem("producto", JSON.stringify(encontrado));
+
+        setTimeout(() => {
+            window.location.href = "producto.html";
+        }, 1000);
+
+    } else {
+        resultado.innerHTML = "❌ No disponible";
+    }
+}
+
+</script>

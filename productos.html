@@ -2,65 +2,190 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Producto</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cover22</title>
 
 <style>
 body{
-    font-family:Arial;
-    text-align:center;
+    font-family: Arial;
+    margin:0;
     background:#f4f4f4;
 }
 
-img{
-    width:300px;
-    border-radius:10px;
+/* HERO */
+.hero{
+    background:#111;
+    color:white;
+    padding:40px 20px;
+    text-align:center;
 }
 
-button{
-    padding:12px 20px;
+.hero h1{margin:0;}
+.hero p{color:#ccc;}
+
+/* BUSCADOR */
+.buscador{
+    max-width:600px;
+    margin:20px auto;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    cursor:pointer;
+}
+
+.card img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+}
+
+.info{
+    padding:10px;
+}
+
+.precio{
+    color:#00a650;
+    font-weight:bold;
+}
+
+/* WHATSAPP */
+.whatsapp{
+    position:fixed;
+    bottom:20px;
+    right:20px;
     background:#25D366;
     color:white;
-    border:none;
-    border-radius:8px;
-    margin-top:20px;
-    cursor:pointer;
+    padding:15px;
+    border-radius:50%;
+    text-decoration:none;
 }
 </style>
 </head>
 
 <body>
 
-<h1 id="titulo"></h1>
-<h2 id="precio"></h2>
-<img id="imagen">
+<div class="hero">
+    <h1>Fundas Premium para tu vehículo</h1>
+    <p>Protege tus asientos • Fácil limpieza • Ajuste perfecto</p>
+</div>
 
-<br>
+<div class="buscador">
+    <input type="text" id="buscar" placeholder="Busca tu modelo...">
+</div>
 
-<button id="whatsapp">Comprar por WhatsApp</button>
+<h2 style="padding:20px;">🔥 Más vendidos</h2>
+<div class="grid" id="destacados"></div>
 
-<br><br>
-<a href="index.html">← Volver</a>
+<h2 style="padding:20px;">Todos los modelos</h2>
+<div class="grid" id="productos"></div>
+
+<a class="whatsapp" href="https://wa.me/56961960385" target="_blank">💬</a>
 
 <script>
 
-let producto = JSON.parse(localStorage.getItem("producto"));
+let productos = [];
 
-document.getElementById("titulo").innerText =
-`${producto.Marca} ${producto.Modelo} ${producto.Año || ""}`;
+fetch("https://opensheet.elk.sh/17PFyOZPS4v_IN93isNzWe4SdB6MzHPRHzr6vGa9sYWY/hoja 1")
+.then(res => res.json())
+.then(data => {
+    productos = data;
+    mostrarDestacados(productos);
+    mostrarProductos(productos);
+});
 
-document.getElementById("precio").innerText =
-`$${producto.Precio}`;
+// BUSCADOR
+document.getElementById("buscar").addEventListener("input", function(){
+    let texto = this.value.toLowerCase();
 
-document.getElementById("imagen").src =
-producto.Imagen || "https://via.placeholder.com/300x200";
+    let filtrados = productos.filter(p => {
+        let nombre = `${p.Marca || ""} ${p.Modelo || ""} ${p.Año || ""}`.toLowerCase();
+        return nombre.includes(texto);
+    });
 
-// 📲 WHATSAPP
-let mensaje = `Hola, quiero funda para ${producto.Marca} ${producto.Modelo} ${producto.Año}`;
-let link = `https://wa.me/569XXXXXXXX?text=${encodeURIComponent(mensaje)}`;
+    mostrarProductos(filtrados);
+});
 
-document.getElementById("whatsapp").onclick = () => {
-    window.open(link, "_blank");
-};
+// DESTACADOS
+function mostrarDestacados(lista){
+    let cont = document.getElementById("destacados");
+    cont.innerHTML = "";
+
+    let destacados = lista.filter(p =>
+        (p.Modelo || "").toLowerCase().includes("sail") ||
+        (p.Modelo || "").toLowerCase().includes("yaris") ||
+        (p.Modelo || "").toLowerCase().includes("accent")
+    ).slice(0,6);
+
+    destacados.forEach(p => {
+        cont.appendChild(crearCard(p));
+    });
+}
+
+// TODOS
+function mostrarProductos(lista){
+    let cont = document.getElementById("productos");
+    cont.innerHTML = "";
+
+    lista.slice(0,40).forEach(p => {
+        cont.appendChild(crearCard(p));
+    });
+}
+
+// CARD
+function crearCard(p){
+
+    let card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+        <div style="position:relative;">
+            <img src="${p.Imagen || 'https://via.placeholder.com/300'}">
+            <div style="
+                position:absolute;
+                top:10px;
+                left:10px;
+                background:#00a650;
+                color:white;
+                padding:5px 10px;
+                border-radius:5px;
+                font-size:12px;
+            ">
+                Disponible
+            </div>
+        </div>
+
+        <div class="info">
+            <div>${p.Marca || ""} ${p.Modelo || ""} ${p.Año || ""}</div>
+            <div class="precio">$${p.Precio || ""}</div>
+        </div>
+    `;
+
+    card.onclick = () => {
+        localStorage.setItem("productos", JSON.stringify(p));
+        window.location.href = "productos.html";
+    };
+
+    return card;
+}
 
 </script>
 

@@ -98,13 +98,13 @@ input{
 <h2 style="padding:20px;">Todos los modelos</h2>
 <div class="grid" id="productos"></div>
 
-<a class="whatsapp" href="https://wa.me/569XXXXXXXX" target="_blank">💬</a>
+<a class="whatsapp" href="https://wa.me/56961960385" target="_blank">💬</a>
 
 <script>
 
 let productos = [];
 
-fetch("https://opensheet.elk.sh/17PFyOZPS4v_IN93isNzWe4SdB6MzHPRHzr6vGa9sYWY/hoja%201")
+fetch("https://opensheet.elk.sh/17PFyOZPS4v_IN93isNzWe4SdB6MzHPRHzr6vGa9sYWY/hoja 1")
 .then(res => res.json())
 .then(data => {
     productos = data;
@@ -180,8 +180,8 @@ function crearCard(p){
     `;
 
     card.onclick = () => {
-        localStorage.setItem("producto", JSON.stringify(p));
-        window.location.href = "producto.html";
+        localStorage.setItem("productos", JSON.stringify(p));
+        window.location.href = "productos.html";
     };
 
     return card;

@@ -20,15 +20,8 @@ body{
     text-align:center;
 }
 
-.hero h1{
-    margin:0;
-    font-size:28px;
-}
-
-.hero p{
-    margin-top:10px;
-    color:#ccc;
-}
+.hero h1{margin:0;}
+.hero p{color:#ccc;}
 
 /* BUSCADOR */
 .buscador{
@@ -43,29 +36,7 @@ input{
     border:1px solid #ccc;
 }
 
-/* BENEFICIOS */
-.beneficios{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    padding:20px;
-    flex-wrap:wrap;
-}
-
-.beneficio{
-    background:white;
-    padding:15px;
-    border-radius:10px;
-    width:200px;
-    text-align:center;
-    box-shadow:0 3px 10px rgba(0,0,0,0.1);
-}
-
 /* GRID */
-    <h2 style="padding:20px;">🔥 Más vendidos</h2>
-<div class="grid" id="destacados"></div>
-
-<h2 style="padding:20px;">Todos los modelos</h2>
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -96,7 +67,7 @@ input{
     font-weight:bold;
 }
 
-/* BOTON WHATSAPP FLOTANTE */
+/* WHATSAPP */
 .whatsapp{
     position:fixed;
     bottom:20px;
@@ -105,7 +76,6 @@ input{
     color:white;
     padding:15px;
     border-radius:50%;
-    font-size:20px;
     text-decoration:none;
 }
 </style>
@@ -122,12 +92,10 @@ input{
     <input type="text" id="buscar" placeholder="Busca tu modelo...">
 </div>
 
-<div class="beneficios">
-    <div class="beneficio">💧 Impermeables</div>
-    <div class="beneficio">🧼 Fácil limpieza</div>
-    <div class="beneficio">🚗 Ajuste perfecto</div>
-</div>
+<h2 style="padding:20px;">🔥 Más vendidos</h2>
+<div class="grid" id="destacados"></div>
 
+<h2 style="padding:20px;">Todos los modelos</h2>
 <div class="grid" id="productos"></div>
 
 <a class="whatsapp" href="https://wa.me/569XXXXXXXX" target="_blank">💬</a>
@@ -139,9 +107,8 @@ let productos = [];
 fetch("https://opensheet.elk.sh/17PFyOZPS4v_IN93isNzWe4SdB6MzHPRHzr6vGa9sYWY/hoja%201")
 .then(res => res.json())
 .then(data => {
-    console.log(data); // 👈 para probar
-
     productos = data;
+    mostrarDestacados(productos);
     mostrarProductos(productos);
 });
 
@@ -157,37 +124,11 @@ document.getElementById("buscar").addEventListener("input", function(){
     mostrarProductos(filtrados);
 });
 
-// MOSTRAR PRODUCTOS
-function mostrarProductos(lista){
-    let cont = document.getElementById("productos");
-    cont.innerHTML = "";
-
-    lista.slice(0,40).forEach(p => {
-
-        let card = document.createElement("div");
-        card.className = "card";
-
-        card.innerHTML = `
-            <img src="${p.Imagen || 'https://via.placeholder.com/300'}">
-            <div class="info">
-                <div>${p.Marca || ""} ${p.Modelo || ""} ${p.Año || ""}</div>
-                <div class="precio">$${p.Precio || ""}</div>
-            </div>
-        `;
-
-        card.onclick = () => {
-            localStorage.setItem("producto", JSON.stringify(p));
-            window.location.href = "producto.html";
-        };
-
-        cont.appendChild(card);
-    });
-}
+// DESTACADOS
 function mostrarDestacados(lista){
     let cont = document.getElementById("destacados");
     cont.innerHTML = "";
 
-    // puedes cambiar estos modelos por los que más vendas
     let destacados = lista.filter(p =>
         (p.Modelo || "").toLowerCase().includes("sail") ||
         (p.Modelo || "").toLowerCase().includes("yaris") ||
@@ -195,10 +136,21 @@ function mostrarDestacados(lista){
     ).slice(0,6);
 
     destacados.forEach(p => {
-        let card = crearCard(p);
-        cont.appendChild(card);
+        cont.appendChild(crearCard(p));
     });
 }
+
+// TODOS
+function mostrarProductos(lista){
+    let cont = document.getElementById("productos");
+    cont.innerHTML = "";
+
+    lista.slice(0,40).forEach(p => {
+        cont.appendChild(crearCard(p));
+    });
+}
+
+// CARD
 function crearCard(p){
 
     let card = document.createElement("div");
@@ -207,7 +159,6 @@ function crearCard(p){
     card.innerHTML = `
         <div style="position:relative;">
             <img src="${p.Imagen || 'https://via.placeholder.com/300'}">
-
             <div style="
                 position:absolute;
                 top:10px;
@@ -235,41 +186,8 @@ function crearCard(p){
 
     return card;
 }
-    function crearCard(p){
 
-    let card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-        <div style="position:relative;">
-            <img src="${p.Imagen || 'https://via.placeholder.com/300'}">
-
-            <div style="
-                position:absolute;
-                top:10px;
-                left:10px;
-                background:#00a650;
-                color:white;
-                padding:5px 10px;
-                border-radius:5px;
-                font-size:12px;
-            ">
-                Disponible
-            </div>
-        </div>
-
-        <div class="info">
-            <div>${p.Marca || ""} ${p.Modelo || ""} ${p.Año || ""}</div>
-            <div class="precio">$${p.Precio || ""}</div>
-        </div>
-    `;
-
-    card.onclick = () => {
-        localStorage.setItem("producto", JSON.stringify(p));
-        window.location.href = "producto.html";
-    };
-
-    return card;
-}
 </script>
+
+</body>
 </html>

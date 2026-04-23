@@ -1,181 +1,189 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cover22</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CStyles</title>
+    <style>
+        /* 1. ESTILOS GLOBALES */
+        body {
+            background: linear-gradient(180deg, #000000 0%, #373d42 100%);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
 
-<style>
-body{
-    font-family: Arial;
-    margin:0;
-    background:#f4f4f4;
-}
+        /* 2. MENÚ SUPERIOR */
+        .menu-superior {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid #444;
+            z-index: 2000;
+            display: flex;
+        }
 
-/* HERO */
-.hero{
-    background:#111;
-    color:white;
-    padding:40px 20px;
-    text-align:center;
-}
+        .menu-superior nav {
+            display: flex;
+            width: 100%;
+        }
 
-.hero h1{margin:0;}
-.hero p{color:#ccc;}
+        .menu-superior a {
+            flex: 1;
+            color: #b8b8b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            text-transform: uppercase;
+        }
 
-/* BUSCADOR */
-.buscador{
-    max-width:600px;
-    margin:20px auto;
-}
+        .menu-superior a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 3px solid #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
 
-input{
-    width:100%;
-    padding:12px;
-    border-radius:8px;
-    border:1px solid #ccc;
-}
+        /* 3. PRESENTACIÓN CENTRAL */
+        .hero-presentacion {
+            min-height: 100vh; /* Cambiado a min-height para que quepa el texto largo */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px 40px; /* Espacio para el menú superior */
+            box-sizing: border-box;
+        }
 
-/* GRID */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-    padding:20px;
-}
+        .brillo-base {
+            position: absolute;
+            width: 500px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            z-index: -1;
+            top: 40%;
+        }
 
-.card{
-    background:white;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-    cursor:pointer;
-}
+        .texto-presentacion h1 {
+            color: #ffffff;
+            font-size: 3rem;
+            letter-spacing: 10px;
+            margin: 0;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
 
-.card img{
-    width:100%;
-    height:150px;
-    object-fit:cover;
-}
+        .lema-principal {
+            color: #b8b8b8;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
 
-.info{
-    padding:10px;
-}
+        .boton-whatsapp-central {
+            display: inline-block;
+            color: #25d366;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: 2px solid #25d366;
+            padding: 15px 40px;
+            border-radius: 50px;
+            transition: 0.3s;
+            margin-bottom: 40px;
+        }
 
-.precio{
-    color:#00a650;
-    font-weight:bold;
-}
+        .boton-whatsapp-central:hover {
+            background: #25d366;
+            color: #fff;
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.4);
+            transform: scale(1.05);
+        }
 
-/* WHATSAPP */
-.whatsapp{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:#25D366;
-    color:white;
-    padding:15px;
-    border-radius:50%;
-    text-decoration:none;
-}
-</style>
+        /* 4. BLOQUE PROFESIONAL DE TEXTO */
+        .descripcion-detallada {
+            max-width: 700px;
+            line-height: 1.8;
+            color: #a0a0a0;
+            font-size: 1rem;
+            padding: 20px;
+            background: rgba(0,0,0,0.3); /* Un fondo sutil para leer mejor */
+            border-radius: 15px;
+        }
+
+        .enfoque {
+            color: #ffffff;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-top: 1px solid #444;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .enfoque strong {
+            color: #25d366;
+            font-weight: bold;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .menu-superior a span { display: none; }
+            .texto-presentacion h1 { font-size: 1.8rem; letter-spacing: 5px; }
+            .descripcion-detallada { font-size: 0.9rem; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="hero">
-    <h1>Fundas para tu vehículo</h1>
-    <p>Protege tus asientos • Fácil limpieza • Ajuste perfecto</p>
-</div>
+    <header class="menu-superior">
+        <nav>
+            <a href="galeri1.html">Catálogo <span>📂</span></a>
+            <a href="#ofertas">Ofertas <span>🔥</span></a>
+            <a href="#plantillas">Plantillas <span>📏</span></a>
+            <a href="#videos">Videos <span>🎥</span></a>
+            <a href="#contacto">Contacto <span>📞</span></a>
+        </nav>
+    </header>
 
-<div class="buscador">
-    <input type="text" id="buscar" placeholder="Busca tu modelo...">
-</div>
+    <div class="hero-presentacion">
+        <div class="brillo-base"></div>
+        <div class="texto-presentacion">
+            <h1>COVERING STYLES</h1>
+            <p class="lema-principal">Expertos en protección y estética automotriz</p>
+            
+            <a href="https://wa.me" class="boton-whatsapp-central" target="_blank">
+                📱 Escríbenos por WhatsApp
+            </a>
 
-
-<h2 style="padding:20px;">Todos los modelos</h2>
-<div class="grid" id="productos"></div>
-
-<a class="whatsapp" href="https://wa.me/56961960385" target="_blank">💬</a>
-    
-    <h2 style="padding:20px;">🔥 Más vendidos</h2>
-<div class="grid" id="destacados"></div>
-
-
-<script>
-
-let productos = [];
-
-fetch("https://opensheet.elk.sh/17PFyOZPS4v_IN93isNzWe4SdB6MzHPRHzr6vGa9sYWY/hoja 1")
-.then(res => res.json())
-.then(data => {
-    productos = data;
-    mostrarDestacados(productos);
-    mostrarProductos(productos);
-});
-
-// BUSCADOR
-document.getElementById("buscar").addEventListener("input", function(){
-    let texto = this.value.toLowerCase();
-
-    let filtrados = productos.filter(p => {
-        let nombre = `${p.Marca || ""} ${p.Modelo || ""} ${p.Año || ""}`.toLowerCase();
-        return nombre.includes(texto);
-    });
-
-    mostrarProductos(filtrados);
-});
-
-// DESTACADOS
-function mostrarDestacados(lista){
-    let cont = document.getElementById("destacados");
-    cont.innerHTML = "";
-
-    let destacados = lista.filter(p =>
-        (p.Modelo || "").toLowerCase().includes("sail") ||
-        (p.Modelo || "").toLowerCase().includes("yaris") ||
-        (p.Modelo || "").toLowerCase().includes("accent")
-    ).slice(0,6);
-
-    destacados.forEach(p => {
-        cont.appendChild(crearCard(p));
-    });
-}
-
-// TODOS
-function mostrarProductos(lista){
-    let cont = document.getElementById("productos");
-    cont.innerHTML = "";
-
-    lista.slice(0,40).forEach(p => {
-        cont.appendChild(crearCard(p));
-    });
-}
-
-// CARD
-function crearCard(p){
-
-    let card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-        <div style="position:relative;">
-            <img src="${p.Imagen || 'https://via.placeholder.com/300'}">
-            <div style="
-                position:absolute;
-                top:10px;
-                left:10px;
-                background:#00a650;
-                color:white;
-                padding:5px 10px;
-                border-radius:5px;
-                font-size:12px;
-            ">
-                Disponible
+            <div class="descripcion-detallada">
+                <p>Somos un emprendimiento dedicado a la protección y cuidado del interior de los vehículos. 
+                Nos enfocamos en ofrecer soluciones prácticas para quienes usan su auto a diario y quieren mantenerlo en buen estado.</p>
+                
+                <p class="enfoque">Trabajamos con materiales resistentes y fáciles de limpiar, pensando en situaciones reales: 
+                <strong>familias • trabajo • mascotas • uso constante</strong></p>
             </div>
         </div>
+    </div>
 
-        <div class="info">
+</body>
+</html>
             <div>${p.Marca || ""} ${p.Modelo || ""} ${p.Año || ""}</div>
             <div class="precio">$${p.Precio || ""}</div>
         </div>

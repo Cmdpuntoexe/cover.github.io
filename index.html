@@ -3,19 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CStyles</title>
+    <title>CStyles - Covering Styles</title>
     <style>
-        /* 1. ESTILOS GLOBALES */
+        /* 1. ESTILOS GLOBALES Y ANIMACIÓN */
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         body {
             background: linear-gradient(180deg, #000000 0%, #373d42 100%);
             background-attachment: fixed;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             overflow-x: hidden;
+            color: #ffffff;
         }
 
-        /* 2. MENÚ SUPERIOR */
+        /* 2. MENÚ SUPERIOR PREMIUM */
         .menu-superior {
             position: fixed;
             top: 0;
@@ -59,99 +65,110 @@
 
         /* 3. PRESENTACIÓN CENTRAL */
         .hero-presentacion {
-            min-height: 100vh; /* Cambiado a min-height para que quepa el texto largo */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 80px 20px 40px; /* Espacio para el menú superior */
+            padding: 100px 20px 60px;
             box-sizing: border-box;
+            animation: aparecer 1.5s ease-out; /* Animación de entrada */
         }
 
         .brillo-base {
             position: absolute;
-            width: 500px;
-            height: 120px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            width: 600px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
             z-index: -1;
-            top: 40%;
+            top: 35%;
         }
 
         .texto-presentacion h1 {
-            color: #ffffff;
-            font-size: 3rem;
-            letter-spacing: 10px;
+            font-size: clamp(2rem, 8vw, 3.5rem); /* Se ajusta al tamaño de pantalla */
+            letter-spacing: 12px;
             margin: 0;
             font-weight: 900;
             text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(255,255,255,0.2);
+            text-shadow: 0 0 30px rgba(255,255,255,0.2);
         }
 
         .lema-principal {
             color: #b8b8b8;
-            font-size: 1rem;
-            letter-spacing: 4px;
+            font-size: 1.1rem;
+            letter-spacing: 5px;
             margin-top: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
         }
 
+        /* 4. BOTÓN WHATSAPP */
         .boton-whatsapp-central {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             color: #25d366;
             text-decoration: none;
             font-size: 1.1rem;
             font-weight: bold;
             border: 2px solid #25d366;
-            padding: 15px 40px;
+            padding: 15px 45px;
             border-radius: 50px;
-            transition: 0.3s;
-            margin-bottom: 40px;
+            transition: all 0.3s ease;
+            margin-bottom: 50px;
+            background: transparent;
         }
 
         .boton-whatsapp-central:hover {
             background: #25d366;
-            color: #fff;
+            color: #000;
             box-shadow: 0 0 30px rgba(37, 211, 102, 0.4);
             transform: scale(1.05);
         }
 
-        /* 4. BLOQUE PROFESIONAL DE TEXTO */
+        /* 5. BLOQUE DE TEXTO PROFESIONAL */
         .descripcion-detallada {
-            max-width: 700px;
-            line-height: 1.8;
-            color: #a0a0a0;
-            font-size: 1rem;
-            padding: 20px;
-            background: rgba(0,0,0,0.3); /* Un fondo sutil para leer mejor */
-            border-radius: 15px;
+            max-width: 750px;
+            line-height: 1.9;
+            color: #cccccc;
+            font-size: 1.05rem;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .enfoque {
             color: #ffffff;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
             border-top: 1px solid #444;
-            padding-top: 20px;
-            margin-top: 20px;
+            padding-top: 25px;
+            margin-top: 25px;
         }
 
         .enfoque strong {
             color: #25d366;
-            font-weight: bold;
+            font-weight: 800;
         }
 
-        /* RESPONSIVO */
+        /* RESPONSIVO PARA MÓVILES */
         @media (max-width: 768px) {
             .menu-superior a span { display: none; }
-            .texto-presentacion h1 { font-size: 1.8rem; letter-spacing: 5px; }
-            .descripcion-detallada { font-size: 0.9rem; }
+            .menu-superior a { font-size: 0.7rem; letter-spacing: 1px; }
+            .texto-presentacion h1 { letter-spacing: 5px; }
+            .lema-principal { font-size: 0.8rem; letter-spacing: 2px; }
+            .descripcion-detallada { font-size: 0.95rem; padding: 20px; }
+            .brillo-base { width: 300px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- MENÚ SUPERIOR -->
     <header class="menu-superior">
         <nav>
             <a href="galeri1.html">Catálogo <span>📂</span></a>
@@ -162,42 +179,29 @@
         </nav>
     </header>
 
+    <!-- CONTENIDO PRINCIPAL -->
     <div class="hero-presentacion">
         <div class="brillo-base"></div>
+        
         <div class="texto-presentacion">
             <h1>COVERING STYLES</h1>
-            <p class="lema-principal">Expertos en protección y estética automotriz</p>
+            <p class="lema-principal">Protección y Estética Automotriz</p>
             
+            <!-- Botón WhatsApp (Recuerda cambiar el número después de wa.me/) -->
             <a href="https://wa.me" class="boton-whatsapp-central" target="_blank">
-                📱 Escríbenos por WhatsApp
+                <span>📱</span> ESCRÍBENOS POR WHATSAPP
             </a>
 
+            <!-- Descripción Profesional -->
             <div class="descripcion-detallada">
                 <p>Somos un emprendimiento dedicado a la protección y cuidado del interior de los vehículos. 
                 Nos enfocamos en ofrecer soluciones prácticas para quienes usan su auto a diario y quieren mantenerlo en buen estado.</p>
                 
-                <p class="enfoque">Trabajamos con materiales resistentes y fáciles de limpiar, pensando en situaciones reales: 
+                <p class="enfoque">Materiales resistentes para situaciones reales: <br>
                 <strong>familias • trabajo • mascotas • uso constante</strong></p>
             </div>
         </div>
     </div>
-
-</body>
-</html>
-            <div>${p.Marca || ""} ${p.Modelo || ""} ${p.Año || ""}</div>
-            <div class="precio">$${p.Precio || ""}</div>
-        </div>
-    `;
-
-    card.onclick = () => {
-        localStorage.setItem("productos", JSON.stringify(p));
-        window.location.href = "productos.html";
-    };
-
-    return card;
-}
-
-</script>
 
 </body>
 </html>

@@ -1,117 +1,405 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Cstyles</title>
-
+<title>CStyles</title>
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #111;
+body{
+    font-family: Aptos;
+    margin:1;
+    background:#42698c;
 }
 
-/* NAVBAR */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 90%;
-    padding: 15px 40px;
+.hero {
+    background-color: #000000;
+    height: 120px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 40px;
+    border-bottom: 2px solid #4a4e52;
+}
 
-    background: rgba(0, 0, 0, 0.6);
+.hero-logo img {
+    max-width: 220px;
+    height: auto;
+    animation: brilloPulso 3s infinite ease-in-out;
+}
+
+.hero-content {
+    max-width: 550px;
+    text-align: right;
+}
+
+.hero h1 {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0;
+    color: #ffffff;
+}
+
+/* Estilos del Logo Actualizados */
+.hero-logo img {
+    max-width: 320px; /* Aquí ajustas el tamaño; puedes subirlo a 350px si lo quieres aún mayor */
+    height: auto;
+    display: block;
+    animation: brilloPulso 3s infinite ease-in-out;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+    margin-top: -2px; /* Para que no pegue totalmente al borde superior */
+}
+
+/* Mantenemos la animación pero ajustada al nuevo tamaño */
+@keyframes brilloPulso {
+    0% {
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+        transform: scale(1);
+    }
+    50% {
+        filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.5));
+        transform: scale(1.03); /* Un pelín más de pulso por ser más grande */
+    }
+    100% {
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+        transform: scale(1);
+    }
+}
+.titulo-seccion {
+    text-align: center;
+    font-size: 2rem;
+    color:  #999B9B; /* O usa #373d42 si lo prefieres gris rata */
+    margin: -70px 0 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+}
+
+/* Estilos del Cuadro de Texto */
+.hero-content {
+    background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 450px;
+    text-align: right;
+    border-right: 4px solid #ffffff; 
+    box-shadow: 10px 0px 25px rgba(255, 255, 255, 0.1);
 
-    z-index: 1000;
 }
-
-/* LOGO */
-.logo {
+.boton-accion {
+    background: #000;
     color: #fff;
-    font-size: 22px;
+    border: 2px solid #ffffff;
+    padding: 10px 20px;
     font-weight: bold;
-    letter-spacing: 1px;
-}
-
-/* LINKS */
-.menu {
-    display: flex;
-    gap: 30px;
-}
-
-.menu a {
-    color: #ccc;
-    text-decoration: none;
-    font-size: 16px;
-    position: relative;
-    transition: 0.3s;
-}
-
-/* Línea animada */
-.menu a::after {
-    content: "";
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    left: 0;
-    bottom: -5px;
-    background: #00ffff;
-    transition: 0.3s;
-}
-
-.menu a:hover {
-    color: #fff;
-}
-
-.menu a:hover::after {
-    width: 100%;
-}
-
-/* BOTÓN DESTACADO */
-.btn {
-    padding: 8px 18px;
-    border-radius: 20px;
-    background: linear-gradient(45deg, #00ffff, #0077ff);
-    color: #000 !important;
-    font-weight: bold;
-}
-
-/* MENÚ MÓVIL */
-.menu-toggle {
-    display: none;
-    font-size: 25px;
-    color: #fff;
     cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(255,255,255,0.1);
 }
 
-/* RESPONSIVE */
+.boton-accion:hover {
+    background: #ffffff;
+    color: #000;
+    box-shadow: 0 0 20px rgba(255,255,255,0.4);
+}
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #000; /* Fondo negro */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 1000;
+    
+    /* Borde plateado con resplandor */
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.whatsapp-float img {
+    width: 25px;
+    height: 25px;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.05);
+    background-color: #25d366; /* Cambia al color de WhatsApp al pasar el mouse */
+    box-shadow: 0 0 25px rgba(37, 211, 102, 0.5);
+    border-color: transparent;
+}
+
+/* Para que en móviles sea solo el círculo */
 @media (max-width: 768px) {
-    .menu {
-        position: absolute;
-        top: 70px;
-        right: 0;
-        background: #000;
-        flex-direction: column;
-        width: 200px;
-        padding: 20px;
+    .whatsapp-float span {
         display: none;
     }
-
-    .menu.active {
-        display: flex;
-    }
-
-    .menu-toggle {
-        display: block;
+    .whatsapp-float {
+        padding: 15px;
+        border-radius: 50%;
     }
 }
+
+
+
+}
+</style>
+</head>
+
+<body>
+<!-- 1. VENTANA MODAL PARA VER EN GRANDE (Ponlo justo después de <body>) -->
+<div id="miModal" style="display:none; position:fixed; z-index:1000; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; cursor:pointer;" onclick="cerrarImagen()">
+    <span style="position:absolute; top:20px; right:30px; color:white; font-size:40px; font-weight:bold;">&times;</span>
+    <img id="imgModal" src="" style="max-width:90%; max-height:80%; border:3px solid white; border-radius:8px; transition: transform 0.3s;">
+</div>
+
+<div class="hero">
+    <!-- Contenedor del Logo -->
+    <div class="hero-logo">
+        <img src="imajen2.png" alt="Logo Covering Styles">
+    </div>
+
+    <!-- Tu texto a la derecha -->
+    <div class="hero-content">
+        <h1>🔧</h1>
+    </div>
+</div>      
+
+<h2 class="titulo-seccion">Encuentra tu Ajuste Perfecto</h2>             
+
+<style>
+  .seccion-disenos {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 50px 20px;
+    flex-wrap: wrap; /* Se ajusta a móviles automáticamente */
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background-color: #f8f9fa;
+  }
+
+  .tarjeta-diseno {
+    width: 320px;
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tarjeta-diseno:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  }
+
+  /* Espacio para la imagen del catálogo */
+  .imagen-contenedor {
+    width: 100%;
+    height: 190px;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #adb5bd;
+    font-weight: bold;
+  }
+
+  .info-cuerpo {
+    padding: 25px;
+    text-align: center;
+    flex-grow: 1;
+  }
+
+  .titulo-diseno {
+    font-size: 24px; /* Grande como pediste */
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #1a1a1a;
+    line-height: 1.2;
+    min-height: 58px; /* Para que los botones queden alineados */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .descripcion {
+    font-size: 15px;
+    color: #6c757d;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .boton-accion {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 0;
+    background-color: #42698c;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s;
+  }
+
+  .boton-destacado {
+    background-color: #2563EB; /* Rojo tipo automotriz/deportivo */
+  }
+
+  .boton-accion:hover {
+    filter: brightness(1.2);
+  }
+
+  .imagen-contenedor img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Esto hace que la foto llene el espacio sin deformarse */
+  }
+</style>
+
+<a href="https://wa.me" class="whatsapp-float" target="_blank">
+    <img src="https://wikimedia.org" alt="WhatsApp">
+    <span>Cotizar ahora</span>
+</a>
+
+<!-- Ejemplo para la tarjeta de Diseño Personalizado -->
+<button class="boton-accion" onclick="cotizarWhatsApp('Diseño Personalizado')">
+    VER OPCIONES
+</button>
+
+<!-- Ejemplo para la de Diseño Clásico -->
+<button class="boton-accion" onclick="cotizarWhatsApp('Diseño Clásico')">
+    VER CATÁLOGO
+</button>
+
+
+
+
+<!-- 2. SECCIÓN DE TARJETAS -->
+<div class="seccion-disenos">
+  
+  <!-- Diseño Personalizado -->
+  <div class="tarjeta-diseno" >
+    <div class="imagen-contenedor" onclick="ampliarImagen('dp1.jpg')"> 
+      <img src="dp1.jpg" alt="Diseño Personalizado" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div class="info-cuerpo">
+      <div class="titulo-diseno">Diseño Personalizado</div>
+      <p class="descripcion">Crea un estilo único combinando colores y texturas a tu gusto total.</p>
+      <a href="#" class="boton-accion">Ver Opciones</a>
+    </div>
+  </div>
+
+  <!-- Diseño Clásico -->
+  <div class="tarjeta-diseno" >
+    <div class="imagen-contenedor" onclick="ampliarImagen('funda.png')">
+      <img src="funda.png" alt="Diseño Clásico" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div class="info-cuerpo">
+      <div class="titulo-diseno">Diseño Clásico</div>
+      <p class="descripcion">Elegancia tradicional con acabados sobrios y materiales de alta calidad.</p>
+      <a href="#" class="boton-accion">Ver Catálogo</a>
+    </div>
+  </div>
+
+  <!-- Diseño Tela Automotriz -->
+  <div class="tarjeta-diseno" >
+    <div class="imagen-contenedor" onclick="ampliarImagen('tela1.jpg')">
+      <img src="tela1.jpg" alt="Tela Automotriz" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div class="info-cuerpo">
+      <div class="titulo-diseno">Tela Automotriz</div>
+      <p class="descripcion">Resistencia máxima y confort original con materiales certificados.</p>
+      <a href="#" class="boton-accion boton-destacado">Más Resistente</a>
+    </div>
+  </div>
+
+  <!-- Diseño Bicolor -->
+  <div class="tarjeta-diseno" >
+    <div class="imagen-contenedor" onclick="ampliarImagen('2bicolor.jpg')">
+      <img src="2bicolor.jpg" alt="Diseño Bicolor" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div class="info-cuerpo">
+      <div class="titulo-diseno">Diseño Bicolor</div>
+      <p class="descripcion">Combinaciones dinámicas de dos tonos para un interior moderno.</p>
+      <a href="#" class="boton-accion">Ver Colores</a>
+    </div>
+  </div>
+
+  <!-- Diseño Solo Género -->
+  <div class="tarjeta-diseno" >
+    <div class="imagen-contenedor" onclick="ampliarImagen('4.jpg')">
+      <img src="4.jpg" alt="Solo Género" style="width:110%; height:110%; object-fit:cover;">
+    </div>
+    <div class="info-cuerpo">
+      <div class="titulo-diseno">Genero & policuero</div>
+      <p class="descripcion">Acabado suave y fresco utilizando exclusivamente telas de alta gama.</p>
+      <a href="#" class="boton-accion">Ver Telas</a>
+    </div>
+  </div>
+
+  <!-- Diseño con Bordeado -->
+  <div class="tarjeta-diseno" >
+    <div class="imagen-contenedor" onclick="ampliarImagen('1b.jpg')">
+      <img src="1b.jpg" alt="Diseño Con Bordado" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div class="info-cuerpo">
+      <div class="titulo-diseno">Diseño con Bordado</div>
+      <p class="descripcion">Detalles de costura reforzada que resaltan las líneas de tus asientos.</p>
+      <a href="#" class="boton-accion">Ver Detalles</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- 3. LÓGICA DE JAVASCRIPT (Ponlo al final, antes de </body>) -->
+<script>
+function ampliarImagen(ruta) {
+    // Solo abre el modal si la ruta no es el texto de ejemplo
+    if(ruta.includes('tarjeta-diseno')) {
+        alert('Primero debes poner el nombre de tu archivo en el código (ej: imagen1.jpg)');
+        return;
+    }
+    document.getElementById('imgModal').src = ruta;
+    document.getElementById('miModal').style.display = 'flex';
+}
+
+function cerrarImagen() {
+    document.getElementById('miModal').style.display = 'none';
+
+
+
+}
+
+function cotizarWhatsApp(modelo) {
+    const telefono = "56961960385"; // <-- PON AQUÍ TU NÚMERO (ej: 56912345678)
+    const mensaje = `Hola Covering Styles! Me interesa recibir más información y una cotización sobre el: *${modelo}*`;
+    
+    // Codifica el mensaje para que sea válido en un enlace
+    const url = `https://wa.me{telefono}?text=${encodeURIComponent(mensaje)}`;
+    
+    // Abre WhatsApp en una nueva pestaña
+    window.open(url, '_blank');
+}
+
+</script>
+
+
+</body>)
 </style>
 
 </head>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo - Covering Styles</title>
     <style>
-        /* ESTILOS DE TU PÁGINA PRINCIPAL */
+        /* ESTILOS PREMIUM */
         body {
             background: linear-gradient(180deg, #000000 0%, #373d42 100%);
             background-attachment: fixed;
@@ -19,7 +19,7 @@
             min-height: 100vh;
         }
 
-        /* HEADER CON TU LOGO */
+        /* MENÚ SUPERIOR */
         .menu-superior {
             position: fixed;
             top: 0;
@@ -37,14 +37,8 @@
             box-sizing: border-box;
         }
 
-        .logo-cstyles {
-            font-weight: 900;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            font-size: 1.2rem;
-            text-shadow: 0 0 20px rgba(255,255,255,0.3);
-        }
-
+        .logo-cstyles { font-weight: 900; letter-spacing: 6px; text-transform: uppercase; font-size: 1.2rem; }
+        
         .btn-inicio {
             color: #b8b8b8;
             text-decoration: none;
@@ -55,32 +49,26 @@
             border: 1px solid #444;
             padding: 8px 15px;
             border-radius: 5px;
-            transition: all 0.3s;
+            transition: 0.3s;
         }
 
-        .btn-inicio:hover {
-            color: #ffffff;
-            background: rgba(255,255,255,0.1);
-            border-color: #ffffff;
-        }
+        .btn-inicio:hover { color: #ffffff; background: rgba(255, 255, 255, 0.1); border-color: #ffffff; }
 
-        /* TARJETA PROFESIONAL */
+        /* TARJETA */
         .tarjeta-detalle {
             margin-top: 100px;
             display: flex;
             width: 95%;
             max-width: 1150px;
-            height: 580px;
+            height: 600px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.08);
             overflow: hidden;
             box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            animation: aparecer 1s ease-out;
         }
 
-        /* LADO IZQUIERDO: CARRUSEL */
         .seccion-imagen {
             flex: 1.5;
             position: relative;
@@ -94,10 +82,10 @@
             max-width: 92%;
             max-height: 92%;
             object-fit: contain;
+            opacity: 1; /* Forzamos visibilidad */
             transition: opacity 0.3s ease;
         }
 
-        /* LADO DERECHO: TEXTO FIJO */
         .seccion-texto {
             flex: 1;
             padding: 50px;
@@ -107,47 +95,35 @@
             background: rgba(0, 0, 0, 0.15);
         }
 
-        .categoria-tag {
-            color: #25d366;
-            font-size: 0.7rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
+        .categoria-tag { color: #25d366; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 10px; }
+        .titulo-diseno { font-size: 2rem; letter-spacing: 5px; margin: 0 0 20px 0; text-transform: uppercase; font-weight: 900; }
+        .descripcion-tecnica { line-height: 1.7; color: #b8b8b8; font-size: 1rem; }
+        
+        .puntos-clave { margin-top: 20px; padding: 0; list-style: none; }
+        .puntos-clave li { margin-bottom: 12px; font-size: 0.9rem; display: flex; gap: 10px; }
+        .puntos-clave li::before { content: "✓"; color: #25d366; font-weight: bold; }
 
-        .titulo-diseno {
-            font-size: 2rem;
-            letter-spacing: 5px;
-            margin: 0 0 25px 0;
-            text-transform: uppercase;
-            font-weight: 900;
-        }
-
-        .descripcion-tecnica {
-            line-height: 1.9;
-            color: #b8b8b8;
-            font-size: 1.05rem;
-        }
-
-        .puntos-clave {
-            margin-top: 25px;
-            padding: 0;
-            list-style: none;
-        }
-
-        .puntos-clave li {
-            margin-bottom: 18px;
-            font-size: 0.9rem;
+        /* BOTÓN WHATSAPP */
+        .btn-whatsapp {
+            margin-top: 30px;
             display: flex;
-            align-items: flex-start;
-            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: transparent;
+            color: #25d366;
+            border: 2px solid #25d366;
+            padding: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: 0.3s ease;
         }
 
-        .puntos-clave li::before {
-            content: "✓";
-            color: #25d366;
-            font-weight: bold;
-        }
+        .btn-whatsapp:hover { background: #25d366; color: #000; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); }
 
         /* NAVEGACIÓN */
         .btn-nav {
@@ -157,83 +133,74 @@
             background: rgba(0,0,0,0.7);
             color: white;
             border: 1px solid rgba(255,255,255,0.1);
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             cursor: pointer;
             border-radius: 50%;
-            transition: 0.3s;
             z-index: 10;
         }
 
         .btn-nav:hover { background: #ffffff; color: #000; }
-        .prev { left: 20px; }
-        .next { right: 20px; }
-
-        @keyframes aparecer {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .prev { left: 15px; }
+        .next { right: 15px; }
 
         @media (max-width: 950px) {
             .tarjeta-detalle { flex-direction: column; height: auto; }
             .seccion-imagen { height: 400px; }
-            .menu-superior { padding: 0 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- MENÚ SUPERIOR CON LOGO Y BOTÓN INICIO -->
     <header class="menu-superior">
         <div class="logo-cstyles">COVERING STYLES</div>
         <a href="index.html" class="btn-inicio">Inicio 🏠</a>
     </header>
 
     <div class="tarjeta-detalle">
-        <!-- CARRUSEL DE IMAGEN -->
         <div class="seccion-imagen">
             <button class="btn-nav prev" onclick="mover(-1)">❮</button>
             <img id="pantalla" src="" alt="CStyles Diseño Automotriz">
             <button class="btn-nav next" onclick="mover(1)">❯</button>
         </div>
 
-        <!-- TEXTO FIJO PROFESIONAL -->
         <div class="seccion-texto">
             <span class="categoria-tag">Línea de Protección Premium</span>
             <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
-            
             <div class="descripcion-tecnica">
-                <p>Nuestra propuesta de <strong>Elegancia Minimalista</strong>. Se basa en una estructura integral que prioriza la estética limpia sin cortes adicionales, resaltando la pureza de la línea automotriz.</p>
-                
+                <p>Nuestra propuesta de <strong>Elegancia Minimalista</strong>. Estructura integral que prioriza la estética limpia sin cortes adicionales.</p>
                 <ul class="puntos-clave">
-                    <li><strong>Arquitectura:</strong> Dos laterales robustos que garantizan el ajuste y la forma.</li>
-                    <li><strong>Núcleo Central:</strong> Pieza ergonómica dividida simétricamente para mayor confort.</li>
-                    <li><strong>Detalles de Autor:</strong> Costuras superiores personalizables según la estética del vehículo.</li>
-                    <li><strong>Ingeniería Visual:</strong> Estructura técnica pensada para uso diario sin perder la onda premium.</li>
+                    <li><strong>Arquitectura:</strong> Dos laterales robustos de ajuste perfecto.</li>
+                    <li><strong>Núcleo Central:</strong> Pieza ergonómica dividida en dos.</li>
+                    <li><strong>Personalización:</strong> Costuras superiores a elección.</li>
                 </ul>
             </div>
+            <!-- REEMPLAZA TU_NUMERO_AQUI POR TU CELULAR -->
+            <a href="https://wa.me/56961960385" class="btn-whatsapp" target="_blank">
+                CONSULTAR DISEÑO 📱
+            </a>
         </div>
     </div>
 
     <script>
-        // --- CAMBIA TUS FOTOS AQUÍ ---
         const misFotos = [
-            "clasico1.jpg", 
-            "clasico2.jpg", 
-            "clasico3.jpg", 
-            "clasico4.jpg", 
-            "clasico5.jpg", 
-            "clasico6.jpg", 
-            "clasico7.jpg", 
-            "clasico8.jpg", 
-            "clasico11.jpg",
-            "clasico10.jpg",
+            "clasico1.jpg", "clasico2.jpg", "clasico3.jpg", 
+            "clasico4.jpg", "clasico5.jpg", "clasico6.jpg", 
+            "clasico7.jpg", "clasico8.jpg", "clasico11.jpg", "clasico10.jpg"
         ];
 
         let i = 0;
         const img = document.getElementById("pantalla");
 
-        if(misFotos.length > 0) { img.src = misFotos; }
+        // Esta función asegura que la imagen cargue sí o sí al entrar
+        function iniciarPagina() {
+            if(misFotos.length > 0) {
+                img.src = misFotos[0];
+            }
+        }
+
+        // Ejecutar apenas cargue la ventana
+        window.onload = iniciarPagina;
 
         function mover(dir) {
             img.style.opacity = 0;
@@ -241,9 +208,11 @@
                 i = (i + dir + misFotos.length) % misFotos.length;
                 img.src = misFotos[i];
                 img.style.opacity = 1;
-            }, 250);
+            }, 200);
         }
     </script>
-
 </body>
 </html>
+
+
+

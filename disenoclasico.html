@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo - Covering Styles</title>
     <style>
-        /* ESTILO PREMIUM GLOBAL */
+        /* ESTILO GLOBAL PREMIUM */
         body {
             background: linear-gradient(180deg, #000000 0%, #373d42 100%);
             background-attachment: fixed;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -56,26 +56,25 @@
             transition: opacity 0.3s ease;
         }
 
-        /* SECCIÓN DERECHA: TEXTO SUBIDO */
+        /* SECCIÓN DERECHA: TEXTO */
         .seccion-texto {
             flex: 1;
-            padding: 20px 50px 40px 50px; /* Reducido el padding superior */
+            padding: 10px 50px 40px 50px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* ALINEADO ARRIBA */
+            justify-content: flex-start;
             background: rgba(0, 0, 0, 0.15);
         }
 
-        /* LOGO CON MARGEN REDUCIDO PARA QUE SUBA */
         .logo-en-texto {
             max-width: 180px; 
             height: auto;
-            margin-top: 30px; /* Espacio desde el borde superior de la tarjeta */
+            margin-top: 15px;
             margin-bottom: 15px; 
             filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
         }
 
-        .categoria-tag { color: #25d366; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 10px; }
+        .categoria-tag { color: #25d366; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 8px; }
         .titulo-diseno { font-size: 2rem; letter-spacing: 5px; margin: 0 0 15px 0; text-transform: uppercase; font-weight: 900; }
         .descripcion-tecnica { line-height: 1.6; color: #b8b8b8; font-size: 0.95rem; }
         
@@ -124,10 +123,31 @@
         .prev { left: 15px; }
         .next { right: 15px; }
 
-        @media (max-width: 950px) {
-            .tarjeta-detalle { flex-direction: column; height: auto; }
-            .seccion-imagen { height: 350px; }
-            .seccion-texto { padding: 30px; align-items: center; text-align: center; }
+        /* AJUSTES PARA CELULARES */
+        @media (max-width: 768px) {
+            .tarjeta-detalle {
+                flex-direction: column; /* Pone la foto arriba y el texto abajo */
+                height: auto;
+                width: 90%;
+                margin: 20px 0;
+            }
+            .seccion-imagen {
+                height: 300px; /* Tamaño fijo para la foto en móvil */
+            }
+            .seccion-texto {
+                padding: 30px 20px;
+                align-items: center;
+                text-align: center;
+            }
+            .puntos-clave li {
+                justify-content: center;
+            }
+            .titulo-diseno {
+                font-size: 1.5rem;
+            }
+            .logo-en-texto {
+                max-width: 140px;
+            }
         }
     </style>
 </head>
@@ -141,9 +161,7 @@
         </div>
 
         <div class="seccion-texto">
-            <!-- LOGO ARRIBA -->
             <img src="imajen2.png" alt="Covering Styles" class="logo-en-texto">
-
             <span class="categoria-tag">Línea de Protección Premium</span>
             <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
             
@@ -169,10 +187,8 @@
             "clasico4.jpg", "clasico5.jpg", "clasico6.jpg", 
             "clasico7.jpg", "clasico8.jpg", "clasico11.jpg", "clasico10.jpg"
         ];
-
         let i = 0;
         const img = document.getElementById("pantalla");
-
         function mover(dir) {
             img.style.opacity = 0;
             setTimeout(() => {

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo - Covering Styles</title>
     <style>
-        /* ESTILOS PREMIUM */
+        /* ESTILO PREMIUM GLOBAL */
         body {
             background: linear-gradient(180deg, #000000 0%, #373d42 100%);
             background-attachment: fixed;
@@ -19,56 +19,27 @@
             min-height: 100vh;
         }
 
-        /* MENÚ SUPERIOR */
-        .menu-superior {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 70px;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid #444;
-            z-index: 2000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
-            box-sizing: border-box;
-        }
-
-        .logo-cstyles { font-weight: 900; letter-spacing: 6px; text-transform: uppercase; font-size: 1.2rem; }
-        
-        .btn-inicio {
-            color: #b8b8b8;
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border: 1px solid #444;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .btn-inicio:hover { color: #ffffff; background: rgba(255, 255, 255, 0.1); border-color: #ffffff; }
-
-        /* TARJETA */
+        /* TARJETA PRINCIPAL */
         .tarjeta-detalle {
-            margin-top: 100px;
             display: flex;
             width: 95%;
             max-width: 1150px;
-            height: 600px;
+            height: 650px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.08);
             overflow: hidden;
             box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            animation: aparecer 1s ease-out;
         }
 
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SECCIÓN IZQUIERDA: IMAGEN */
         .seccion-imagen {
             flex: 1.5;
             position: relative;
@@ -82,30 +53,39 @@
             max-width: 92%;
             max-height: 92%;
             object-fit: contain;
-            opacity: 1; /* Forzamos visibilidad */
             transition: opacity 0.3s ease;
         }
 
+        /* SECCIÓN DERECHA: TEXTO SUBIDO */
         .seccion-texto {
             flex: 1;
-            padding: 50px;
+            padding: 20px 50px 40px 50px; /* Reducido el padding superior */
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* ALINEADO ARRIBA */
             background: rgba(0, 0, 0, 0.15);
         }
 
+        /* LOGO CON MARGEN REDUCIDO PARA QUE SUBA */
+        .logo-en-texto {
+            max-width: 180px; 
+            height: auto;
+            margin-top: 30px; /* Espacio desde el borde superior de la tarjeta */
+            margin-bottom: 15px; 
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
+        }
+
         .categoria-tag { color: #25d366; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 10px; }
-        .titulo-diseno { font-size: 2rem; letter-spacing: 5px; margin: 0 0 20px 0; text-transform: uppercase; font-weight: 900; }
-        .descripcion-tecnica { line-height: 1.7; color: #b8b8b8; font-size: 1rem; }
+        .titulo-diseno { font-size: 2rem; letter-spacing: 5px; margin: 0 0 15px 0; text-transform: uppercase; font-weight: 900; }
+        .descripcion-tecnica { line-height: 1.6; color: #b8b8b8; font-size: 0.95rem; }
         
-        .puntos-clave { margin-top: 20px; padding: 0; list-style: none; }
-        .puntos-clave li { margin-bottom: 12px; font-size: 0.9rem; display: flex; gap: 10px; }
+        .puntos-clave { margin-top: 15px; padding: 0; list-style: none; }
+        .puntos-clave li { margin-bottom: 10px; font-size: 0.85rem; display: flex; gap: 10px; }
         .puntos-clave li::before { content: "✓"; color: #25d366; font-weight: bold; }
 
         /* BOTÓN WHATSAPP */
         .btn-whatsapp {
-            margin-top: 30px;
+            margin-top: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -113,10 +93,10 @@
             background: transparent;
             color: #25d366;
             border: 2px solid #25d366;
-            padding: 15px;
+            padding: 12px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             border-radius: 10px;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -146,39 +126,39 @@
 
         @media (max-width: 950px) {
             .tarjeta-detalle { flex-direction: column; height: auto; }
-            .seccion-imagen { height: 400px; }
+            .seccion-imagen { height: 350px; }
+            .seccion-texto { padding: 30px; align-items: center; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <header class="menu-superior">
-        <div class="logo-cstyles">COVERING STYLES</div>
-        <a href="index.html" class="btn-inicio">Inicio 🏠</a>
-    </header>
-
     <div class="tarjeta-detalle">
         <div class="seccion-imagen">
             <button class="btn-nav prev" onclick="mover(-1)">❮</button>
-            <img id="pantalla" src="" alt="CStyles Diseño Automotriz">
+            <img id="pantalla" src="clasico1.jpg" alt="Diseño Automotriz">
             <button class="btn-nav next" onclick="mover(1)">❯</button>
         </div>
 
         <div class="seccion-texto">
+            <!-- LOGO ARRIBA -->
+            <img src="imajen2.png" alt="Covering Styles" class="logo-en-texto">
+
             <span class="categoria-tag">Línea de Protección Premium</span>
             <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
+            
             <div class="descripcion-tecnica">
                 <p>Nuestra propuesta de <strong>Elegancia Minimalista</strong>. Estructura integral que prioriza la estética limpia sin cortes adicionales.</p>
                 <ul class="puntos-clave">
                     <li><strong>Arquitectura:</strong> Dos laterales robustos de ajuste perfecto.</li>
                     <li><strong>Núcleo Central:</strong> Pieza ergonómica dividida en dos.</li>
                     <li><strong>Personalización:</strong> Costuras superiores a elección.</li>
-                      <li><strong>Ingeniería:</strong> Estructura técnica para uso diario..</li>
+                    <li><strong>Ingeniería:</strong> Estructura técnica para uso diario.</li>
                 </ul>
             </div>
-            <!-- REEMPLAZA TU_NUMERO_AQUI POR TU CELULAR -->
-            <a href="https://wa.me/56961960385" class="btn-whatsapp" target="_blank">
-                CONSULTAR 📱
+            
+            <a href="https://wa.me" class="btn-whatsapp" target="_blank">
+                CONSULTAR DISEÑO 📱
             </a>
         </div>
     </div>
@@ -193,16 +173,6 @@
         let i = 0;
         const img = document.getElementById("pantalla");
 
-        // Esta función asegura que la imagen cargue sí o sí al entrar
-        function iniciarPagina() {
-            if(misFotos.length > 0) {
-                img.src = misFotos[0];
-            }
-        }
-
-        // Ejecutar apenas cargue la ventana
-        window.onload = iniciarPagina;
-
         function mover(dir) {
             img.style.opacity = 0;
             setTimeout(() => {
@@ -214,6 +184,5 @@
     </script>
 </body>
 </html>
-
 
 

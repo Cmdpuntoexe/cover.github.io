@@ -9,8 +9,7 @@
         
         body { 
             font-family: 'Segoe UI', sans-serif; 
-            margin: 0;
-            padding: 20px;
+            margin: 0; padding: 20px;
             background-color: var(--soft-silver);
             background-image: url('imajen2.png');
             background-size: contain;
@@ -21,13 +20,9 @@
         
         .container { 
             background: rgba(255, 255, 255, 0.94); 
-            max-width: 900px; 
-            margin: 40px auto; 
-            padding: 40px; 
-            border-radius: 20px; 
-            box-shadow: 0 25px 60px rgba(0,0,0,0.2); 
-            border-top: 10px solid var(--plata); 
-            text-align: center;
+            max-width: 900px; margin: 40px auto; padding: 40px; 
+            border-radius: 20px; box-shadow: 0 25px 60px rgba(0,0,0,0.2); 
+            border-top: 10px solid var(--plata); text-align: center;
             backdrop-filter: blur(8px);
         }
 
@@ -40,49 +35,37 @@
         .field { display: flex; flex-direction: column; }
         label { font-weight: 700; margin-bottom: 8px; color: #333; font-size: 12px; text-transform: uppercase; }
         
-        select { 
-            padding: 15px; 
-            border: 2px solid #cbd5e1; 
-            border-radius: 10px; 
-            font-size: 15px; 
-            outline: none; 
-            cursor: pointer; 
-            background: white;
-            transition: all 0.3s; 
+        select, input { 
+            padding: 15px; border: 2px solid #cbd5e1; border-radius: 10px; 
+            font-size: 15px; outline: none; background: white; transition: all 0.3s; 
         }
-        select:focus { border-color: var(--plata); box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        select:focus, input:focus { border-color: var(--plata); box-shadow: 0 0 15px rgba(0,0,0,0.1); }
         
-        .result-box { display: none; text-align: center; padding: 40px 20px; border: 3px solid #eee; border-radius: 25px; background: #fff; margin-top: 20px; animation: slideUp 0.6s ease; }
-        #resTexto { margin: 0; color: var(--dark); font-size: 2.8rem; font-weight: 900; line-height: 1.1; margin-bottom: 10px; }
+        .shipping-box { 
+            display: none; text-align: left; background: #f8fafc; 
+            padding: 25px; border-radius: 15px; margin-top: 20px; border: 1px solid #e2e8f0;
+        }
+        .shipping-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+        .full-width { grid-column: span 2; }
+
+        .result-box { display: none; text-align: center; padding: 30px 20px; border: 3px solid #eee; border-radius: 25px; background: #fff; margin-top: 20px; animation: slideUp 0.6s ease; }
+        #resTexto { margin: 0; color: var(--dark); font-size: 2.2rem; font-weight: 900; line-height: 1.1; margin-bottom: 10px; }
         
-        .desc-producto { color: #666; font-weight: 700; margin-bottom: 25px; font-size: 1.1rem; display: block; }
+        .desc-producto { color: #666; font-weight: 700; margin-bottom: 20px; font-size: 1rem; display: block; }
 
         .btn-pago {
-            display: inline-block;
-            padding: 20px 45px;
-            background-color: var(--mp-blue);
-            color: white;
-            text-decoration: none;
-            font-weight: 900;
-            font-size: 1.2rem;
-            border-radius: 12px;
-            text-transform: uppercase;
-            box-shadow: 0 10px 20px rgba(0, 158, 227, 0.3);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
+            display: inline-block; padding: 20px 45px; background-color: var(--mp-blue);
+            color: white; text-decoration: none; font-weight: 900; font-size: 1.2rem;
+            border-radius: 12px; text-transform: uppercase; border: none; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 158, 227, 0.3); transition: all 0.3s ease;
         }
-        .btn-pago:hover {
-            transform: translateY(-3px);
-            background-color: #007bb1;
-            box-shadow: 0 15px 25px rgba(0, 158, 227, 0.4);
-        }
+        .btn-pago:hover { transform: translateY(-3px); background-color: #007bb1; }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 600px) {
-            .selector-grid { grid-template-columns: 1fr; }
-            #resTexto { font-size: 1.8rem; }
+            .selector-grid, .shipping-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
         }
     </style>
 </head>
@@ -103,15 +86,37 @@
         </div>
         <div class="field">
             <label>2. MODELO</label>
-            <select id="modelo" disabled onchange="validar()">
+            <select id="modelo" disabled onchange="validarSeleccion()">
                 <option value="">-- SELECCIONAR --</option>
             </select>
         </div>
         <div class="field">
             <label>3. AÑO</label>
-            <select id="anio" onchange="validar()">
+            <select id="anio" onchange="validarSeleccion()">
                 <option value="">-- SELECCIONAR --</option>
             </select>
+        </div>
+    </div>
+
+    <div id="envioSeccion" class="shipping-box">
+        <h3 style="margin-top:0; color: var(--dark);">📍 DATOS PARA EL ENVÍO A DOMICILIO</h3>
+        <div class="shipping-grid">
+            <div class="field full-width">
+                <label>Nombre Completo</label>
+                <input type="text" id="nombre" placeholder="Quién recibe el paquete">
+            </div>
+            <div class="field">
+                <label>Ciudad / Región</label>
+                <input type="text" id="ciudad" placeholder="Ej: Santiago">
+            </div>
+            <div class="field">
+                <label>Comuna</label>
+                <input type="text" id="comuna" placeholder="Ej: Estación Central">
+            </div>
+            <div class="field full-width">
+                <label>Dirección Exacta</label>
+                <input type="text" id="direccion" placeholder="Calle, número, depto/casa">
+            </div>
         </div>
     </div>
 
@@ -119,13 +124,16 @@
         <h1 id="resTexto"></h1>
         <span class="desc-producto">MOLDE FÍSICO EN PAPEL MANTEQUILLA</span>
         
-        <button class="btn-pago" onclick="irAlPago()">
-            💳 PAGAR CON MERCADO PAGO
+        <button class="btn-pago" onclick="procesarPedido()">
+            ✅ CONFIRMAR DATOS Y PAGAR
         </button>
     </div>
 </div>
 
 <script>
+const miLinkDePago = "https://mpago.la";
+const tuTelefonoWhatsApp = "56961960385"; 
+
 const dbMoldes = {
     "YUEJIN": ["NJ713"], "SAMSUNG": ["SM3"], "JETOUR": ["X70"], "VOLVO": ["FH", "FM", "V40", "XC60"],
     "JMC": ["Carrying", "Touring", "Vigus"], "SEAT": ["Ibiza", "León"], "DAEWOO": ["Lanos"],
@@ -159,9 +167,7 @@ const selM = document.getElementById('marca'), selMod = document.getElementById(
 (function init() {
     let totalModelos = 0;
     Object.keys(dbMoldes).forEach(marca => totalModelos += dbMoldes[marca].length);
-    const variantesReales = Math.ceil(totalModelos * 1.4);
-    document.getElementById('totalMoldes').innerText = variantesReales;
-
+    document.getElementById('totalMoldes').innerText = Math.ceil(totalModelos * 1.4);
     Object.keys(dbMoldes).sort().forEach(m => selM.add(new Option(m, m)));
     for(let y=2026; y>=1980; y--) selA.add(new Option(y, y));
 })();
@@ -173,22 +179,46 @@ function actualizarModelos() {
         selMod.disabled = false;
         [...new Set(dbMoldes[m])].sort().forEach(mod => selMod.add(new Option(mod, mod)));
     } else { selMod.disabled = true; }
-    validar();
+    validarSeleccion();
 }
 
-function validar() {
+function validarSeleccion() {
     const res = document.getElementById('resultado');
+    const envio = document.getElementById('envioSeccion');
     if (selM.value && selMod.value && selA.value) {
         res.style.display = 'block';
+        envio.style.display = 'block';
         document.getElementById('resTexto').innerText = selM.value + " " + selMod.value + " " + selA.value;
-    } else { res.style.display = 'none'; }
+    } else { 
+        res.style.display = 'none'; 
+        envio.style.display = 'none';
+    }
 }
 
-function irAlPago() {
-    // Tu link real de Mercado Pago integrado
-    const miLinkDePago = "https://mpago.la/24rSjw8"; 
-    window.open(miLinkDePago, '_blank');
+function procesarPedido() {
+    const nombre = document.getElementById('nombre').value;
+    const ciudad = document.getElementById('ciudad').value;
+    const comuna = document.getElementById('comuna').value;
+    const direccion = document.getElementById('direccion').value;
+    const vehiculo = `${selM.value} ${selMod.value} ${selA.value}`;
+
+    if (!nombre || !ciudad || !comuna || !direccion) {
+        alert("¡Atención! Por favor completa todos los datos de envío para poder procesar tu pedido.");
+        return;
+    }
+
+    const mensaje = `*NUEVA ORDEN DE MOLDE*\n------------------------\n*Vehículo:* ${vehiculo}\n*Papel:* Mantequilla\n\n*DATOS DE ENVÍO:*\n*Nombre:* ${nombre}\n*Ciudad:* ${ciudad}\n*Comuna:* ${comuna}\n*Dirección:* ${direccion}\n------------------------\n_Procedo a realizar el pago vía Mercado Pago._`;
+    
+    // Abrir WhatsApp
+    const urlWa = `https://wa.me{tuTelefonoWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+    window.open(urlWa, '_blank');
+
+    // Redirigir al Pago
+    setTimeout(() => {
+        window.location.href = miLinkDePago;
+    }, 1500);
 }
 </script>
 </body>
 </html>
+

@@ -131,8 +131,9 @@
 </div>
 
 <script>
-const miLinkDePago = "https://mpago.la";
-const tuTelefonoWhatsApp = "56961960385"; 
+// DATOS CONFIGURADOS CORRECTAMENTE
+var miLinkDePago = "https://mpago.la";
+var tuTelefonoWhatsApp = "56961960385"; 
 
 const dbMoldes = {
     "YUEJIN": ["NJ713"], "SAMSUNG": ["SM3"], "JETOUR": ["X70"], "VOLVO": ["FH", "FM", "V40", "XC60"],
@@ -196,27 +197,37 @@ function validarSeleccion() {
 }
 
 function procesarPedido() {
-    const nombre = document.getElementById('nombre').value;
-    const ciudad = document.getElementById('ciudad').value;
-    const comuna = document.getElementById('comuna').value;
-    const direccion = document.getElementById('direccion').value;
-    const vehiculo = `${selM.value} ${selMod.value} ${selA.value}`;
+    var nombre = document.getElementById('nombre').value;
+    var ciudad = document.getElementById('ciudad').value;
+    var comuna = document.getElementById('comuna').value;
+    var direccion = document.getElementById('direccion').value;
+    var vehiculo = selM.value + " " + selMod.value + " " + selA.value;
 
     if (!nombre || !ciudad || !comuna || !direccion) {
         alert("¡Atención! Por favor completa todos los datos de envío para poder procesar tu pedido.");
         return;
     }
 
-    const mensaje = `*NUEVA ORDEN DE MOLDE*\n------------------------\n*Vehículo:* ${vehiculo}\n*Papel:* Mantequilla\n\n*DATOS DE ENVÍO:*\n*Nombre:* ${nombre}\n*Ciudad:* ${ciudad}\n*Comuna:* ${comuna}\n*Dirección:* ${direccion}\n------------------------\n_Procedo a realizar el pago vía Mercado Pago._`;
+    var mensaje = "*NUEVA ORDEN DE MOLDE*\n" +
+                  "------------------------\n" +
+                  "*Vehículo:* " + vehiculo + "\n" +
+                  "*Papel:* Mantequilla\n\n" +
+                  "*DATOS DE ENVÍO:*\n" +
+                  "*Nombre:* " + nombre + "\n" +
+                  "*Ciudad:* " + ciudad + "\n" +
+                  "*Comuna:* " + comuna + "\n" +
+                  "*Dirección:* " + direccion + "\n" +
+                  "------------------------\n" +
+                  "_Procedo a realizar el pago vía Mercado Pago._";
     
-    // Abrir WhatsApp
-    const urlWa = `https://wa.me{tuTelefonoWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+    // Abrir WhatsApp de forma segura
+    var urlWa = "https://wa.me" + tuTelefonoWhatsApp + "?text=" + encodeURIComponent(mensaje);
     window.open(urlWa, '_blank');
 
-    // Redirigir al Pago
-    setTimeout(() => {
+    // Redirigir al Pago después de 2 segundos
+    setTimeout(function() {
         window.location.href = miLinkDePago;
-    }, 1500);
+    }, 2000);
 }
 </script>
 </body>

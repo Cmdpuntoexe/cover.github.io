@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Venta de Moldes Automotriz</title>
+    <style>
+        :root { --plata: #C0C0C0; --dark: #1a1c1e; --soft-silver: #e5e7eb; --mp-blue: #009EE3; }
+        
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0;
+            padding: 20px;
+            background-color: var(--soft-silver);
+            background-image: url('imajen2.png');
+            background-size: contain;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+        
+        .container { 
+            background: rgba(255, 255, 255, 0.94); 
+            max-width: 900px; 
+            margin: 40px auto; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2); 
+            border-top: 10px solid var(--plata); 
+            text-align: center;
+            backdrop-filter: blur(8px);
+        }
+
+        h2 { color: var(--dark); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; }
+        
+        .contador-moldes { color: #555; font-size: 0.9rem; margin-bottom: 30px; font-style: italic; font-weight: 600; }
+        .numero-destacado { color: #000; font-weight: 900; border-bottom: 2px solid var(--plata); }
+
+        .selector-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 30px; text-align: left; }
+        .field { display: flex; flex-direction: column; }
+        label { font-weight: 700; margin-bottom: 8px; color: #333; font-size: 12px; text-transform: uppercase; }
+        
+        select { 
+            padding: 15px; 
+            border: 2px solid #cbd5e1; 
+            border-radius: 10px; 
+            font-size: 15px; 
+            outline: none; 
+            cursor: pointer; 
+            background: white;
+            transition: all 0.3s; 
+        }
+        select:focus { border-color: var(--plata); box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        
+        .result-box { display: none; text-align: center; padding: 40px 20px; border: 3px solid #eee; border-radius: 25px; background: #fff; margin-top: 20px; animation: slideUp 0.6s ease; }
+        #resTexto { margin: 0; color: var(--dark); font-size: 2.8rem; font-weight: 900; line-height: 1.1; margin-bottom: 10px; }
+        
+        .desc-producto { color: #666; font-weight: 700; margin-bottom: 25px; font-size: 1.1rem; display: block; }
+
+        .btn-pago {
+            display: inline-block;
+            padding: 20px 45px;
+            background-color: var(--mp-blue);
+            color: white;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.2rem;
+            border-radius: 12px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(0, 158, 227, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-pago:hover {
+            transform: translateY(-3px);
+            background-color: #007bb1;
+            box-shadow: 0 15px 25px rgba(0, 158, 227, 0.4);
+        }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) {
+            .selector-grid { grid-template-columns: 1fr; }
+            #resTexto { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>MOLDES - PANEL DE CONTROL</h2>
+    <div class="contador-moldes">
+        Contamos con más de <span id="totalMoldes" class="numero-destacado">...</span> modelos y sus variantes generacionales disponibles.
+    </div>
+    
+    <div class="selector-grid">
+        <div class="field">
+            <label>1. MARCA</label>
+            <select id="marca" onchange="actualizarModelos()">
+                <option value="">-- SELECCIONAR --</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>2. MODELO</label>
+            <select id="modelo" disabled onchange="validar()">
+                <option value="">-- SELECCIONAR --</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>3. AÑO</label>
+            <select id="anio" onchange="validar()">
+                <option value="">-- SELECCIONAR --</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="resultado" class="result-box">
+        <h1 id="resTexto"></h1>
+        <span class="desc-producto">MOLDE FÍSICO EN PAPEL MANTEQUILLA</span>
+        
+        <button class="btn-pago" onclick="irAlPago()">
+            💳 PAGAR CON MERCADO PAGO
+        </button>
+    </div>
+</div>
+
+<script>
+const dbMoldes = {
+    "YUEJIN": ["NJ713"], "SAMSUNG": ["SM3"], "JETOUR": ["X70"], "VOLVO": ["FH", "FM", "V40", "XC60"],
+    "JMC": ["Carrying", "Touring", "Vigus"], "SEAT": ["Ibiza", "León"], "DAEWOO": ["Lanos"],
+    "HINO": ["515", "717"], "GAC": ["GS3", "GS4"], "GREAT WALL": ["Poer", "Safe", "Voleex C30", "Wingle 5", "Wingle 7"],
+    "HAVAL": ["H3", "H5", "Jolion"], "KIA": ["Besta cabina simple", "Carens", "Carnival", "Cerato", "Cerato Koup 2 puertas", "Frontier cabina simple", "Frontier doble cabina", "K3", "K4", "Morning", "Rio", "Rio JB", "Rio 4", "Rio 5", "Rio RS", "Seltos", "Soluto", "Sonet", "Sorento", "Soul", "Sportage"],
+    "HONDA": ["Civic", "CR-X Del Sol", "Integra", "Legend", "WR-V"], "JEEP": ["Cherokee", "Grand Cherokee", "Patriot", "Renegade"],
+    "MAXUS": ["Deliver 9", "G10", "T60", "V80", "V90"], "FIAT": ["500", "Doblo", "Fiorino", "Fullback", "Punto", "Qbo", "Strada"],
+    "DONGFENG": ["Joyear S50 Sedán", "Joyear X3", "SX5", "SX6 (2-2-3)", "SX6 (2-3-2)", "Rich"],
+    "DFSK": ["500", "580", "Camión", "D1", "Truck CS C21"], "FAW": ["Gandola", "R7"],
+    "BMW": ["E30", "Serie 1", "Serie 3", "Serie 5", "X1", "X3", "X5"], "BYD": ["F0", "Yuan Plus"],
+    "CHERY": ["Tiggo 2", "Tiggo 2 Pro", "Tiggo 3", "Tiggo 7 Pro", "Tiggo 8 Pro"], "MG": ["ZS", "ZX"],
+    "MARCOPOLO": ["G7 Viaggio", "Paradiso 1200"], "MERCEDES-BENZ": ["Atego", "C200 Coupe", "Sprinter", "Vito"],
+    "GEELY": ["Azkarra", "City Ray", "CK", "Coolray"], "MAHINDRA": ["Pik Up", "Pik Up Cabina Simple", "Scorpio", "XUV 100", "XUV 500"],
+    "FOTON": ["Midi", "Terracota", "TM3", "TM5"], "MITSUBISHI": ["ASX", "Fuso", "L200 con consola", "L200 sin consola", "Lancer", "Montero", "Montero Sport", "Xpander"],
+    "RAM": ["Caravan", "RAM 700", "RAM 1500", "RAM 2000"], "RENAULT": ["Captur", "Clio", "Duster", "Kwid", "Oroch", "Sandero", "Scenic", "Symbol"],
+    "HYUNDAI": ["Accent", "Atos", "Creta", "Elantra", "Eon", "Galloper", "Grand i10", "H1", "H1 cabina simple", "H100 cabina simple", "H100 doble cabina", "i10", "i20", "Kona", "Porter", "Santa Fe", "Sonata", "Terracan", "Tucson", "Veloster", "Venue", "Veracruz", "Verna"],
+    "SSANGYONG": ["Actyon Sport", "Grand Musso", "Korando", "Rexton", "Stavic", "Tivoli"], "JAC": ["J-2", "J-4", "REIN", "S2", "S-3", "Sunray cabina simple", "T-6", "T-8 Pro", "Urban 1042 Doble Cabina", "X200 Camión"],
+    "VOLKSWAGEN": ["Amarok", "Beetle", "Bora", "Delivery", "Fox", "Gol", "Golf", "Polo", "Saveiro", "T-Cross", "Tiguan", "Transporter", "Vento", "Voyage"],
+    "CHANGAN": ["Alsvin", "CS15", "CS35", "CS55", "CS55 Plus", "CV1", "CX70", "Hunter", "MD201", "MS201", "X7 Plus"],
+    "CITROEN": ["Berlingo", "C3", "Elysee", "Spacetourer"], "FORD": ["Bronco", "Cargo", "Cargo 915", "Ecosport", "Ecosport New", "Escape", "Escort", "Explorer", "F150", "Fiesta Power", "Mustang", "Puma", "Ranger", "Ranger Raptor", "Territory", "Transit"],
+    "NISSAN": ["D21", "Juke", "Kicks", "March", "Navara", "NP300", "NP400", "NV350", "Pathfinder", "Qashqai", "Sentra", "Terrano", "Tiida", "V16", "Versa", "Xtrail"],
+    "MAZDA": ["BT50", "Capella", "CX30", "CX5", "Mazda 3", "Mazda 3 Sport", "Mazda 5", "Mazda 6 Station", "Mazda 6 Sedán", "RX4"],
+    "TOYOTA": ["4Runner", "Aygo", "Camry", "Corolla", "Fortuner", "Hilux", "Land Cruiser", "Prado", "Raize", "RAV4", "Rush", "Tercel", "Urban Cruiser", "Yaris Cross", "Yaris Sport", "Yaris Sedan", "Zelas"],
+    "CHEVROLET": ["Astra", "Aveo", "Bolt", "Camaro", "Captiva", "Chevette", "Colorado", "Corsa", "Cruze", "D-Max", "Groove", "Luv", "Montana", "Monza", "N300 Max", "N400", "NKR Camión", "NQR Camión", "Onix", "Orlando", "Sail", "Sail LTZ", "Silverado", "Sonic", "Spark GT", "Spin", "S10", "Tracker", "Vivant"],
+    "PEUGEOT": ["206", "2008", "301", "307", "3008", "406", "5008", "Boxer", "Boxer Furgón", "Partner", "Rifter", "Tepee", "Traveller", "Xpert", "Xpert cabina simple"],
+    "SUZUKI": ["Alto", "APV Furgón", "Baleno", "Celerio", "Dzire", "Ertiga", "Fronx", "Grand Nomade", "Grand Vitara", "Ignis", "Jimny", "Samurai", "S-Cross", "S-Presso", "Swift", "SX4", "Vitara", "XL7"]
+};
+
+const selM = document.getElementById('marca'), selMod = document.getElementById('modelo'), selA = document.getElementById('anio');
+
+(function init() {
+    let totalModelos = 0;
+    Object.keys(dbMoldes).forEach(marca => totalModelos += dbMoldes[marca].length);
+    const variantesReales = Math.ceil(totalModelos * 1.4);
+    document.getElementById('totalMoldes').innerText = variantesReales;
+
+    Object.keys(dbMoldes).sort().forEach(m => selM.add(new Option(m, m)));
+    for(let y=2026; y>=1980; y--) selA.add(new Option(y, y));
+})();
+
+function actualizarModelos() {
+    const m = selM.value;
+    selMod.innerHTML = '<option value="">-- SELECCIONAR --</option>';
+    if (m) {
+        selMod.disabled = false;
+        [...new Set(dbMoldes[m])].sort().forEach(mod => selMod.add(new Option(mod, mod)));
+    } else { selMod.disabled = true; }
+    validar();
+}
+
+function validar() {
+    const res = document.getElementById('resultado');
+    if (selM.value && selMod.value && selA.value) {
+        res.style.display = 'block';
+        document.getElementById('resTexto').innerText = selM.value + " " + selMod.value + " " + selA.value;
+    } else { res.style.display = 'none'; }
+}
+
+function irAlPago() {
+    // Tu link real de Mercado Pago integrado
+    const miLinkDePago = "https://mpago.la/24rSjw8"; 
+    window.open(miLinkDePago, '_blank');
+}
+</script>
+</body>
+</html>

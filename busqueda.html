@@ -3,82 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venta de Moldes Automotriz</title>
+    <title>Panel de Venta de Moldes Automotriz</title>
     <style>
         :root { --plata: #C0C0C0; --dark: #1a1c1e; --soft-silver: #f3f4f6; --mp-blue: #009EE3; }
+        
         body { 
             font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px;
             background-color: var(--soft-silver); background-image: url('imajen2.png');
             background-size: contain; background-position: center;
             background-attachment: fixed; background-repeat: no-repeat;
         }
+        
         .container { 
-            background: rgba(255, 255, 255, 0.98); max-width: 800px; margin: 20px auto; 
-            padding: 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
+            background: rgba(255, 255, 255, 0.98); 
+            max-width: 800px; margin: 20px auto; padding: 30px; 
+            border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
             border-top: 10px solid var(--plata); text-align: center;
         }
+
         .selector-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 25px; text-align: left; }
         .field { display: flex; flex-direction: column; }
         label { font-weight: 700; margin-bottom: 5px; color: #444; font-size: 11px; text-transform: uppercase; }
-        select, input { padding: 12px; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 14px; outline: none; }
-        .shipping-box { display: none; text-align: left; background: #f1f5f9; padding: 20px; border-radius: 12px; margin-top: 20px; border: 1px solid #cbd5e1; }
+        
+        select, input { 
+            padding: 12px; border: 2px solid #cbd5e1; border-radius: 8px; 
+            font-size: 14px; outline: none; background: white;
+        }
+
+        .shipping-box { 
+            display: none; text-align: left; background: #f1f5f9; 
+            padding: 20px; border-radius: 12px; margin-top: 20px; border: 1px solid #cbd5e1;
+        }
         .shipping-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
         .full-width { grid-column: span 2; }
-        .result-box { display: none; text-align: center; padding: 25px; border: 2px solid #e2e8f0; border-radius: 20px; background: #fff; margin-top: 20px; }
-        
-        /* Botones */
-        .btn-accion {
-            display: inline-block; margin-top: 20px; padding: 18px 30px; 
-            background-color: var(--mp-blue); color: white; font-weight: 900; 
-            font-size: 1.1rem; border-radius: 10px; text-transform: uppercase; 
-            border: none; cursor: pointer; width: 100%;
-        }
-        .btn-whatsapp { background-color: #25d366; margin-bottom: 10px; }
 
-        @media (max-width: 600px) { .selector-grid, .shipping-grid { grid-template-columns: 1fr; } .full-width { grid-column: span 1; } }
+        .result-box { 
+            display: none; text-align: center; padding: 25px; 
+            border: 2px solid #e2e8f0; border-radius: 20px; background: #fff; margin-top: 20px; 
+        }
+
+        /* Botones de Acción */
+        .btn-paso {
+            display: block; width: 100%; padding: 20px; margin-bottom: 15px;
+            border-radius: 12px; border: none; font-weight: 900; font-size: 1.2rem;
+            text-transform: uppercase; cursor: pointer; transition: 0.3s;
+        }
+        
+        .btn-wa { background-color: #25d366; color: white; }
+        .btn-wa:hover { background-color: #1eb954; }
+
+        .btn-pago { 
+            background-color: var(--mp-blue); color: white; 
+            display: none; /* Se activa después del paso 1 */
+        }
+        .btn-pago:hover { background-color: #007bb1; }
+
+        @media (max-width: 600px) {
+            .selector-grid, .shipping-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="margin-top:0;">MOLDES PROFESIONALES</h2>
-    <p style="font-size: 0.9rem; color: #666; font-style: italic;">
-        Contamos con más de <span id="totalMoldes" style="font-weight:bold; color:#000;">...</span> variantes disponibles.
+    <h2 style="margin-top:0; letter-spacing: 2px;">MOLDES PROFESIONALES</h2>
+    <p style="font-size: 0.9rem; color: #666;">
+        Más de <span id="totalMoldes" style="font-weight:bold; color:#000;">...</span> variantes disponibles.
     </p>
     
     <div class="selector-grid">
-        <div class="field"><label>1. MARCA</label><select id="marca" onchange="actualizarModelos()"><option value="">-- MARCA --</option></select></div>
-        <div class="field"><label>2. MODELO</label><select id="modelo" disabled onchange="validarSeleccion()"><option value="">-- MODELO --</option></select></div>
-        <div class="field"><label>3. AÑO</label><select id="anio" onchange="validarSeleccion()"><option value="">-- AÑO --</option></select></div>
+        <div class="field"><label>1. MARCA</label><select id="marca" onchange="actualizarModelos()"><option value="">-- SELECCIONAR --</option></select></div>
+        <div class="field"><label>2. MODELO</label><select id="modelo" disabled onchange="validar()"><option value="">-- SELECCIONAR --</option></select></div>
+        <div class="field"><label>3. AÑO</label><select id="anio" onchange="validar()"><option value="">-- SELECCIONAR --</option></select></div>
     </div>
 
     <div id="envioSeccion" class="shipping-box">
-        <h3 style="margin:0 0 10px 0; font-size: 1rem;">📍 DATOS DE ENVÍO</h3>
+        <h3 style="margin:0 0 10px 0; font-size: 1rem; color: #1a1c1e;">📍 DATOS DE ENVÍO</h3>
         <div class="shipping-grid">
-            <div class="field full-width"><label>Nombre Completo</label><input type="text" id="nombre"></div>
-            <div class="field"><label>Ciudad</label><input type="text" id="ciudad"></div>
-            <div class="field"><label>Comuna</label><input type="text" id="comuna"></div>
-            <div class="field full-width"><label>Dirección Exacta</label><input type="text" id="direccion"></div>
+            <div class="field full-width"><label>Nombre Completo</label><input type="text" id="nombre" placeholder="Nombre de quien recibe"></div>
+            <div class="field"><label>Ciudad</label><input type="text" id="ciudad" placeholder="Ej: Santiago"></div>
+            <div class="field"><label>Comuna</label><input type="text" id="comuna" placeholder="Ej: Las Condes"></div>
+            <div class="field full-width"><label>Dirección Exacta</label><input type="text" id="direccion" placeholder="Calle, número, casa/depto"></div>
         </div>
     </div>
 
     <div id="resultado" class="result-box">
-        <h2 id="resTexto" style="color:var(--mp-blue); margin:0;"></h2>
-        <p style="color:#666; font-weight:bold; margin: 10px 0;">MOLDE FÍSICO EN PAPEL MANTEQUILLA</p>
+        <h2 id="resTexto" style="color:var(--mp-blue); margin:0 0 10px 0; font-size: 1.8rem;"></h2>
+        <p style="font-weight:bold; color:#555; margin-bottom: 20px;">MOLDE FÍSICO - PAPEL MANTEQUILLA</p>
         
-        <!-- Botón de WhatsApp (Paso 1) -->
-        <button id="btnWA" class="btn-accion btn-whatsapp" onclick="enviarWhatsApp()">
-            1. ENVIAR DATOS POR WHATSAPP
+        <!-- PASO 1 -->
+        <button id="step1" class="btn-paso btn-wa" onclick="pasoWhatsApp()">
+            1. REGISTRAR DIRECCIÓN POR WHATSAPP
         </button>
 
-        <!-- Botón de Pago (Paso 2 - Se activa después de enviar WA) -->
-        <button id="btnPago" class="btn-accion" onclick="irAlPago()" style="display:none; background-color: #000;">
-            2. PAGAR AHORA CON MERCADO PAGO
+        <!-- PASO 2 -->
+        <button id="step2" class="btn-paso btn-pago" onclick="pasoPago()">
+            2. FINALIZAR PAGO (MERCADO PAGO)
         </button>
     </div>
 </div>
 
 <script>
+// --- DATOS FINALES ---
+const LINK_PAGO = "https://mpago.la/24rSjw8";
+const TELEFONO = "56961960385";
+
 const dbMoldes = {
     "YUEJIN": ["NJ713"], "SAMSUNG": ["SM3"], "JETOUR": ["X70"], "VOLVO": ["FH", "FM", "V40", "XC60"],
     "JMC": ["Carrying", "Touring", "Vigus"], "SEAT": ["Ibiza", "León"], "DAEWOO": ["Lanos"],
@@ -86,7 +116,7 @@ const dbMoldes = {
     "HAVAL": ["H3", "H5", "Jolion"], "KIA": ["Besta cabina simple", "Carens", "Carnival", "Cerato", "Cerato Koup 2 puertas", "Frontier cabina simple", "Frontier doble cabina", "K3", "K4", "Morning", "Rio", "Rio JB", "Rio 4", "Rio 5", "Rio RS", "Seltos", "Soluto", "Sonet", "Sorento", "Soul", "Sportage"],
     "HONDA": ["Civic", "CR-X Del Sol", "Integra", "Legend", "WR-V"], "JEEP": ["Cherokee", "Grand Cherokee", "Patriot", "Renegade"],
     "MAXUS": ["Deliver 9", "G10", "T60", "V80", "V90"], "FIAT": ["500", "Doblo", "Fiorino", "Fullback", "Punto", "Qbo", "Strada"],
-    "DONGFENG": ["Joyear S50 Sedán", "Joyear X3", "SX5", "SX6 (2-2-3)", "SX6 (2-3-2)", "Rich"],
+    "DONGFENG": ["Joyear S50", "Joyear X3", "SX5", "SX6 (2-2-3)", "SX6 (2-3-2)", "Rich"],
     "DFSK": ["500", "580", "Camión", "D1", "Truck CS C21"], "FAW": ["Gandola", "R7"],
     "BMW": ["E30", "Serie 1", "Serie 3", "Serie 5", "X1", "X3", "X5"], "BYD": ["F0", "Yuan Plus"],
     "CHERY": ["Tiggo 2", "Tiggo 2 Pro", "Tiggo 3", "Tiggo 7 Pro", "Tiggo 8 Pro"], "MG": ["ZS", "ZX"],
@@ -95,7 +125,7 @@ const dbMoldes = {
     "FOTON": ["Midi", "Terracota", "TM3", "TM5"], "MITSUBISHI": ["ASX", "Fuso", "L200 con consola", "L200 sin consola", "Lancer", "Montero", "Montero Sport", "Xpander"],
     "RAM": ["Caravan", "RAM 700", "RAM 1500", "RAM 2000"], "RENAULT": ["Captur", "Clio", "Duster", "Kwid", "Oroch", "Sandero", "Scenic", "Symbol"],
     "HYUNDAI": ["Accent", "Atos", "Creta", "Elantra", "Eon", "Galloper", "Grand i10", "H1", "H1 cabina simple", "H100 cabina simple", "H100 doble cabina", "i10", "i20", "Kona", "Porter", "Santa Fe", "Sonata", "Terracan", "Tucson", "Veloster", "Venue", "Veracruz", "Verna"],
-    "SSANGYONG": ["Actyon Sport", "Grand Musso", "Korando", "Rexton", "Stavic", "Tivoli"], "JAC": ["J-2", "J-4", "REIN", "S2", "S-3", "Sunray cabina simple", "T-6", "T-8 Pro", "Urban 1042 Doble Cabina", "X200 Camión"],
+    "SSANGYONG": ["Actyon Sport", "Grand Musso", "Korando", "Rexton", "Stavic", "Tivoli"], "JAC": ["J-2", "J-4", "REIN", "S2", "S-3", "Sunray cabina simple", "T-6", "T-8 Pro", "Urban 1042", "X200 Camión"],
     "VOLKSWAGEN": ["Amarok", "Beetle", "Bora", "Delivery", "Fox", "Gol", "Golf", "Polo", "Saveiro", "T-Cross", "Tiguan", "Transporter", "Vento", "Voyage"],
     "CHANGAN": ["Alsvin", "CS15", "CS35", "CS55", "CS55 Plus", "CV1", "CX70", "Hunter", "MD201", "MS201", "X7 Plus"],
     "CITROEN": ["Berlingo", "C3", "Elysee", "Spacetourer"], "FORD": ["Bronco", "Cargo", "Cargo 915", "Ecosport", "Ecosport New", "Escape", "Escort", "Explorer", "F150", "Fiesta Power", "Mustang", "Puma", "Ranger", "Ranger Raptor", "Territory", "Transit"],
@@ -110,54 +140,61 @@ const dbMoldes = {
 const selM = document.getElementById('marca'), selMod = document.getElementById('modelo'), selA = document.getElementById('anio');
 
 (function init() {
-    let totalModelos = 0;
-    Object.keys(dbMoldes).forEach(marca => totalModelos += dbMoldes[marca].length);
-    document.getElementById('totalMoldes').innerText = Math.ceil(totalModelos * 1.4);
+    let total = 0;
+    Object.keys(dbMoldes).forEach(m => total += dbMoldes[m].length);
+    document.getElementById('totalMoldes').innerText = Math.ceil(total * 1.4);
     Object.keys(dbMoldes).sort().forEach(m => selM.add(new Option(m, m)));
     for(let y=2026; y>=1980; y--) selA.add(new Option(y, y));
 })();
 
 function actualizarModelos() {
-    const m = selM.value;
-    selMod.innerHTML = '<option value="">-- MODELO --</option>';
-    if (m) {
+    selMod.innerHTML = '<option value="">-- SELECCIONAR --</option>';
+    if (selM.value) {
         selMod.disabled = false;
-        [...new Set(dbMoldes[m])].sort().forEach(mod => selMod.add(new Option(mod, mod)));
+        dbMoldes[selM.value].sort().forEach(mod => selMod.add(new Option(mod, mod)));
     } else { selMod.disabled = true; }
-    validarSeleccion();
+    validar();
 }
 
-function validarSeleccion() {
+function validar() {
     if (selM.value && selMod.value && selA.value) {
         document.getElementById('resultado').style.display = 'block';
         document.getElementById('envioSeccion').style.display = 'block';
         document.getElementById('resTexto').innerText = selM.value + " " + selMod.value + " " + selA.value;
-    } else { 
-        document.getElementById('resultado').style.display = 'none'; 
+    } else {
+        document.getElementById('resultado').style.display = 'none';
         document.getElementById('envioSeccion').style.display = 'none';
     }
 }
 
-function enviarWhatsApp() {
-    var n = document.getElementById('nombre').value;
-    var ci = document.getElementById('ciudad').value;
-    var co = document.getElementById('comuna').value;
-    var d = document.getElementById('direccion').value;
-    var v = selM.value + " " + selMod.value + " " + selA.value;
+function pasoWhatsApp() {
+    const n = document.getElementById('nombre').value;
+    const ci = document.getElementById('ciudad').value;
+    const co = document.getElementById('comuna').value;
+    const d = document.getElementById('direccion').value;
+    const v = selM.value + " " + selMod.value + " " + selA.value;
 
     if (!n || !ci || !co || !d) {
-        alert("Por favor completa los datos de envío.");
+        alert("Completa los datos de envío para continuar.");
         return;
     }
 
-    var texto = "*NUEVA ORDEN DE MOLDE*\nVehículo: " + v + "\n\n*ENVÍO:*\nNombre: " + n + "\nCiudad: " + ci + "\nComuna: " + co + "\nDirección: " + d;
-    window.open("https://wa.me" + encodeURIComponent(texto), "_blank");
+    const txt = `*NUEVA ORDEN DE MOLDE*\nVehículo: ${v}\n\n*ENVÍO:*\nNombre: ${n}\nCiudad: ${ci}\nComuna: ${co}\nDirección: ${d}`;
+    window.open(`https://wa.me{TELEFONO}?text=${encodeURIComponent(txt)}`, '_blank');
     
     // Mostramos el botón de Mercado Pago
-    document.getElementById('btnWA').innerText = "✅ DATOS ENVIADOS";
-    document.getElementById('btnWA').style.backgroundColor = "#888";
-    document.getElementById('btnPago').style.display = "inline-block";
+    document.getElementById('step1').innerText = "✅ DATOS REGISTRADOS";
+    document.getElementById('step1').style.opacity = "0.6";
+    document.getElementById('step2').style.display = "block";
 }
+
+function pasoPago() {
+    window.location.href = LINK_PAGO;
+}
+</script>
+</body>
+</html>
+
 
 function irAlPago() {
     window.location.href = "https://mpago.la";

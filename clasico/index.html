@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseño Clásico - Covering Styles</title>
+    <style>
+        /* BASE ESTILO PREMIUM */
+        body {
+            background: linear-gradient(180deg, #000000 0%, #373d42 100%);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* TARJETA */
+        .tarjeta-detalle {
+            display: flex;
+            width: 95%;
+            max-width: 1150px;
+            height: 650px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.08);
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            animation: aparecer 1s ease-out;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* IMAGEN Y PUNTOS AZULES */
+        .seccion-imagen {
+            flex: 1.5;
+            position: relative;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #pantalla {
+            max-width: 92%;
+            max-height: 85%;
+            object-fit: contain;
+            transition: opacity 0.3s ease;
+        }
+
+        .indicadores {
+            position: absolute;
+            bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .punto {
+            width: 10px;
+            height: 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .punto.activo {
+            background: #2a75bb;
+            transform: scale(1.3);
+            box-shadow: 0 0 15px rgba(42, 117, 187, 0.6);
+        }
+
+        /* SECCIÓN TEXTO */
+        .seccion-texto {
+            flex: 1;
+            padding: 10px 50px 40px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .logo-en-texto {
+            max-width: 180px; 
+            margin-top: 15px;
+            margin-bottom: 15px; 
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
+        }
+
+        .categoria-tag { 
+            color: #2a75bb;
+            font-size: 0.7rem; 
+            letter-spacing: 4px; 
+            text-transform: uppercase; 
+            margin-bottom: 8px; 
+        }
+
+        .titulo-diseno { font-size: 2rem; letter-spacing: 5px; margin: 0 0 15px 0; text-transform: uppercase; font-weight: 900; }
+        .descripcion-tecnica { line-height: 1.6; color: #b8b8b8; font-size: 0.95rem; }
+        
+        .puntos-clave { margin-top: 15px; padding: 0; list-style: none; }
+        .puntos-clave li { margin-bottom: 10px; font-size: 0.85rem; display: flex; gap: 10px; }
+        
+        .puntos-clave li::before { 
+            content: "✓"; 
+            color: #2a75bb;
+            font-weight: bold; 
+        }
+
+        .btn-whatsapp {
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: transparent;
+            color: #2a75bb;
+            border: 2px solid #2a75bb;
+            padding: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.85rem;
+            border-radius: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: 0.3s ease;
+        }
+
+        .btn-whatsapp:hover { 
+            background: #2a75bb; 
+            color: #ffffff; 
+            box-shadow: 0 0 20px rgba(42, 117, 187, 0.4); 
+        }
+
+        .btn-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 45px; height: 45px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .btn-nav:hover { background: #2a75bb; border-color: #2a75bb; }
+
+        @media (max-width: 768px) {
+            .tarjeta-detalle { flex-direction: column; height: auto; margin: 20px 0; }
+            .seccion-imagen { height: 350px; }
+            .seccion-texto { padding: 30px 20px; align-items: center; text-align: center; }
+            .puntos-clave li { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tarjeta-detalle">
+        <div class="seccion-imagen">
+            <button class="btn-nav prev" onclick="mover(-1)">❮</button>
+            <!-- Ruta corregida con / -->
+            <img id="pantalla" src="/clasico1.jpg" alt="Diseño CStyles">
+            <button class="btn-nav next" onclick="mover(1)">❯</button>
+            <div class="indicadores" id="indicadores"></div>
+        </div>
+
+        <div class="seccion-texto">
+            <!-- Ruta del logo corregida con / -->
+            <img src="/imajen2.png" alt="Covering Styles" class="logo-en-texto">
+            <span class="categoria-tag">Línea de Protección Premium</span>
+            <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
+            
+            <div class="descripcion-tecnica">
+                <p>Nuestra propuesta de <strong>Elegancia Minimalista</strong>. Estructura integral que prioriza la estética limpia sin cortes adicionales.</p>
+                <ul class="puntos-clave">
+                    <li><strong>Arquitectura:</strong> Dos laterales robustos de ajuste perfecto.</li>
+                    <li><strong>Núcleo Central:</strong> Pieza ergonómica dividida en dos.</li>
+                    <li><strong>Personalización:</strong> Costuras superiores a elección.</li>
+                    <li><strong>Ingeniería:</strong> Estructura técnica para uso diario.</li>
+                </ul>
+            </div>
+            
+            <a href="https://wa.me" class="btn-whatsapp" target="_blank">
+                CONSULTAR DISEÑO 📱
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Rutas de fotos corregidas con / para GitHub
+        const misFotos = [
+            "/clasico1.jpg", "/clasico2.jpg", "/clasico3.jpg", 
+            "/clasico4.jpg", "/clasico5.jpg", "/clasico6.jpg", 
+            "/clasico7.jpg", "/clasico8.jpg", "/clasico11.jpg", "/clasico10.jpg"
+        ];
+        
+        let i = 0;
+        const img = document.getElementById("pantalla");
+        const contenedorPuntos = document.getElementById("indicadores");
+
+        misFotos.forEach((_, index) => {
+            const punto = document.createElement("div");
+            punto.classList.add("punto");
+            if (index === 0) punto.classList.add("activo");
+            punto.onclick = () => saltarAFoto(index);
+            contenedorPuntos.appendChild(punto);
+        });
+
+        const puntos = document.querySelectorAll(".punto");
+
+        function actualizarPuntos() {
+            puntos.forEach((p, idx) => {
+                p.classList.toggle("activo", idx === i);
+            });
+        }
+
+        function saltarAFoto(index) {
+            i = index;
+            img.style.opacity = 0;
+            setTimeout(() => {
+                img.src = misFotos[i];
+                img.style.opacity = 1;
+                actualizarPuntos();
+            }, 200);
+        }
+
+        function mover(dir) {
+            i = (i + dir + misFotos.length) % misFotos.length;
+            saltarAFoto(i);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Moldes Automotriz</title>
+    <style>
+        :root { --plata: #C0C0C0; --dark: #1a1c1e; --soft-silver: #f3f4f6; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px;
+            background-color: var(--soft-silver); background-image: url('imajen2.png');
+            background-size: contain; background-position: center;
+            background-attachment: fixed; background-repeat: no-repeat;
+        }
+        .container { 
+            background: rgba(255, 255, 255, 0.98); max-width: 800px; margin: 20px auto; 
+            padding: 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
+            border-top: 10px solid var(--plata); text-align: center;
+        }
+        .selector-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 25px; text-align: left; }
+        .field { display: flex; flex-direction: column; }
+        label { font-weight: 700; margin-bottom: 5px; color: #444; font-size: 11px; text-transform: uppercase; }
+        select { padding: 12px; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 14px; outline: none; background: white; cursor: pointer; }
+        
+        /* Caja de resultado simplificada */
+        .result-box { 
+            display: none; text-align: center; padding: 20px; 
+            border: 2px solid var(--plata); border-radius: 15px; 
+            background: #fff; margin-top: 20px; 
+        }
+        .info-texto { font-size: 1.4rem; font-weight: 800; color: var(--dark); margin: 0; text-transform: uppercase; }
+        
+        @media (max-width: 600px) { .selector-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 style="margin-top:0; letter-spacing: 2px;">MOLDES PROFESIONALES</h2>
+    <p style="font-size: 0.9rem; color: #666;">Selección actual:</p>
+    
+    <div class="selector-grid">
+        <div class="field"><label>1. MARCA</label><select id="marca" onchange="actualizarModelos()"><option value="">-- SELECCIONAR --</option></select></div>
+        <div class="field"><label>2. MODELO</label><select id="modelo" disabled onchange="validar()"><option value="">-- SELECCIONAR --</option></select></div>
+        <div class="field"><label>3. AÑO</label><select id="anio" onchange="validar()"><option value="">-- SELECCIONAR --</option></select></div>
+    </div>
+
+    <div id="resultado" class="result-box">
+        <p id="resTexto" class="info-texto"></p>
+    </div>
+</div>
+
+<script>
+// Base de datos (Se mantiene igual)
+const dbMoldes = {
+    "YUEJIN": ["NJ713"], "SAMSUNG": ["SM3"], "JETOUR": ["X70"], "VOLVO": ["FH", "FM", "V40", "XC60"],
+    "JMC": ["Carrying", "Touring", "Vigus"], "SEAT": ["Ibiza", "León"], "DAEWOO": ["Lanos"],
+    "HINO": ["515", "717"], "GAC": ["GS3", "GS4"], "GREAT WALL": ["Poer", "Safe", "Voleex C30", "Wingle 5", "Wingle 7"],
+    "HAVAL": ["H3", "H5", "Jolion"], "KIA": ["Besta cabina simple", "Carens", "Carnival", "Cerato", "Cerato Koup 2 puertas", "Frontier cabina simple", "Frontier doble cabina", "K3", "K4", "Morning", "Rio", "Rio JB", "Rio 4", "Rio 5", "Rio RS", "Seltos", "Soluto", "Sonet", "Sorento", "Soul", "Sportage"],
+    "HONDA": ["Civic", "CR-X Del Sol", "Integra", "Legend", "WR-V"], "JEEP": ["Cherokee", "Grand Cherokee", "Patriot", "Renegade"],
+    "MAXUS": ["Deliver 9", "G10", "T60", "V80", "V90"], "FIAT": ["500", "Doblo", "Fiorino", "Fullback", "Punto", "Qbo", "Strada"],
+    "DONGFENG": ["Joyear S50", "Joyear X3", "SX5", "SX6 (2-2-3)", "SX6 (2-3-2)", "Rich"],
+    "DFSK": ["500", "580", "Camión", "D1", "Truck CS C21"], "FAW": ["Gandola", "R7"],
+    "BMW": ["E30", "Serie 1", "Serie 3", "Serie 5", "X1", "X3", "X5"], "BYD": ["F0", "Yuan Plus"],
+    "CHERY": ["Tiggo 2", "Tiggo 2 Pro", "Tiggo 3", "Tiggo 7 Pro", "Tiggo 8 Pro"], "MG": ["ZS", "ZX"],
+    "MARCOPOLO": ["G7 Viaggio", "Paradiso 1200"], "MERCEDES-BENZ": ["Atego", "C200 Coupe", "Sprinter", "Vito"],
+    "GEELY": ["Azkarra", "City Ray", "CK", "Coolray"], "MAHINDRA": ["Pik Up", "Pik Up Cabina Simple", "Scorpio", "XUV 100", "XUV 500"],
+    "FOTON": ["Midi", "Terracota", "TM3", "TM5"], "MITSUBISHI": ["ASX", "Fuso", "L200 con consola", "L200 sin consola", "Lancer", "Montero", "Montero Sport", "Xpander"],
+    "RAM": ["Caravan", "RAM 700", "RAM 1500", "RAM 2000"], "RENAULT": ["Captur", "Clio", "Duster", "Kwid", "Oroch", "Sandero", "Scenic", "Symbol"],
+    "HYUNDAI": ["Accent", "Atos", "Creta", "Elantra", "Eon", "Galloper", "Grand i10", "H1", "H1 cabina simple", "H100 cabina simple", "H100 doble cabina", "i10", "i20", "Kona", "Porter", "Santa Fe", "Sonata", "Terracan", "Tucson", "Veloster", "Venue", "Veracruz", "Verna"],
+    "SSANGYONG": ["Actyon Sport", "Grand Musso", "Korando", "Rexton", "Stavic", "Tivoli"], "JAC": ["J-2", "J-4", "REIN", "S2", "S-3", "Sunray cabina simple", "T-6", "T-8 Pro", "Urban 1042", "X200 Camión"],
+    "VOLKSWAGEN": ["Amarok", "Beetle", "Bora", "Delivery", "Fox", "Gol", "Golf", "Polo", "Saveiro", "T-Cross", "Tiguan", "Transporter", "Vento", "Voyage"],
+    "CHANGAN": ["Alsvin", "CS15", "CS35", "CS55", "CS55 Plus", "CV1", "CX70", "Hunter", "MD201", "MS201", "X7 Plus"],
+    "CITROEN": ["Berlingo", "C3", "Elysee", "Spacetourer"], "FORD": ["Bronco", "Cargo", "Cargo 915", "Ecosport", "Ecosport New", "Escape", "Escort", "Explorer", "F150", "Fiesta Power", "Mustang", "Puma", "Ranger", "Ranger Raptor", "Territory", "Transit"],
+    "NISSAN": ["D21", "Juke", "Kicks", "March", "Navara", "NP300", "NP400", "NV350", "Pathfinder", "Qashqai", "Sentra", "Terrano", "Tiida", "V16", "Versa", "Xtrail"],
+    "MAZDA": ["BT50", "Capella", "CX30", "CX5", "Mazda 3", "Mazda 3 Sport", "Mazda 5", "Mazda 6 Station", "Mazda 6 Sedán", "RX4"],
+    "TOYOTA": ["4Runner", "Aygo", "Camry", "Corolla", "Fortuner", "Hilux", "Land Cruiser", "Prado", "Raize", "RAV4", "Rush", "Tercel", "Urban Cruiser", "Yaris Cross", "Yaris Sport", "Yaris Sedan", "Zelas"],
+    "CHEVROLET": ["Astra", "Aveo", "Bolt", "Camaro", "Captiva", "Chevette", "Colorado", "Corsa", "Cruze", "D-Max", "Groove", "Luv", "Montana", "Monza", "N300 Max", "N400", "NKR Camión", "NQR Camión", "Onix", "Orlando", "Sail", "Sail LTZ", "Silverado", "Sonic", "Spark GT", "Spin", "S10", "Tracker", "Vivant"],
+    "PEUGEOT": ["206", "2008", "301", "307", "3008", "406", "5008", "Boxer", "Boxer Furgón", "Partner"]
+};
+
+// Cargar marcas
+const marcaSel = document.getElementById('marca');
+Object.keys(dbMoldes).sort().forEach(marca => {
+    marcaSel.add(new Option(marca, marca));
+});
+
+// Años desde 1985 hasta 2025
+const anioSel = document.getElementById('anio');
+for(let a = 2025; a >= 1985; a--) {
+    anioSel.add(new Option(a, a));
+}
+
+function actualizarModelos() {
+    const marca = marcaSel.value;
+    const modeloSel = document.getElementById('modelo');
+    modeloSel.innerHTML = '<option value="">-- SELECCIONAR --</option>';
+    
+    if (marca && dbMoldes[marca]) {
+        dbMoldes[marca].sort().forEach(mod => {
+            modeloSel.add(new Option(mod, mod));
+        });
+        modeloSel.disabled = false;
+    } else {
+        modeloSel.disabled = true;
+    }
+    validar();
+}
+
+function validar() {
+    const m = marcaSel.value;
+    const mod = document.getElementById('modelo').value;
+    const a = anioSel.value;
+    const res = document.getElementById('resultado');
+    const txt = document.getElementById('resTexto');
+
+    if (m && mod && a) {
+        res.style.display = 'block';
+        txt.innerHTML = `${m} <br> ${mod} <br> AÑO: ${a}`;
+    } else {
+        res.style.display = 'none';
+    }
+}
+</script>
+</body>
+</html>

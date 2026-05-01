@@ -76,15 +76,6 @@
             animation: aparecer 1.5s ease-out;
         }
 
-        .brillo-base {
-            position: absolute;
-            width: 600px;
-            height: 150px;
-            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
-            z-index: -1;
-            top: 35%;
-        }
-
         .texto-presentacion h1 {
             font-size: clamp(2rem, 8vw, 3.5rem);
             letter-spacing: 12px;
@@ -155,52 +146,37 @@
             font-weight: 800;
         }
 
-        /* RESPONSIVO PARA MÓVILES */
         @media (max-width: 768px) {
             .menu-superior a span { display: none; }
             .menu-superior a { font-size: 0.7rem; letter-spacing: 1px; }
             .texto-presentacion h1 { letter-spacing: 5px; }
             .lema-principal { font-size: 0.8rem; letter-spacing: 2px; }
             .descripcion-detallada { font-size: 0.95rem; padding: 20px; }
-            .brillo-base { width: 300px; }
         }
     </style>
 </head>
 <body>
 
-<!-- REEMPLAZA TU MENÚ ACTUAL POR ESTE -->
-<header class="menu-superior">
-    <nav>
-        <!-- Apunta a la carpeta /galeria -->
-        <a href="/galeria">Catálogo <span>📂</span></a>
-        
-        <a href="#ofertas">Ofertas <span>🔥</span></a>
-        
-        <!-- ENLACE CORREGIDO: Ahora apunta a tu nueva carpeta 'clasico' -->
-       <a href="/clasico/">Diseño Clásico <span>✨</span></a>
-        
-        <!-- Apunta a la carpeta /plantillas -->
-        <a href="/plantillas">Plantillas <span>📏</span></a>
-        
-        <a href="#contacto">Contacto <span>📞</span></a>
-    </nav>
-</header>
+    <header class="menu-superior">
+        <nav>
+            <a href="/galeria/">Catálogo <span>📂</span></a>
+            <a href="#ofertas">Ofertas <span>🔥</span></a>
+            <a href="/clasico/">Diseño Clásico <span>✨</span></a>
+            <a href="/plantillas/">Plantillas <span>📏</span></a>
+            <a href="#contacto">Contacto <span>📞</span></a>
+        </nav>
+    </header>
 
-
-    <!-- CONTENIDO PRINCIPAL -->
     <div class="hero-presentacion">
-        <div class="brillo-base"></div>
-        
         <div class="texto-presentacion">
             <h1>COVERING STYLES</h1>
             <p class="lema-principal">Protección y Estética Automotriz</p>
             
-            <!-- Botón WhatsApp -->
+            <!-- RECUERDA: Agrega tu número de teléfono después de wa.me/ -->
             <a href="https://wa.me" class="boton-whatsapp-central" target="_blank">
                 <span>📱</span> ESCRÍBENOS POR WHATSAPP
             </a>
 
-            <!-- Descripción Profesional -->
             <div class="descripcion-detallada">
                 <p>Somos un emprendimiento dedicado a la protección y cuidado del interior de los vehículos. 
                 Nos enfocamos en ofrecer soluciones prácticas para quienes usan su auto a diario y quieren mantenerlo en buen estado.</p>
@@ -213,3 +189,4 @@
 
 </body>
 </html>
+

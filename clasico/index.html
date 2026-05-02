@@ -158,7 +158,7 @@ function verGrande(ruta, ref) {
     var mensajeParaChat = "Hola, consulto por el diseño Clasico referencia " + ref;
     
     // Usamos el formato oficial que fuerza el mensaje en el teléfono
-    var urlWa = "https://wa.me/" + miNumero + "&text=" + encodeURIComponent(mensajeParaChat);
+    var urlWa = "https://wa.me" + miNumero + "&text=" + encodeURIComponent(mensajeParaChat);
     
     document.getElementById("waLinkModal").href = urlWa;
     document.body.style.overflow = "hidden";

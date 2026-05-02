@@ -60,7 +60,7 @@
         /* --- SECCIÓN TEXTO PROFESIONAL --- */
         .seccion-texto {
             flex: 0.8; 
-            padding: 30px; 
+            padding: 25px 35px; 
             display: flex; 
             flex-direction: column;
             background: rgba(0, 0, 0, 0.25); 
@@ -72,37 +72,38 @@
 
         .logo-en-texto { 
             width: 100%; 
-            max-width: 240px; 
-            margin-bottom: 15px; 
+            max-width: 230px; 
+            margin-bottom: 10px; 
             filter: drop-shadow(0 0 20px rgba(42, 117, 187, 0.4)); 
         }
 
-        .titulo-diseno { font-size: 1.7rem; letter-spacing: 4px; margin: 5px 0; font-weight: 900; text-transform: uppercase;}
-        .tagline { color: var(--azul-cstyles); font-size: 0.65rem; letter-spacing: 3px; font-weight: bold; margin-bottom: 15px;}
+        .titulo-diseno { font-size: 1.6rem; letter-spacing: 4px; margin: 5px 0; font-weight: 900; text-transform: uppercase;}
+        .tagline { color: var(--azul-cstyles); font-size: 0.6rem; letter-spacing: 3px; font-weight: bold; margin-bottom: 10px;}
 
         .bloque-info {
             text-align: left;
             background: rgba(255,255,255,0.03);
             padding: 15px;
             border-radius: 15px;
-            margin: 15px 0;
+            margin: 10px 0;
             border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .bloque-info p { font-size: 0.8rem; line-height: 1.5; color: #ccc; margin: 0 0 10px 0; }
-        .bloque-info ul { font-size: 0.75rem; color: #b8b8b8; padding-left: 15px; margin: 0; }
-        .bloque-info li { margin-bottom: 5px; }
+        .bloque-info p { font-size: 0.78rem; line-height: 1.5; color: #ccc; margin: 0 0 8px 0; }
+        .bloque-info ul { font-size: 0.72rem; color: #b8b8b8; padding-left: 15px; margin: 0; line-height: 1.4; }
+        .bloque-info li { margin-bottom: 4px; }
 
         .btn-whatsapp-general {
             display: flex; align-items: center; justify-content: center;
             gap: 10px; background: transparent; color: var(--azul-cstyles);
-            border: 1px solid var(--azul-cstyles); padding: 14px;
+            border: 1px solid var(--azul-cstyles); padding: 12px;
             text-decoration: none; font-weight: bold; border-radius: 12px;
             text-transform: uppercase; width: 100%; margin-top: 10px;
+            font-size: 0.8rem;
         }
         .btn-whatsapp-general:hover { background: var(--azul-cstyles); color: white; }
 
-        /* MODAL */
+        /* VENTANA FLOTANTE */
         #modalImg {
             display: none; position: fixed; z-index: 2000;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -134,44 +135,26 @@
     </div>
 
     <div class="tarjeta-detalle">
+        <!-- LADO IZQUIERDO: GALERÍA -->
         <div class="seccion-galeria" id="contenedorGaleria"></div>
 
-<!-- REEMPLAZA TODA LA <div class="seccion-texto"> POR ESTA -->
-<div class="seccion-texto">
-    <img src="/imajen2.png" alt="Covering Styles" class="logo-en-texto">
-    
-    <div class="tagline">LÍNEA ESENCIAL</div>
-    <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
-
-    <div class="bloque-info" style="text-align: left; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px; margin: 10px 0; border: 1px solid rgba(255,255,255,0.05);">
-        <p style="font-size: 0.78rem; line-height: 1.5; color: #ccc; margin: 0 0 8px 0;">
-            Nuestra propuesta más equilibrada. La eficiencia en su valor se basa en una <strong>arquitectura de confección optimizada</strong>, manteniendo la excelencia técnica de la marca.
-        </p>
-        <ul style="font-size: 0.72rem; color: #b8b8b8; padding-left: 15px; margin: 0; line-height: 1.4;">
-            <li style="margin-bottom: 4px;"><strong>Unificación de Estándares:</strong> Empleamos los mismos textiles automotrices de alta densidad utilizados en nuestras líneas de gama superior.</li>
-            <li style="margin-bottom: 4px;"><strong>Ingeniería Sobria:</strong> Una estructura con menor complejidad de cortes permite reducir los tiempos de manufactura sin comprometer la durabilidad.</li>
-            <li style="margin-bottom: 4px;"><strong>Funcionalidad Profesional:</strong> Diseño minimalista enfocado en la protección integral del habitáculo original.</li>
-        </ul>
-    </div>
-    
-    <p style="font-size: 0.7rem; color: #888; font-style: italic; margin-bottom: 10px;">Toca una foto para ver la referencia técnica.</p>
-    
-    <a href="https://wa.me" class="btn-whatsapp-general" target="_blank" style="padding: 12px; font-size: 0.75rem;">
-        CONSULTA PROFESIONAL 📱
-    </a>
-</div>
-
+        <!-- LADO DERECHO: TEXTO -->
+        <div class="seccion-texto">
+            <img src="/imajen2.png" alt="Covering Styles" class="logo-en-texto">
+            
+            <div class="tagline">LÍNEA ESENCIAL</div>
+            <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
 
             <div class="bloque-info">
-                <p>Nuestra opción más equilibrada. Su valor competitivo se basa en la <strong>optimización de confección</strong>, manteniendo la excelencia técnica.</p>
+                <p>Nuestra propuesta más equilibrada. La eficiencia en su valor se basa en una <strong>arquitectura de confección optimizada</strong>, manteniendo la excelencia técnica.</p>
                 <ul>
-                    <li><strong>Misma Calidad:</strong> Usamos los mismos materiales de alta resistencia.</li>
-                    <li><strong>Ingeniería Sobria:</strong> Menos cortes y costuras reducen el tiempo de producción.</li>
-                    <li><strong>Protección Pura:</strong> Ideal para un estilo discreto y profesional.</li>
+                    <li><strong>Unificación de Estándares:</strong> Empleamos los mismos textiles automotrices de alta densidad.</li>
+                    <li><strong>Ingeniería Sobria:</strong> Una estructura con menor complejidad de cortes permite reducir tiempos de manufactura.</li>
+                    <li><strong>Funcionalidad Profesional:</strong> Diseño minimalista enfocado en la protección integral del habitáculo original.</li>
                 </ul>
             </div>
             
-            <p style="font-size: 0.75rem; color: #888; font-style: italic; margin-bottom: 15px;">Toca una foto para ver la referencia técnica.</p>
+            <p style="font-size: 0.7rem; color: #888; font-style: italic; margin-bottom: 10px;">Toca una foto para ver la referencia técnica.</p>
             
             <a href="https://wa.me" class="btn-whatsapp-general" target="_blank">CONSULTA PROFESIONAL 📱</a>
         </div>

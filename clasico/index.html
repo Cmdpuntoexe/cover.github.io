@@ -153,10 +153,14 @@ function verGrande(ruta, ref) {
     document.getElementById("imgGrande").src = ruta;
     document.getElementById("modalRef").innerText = ref;
     
-    // El enlace más básico posible
-    var link = "https://wa.me" + ref;
+    // Texto simple sin tildes ni símbolos raros para asegurar compatibilidad
+    var miNumero = "56961960385";
+    var mensajeParaChat = "Hola, consulto por el diseño Clasico referencia " + ref;
     
-    document.getElementById("waLinkModal").href = link;
+    // Usamos el formato oficial que fuerza el mensaje en el teléfono
+    var urlWa = "https://whatsapp.com" + miNumero + "&text=" + encodeURIComponent(mensajeParaChat);
+    
+    document.getElementById("waLinkModal").href = urlWa;
     document.body.style.overflow = "hidden";
 }
 

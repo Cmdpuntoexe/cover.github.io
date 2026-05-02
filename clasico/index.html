@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diseño Clásico - Galería Completa</title>
+    <title>Diseño Clásico - Referencias</title>
     <style>
         :root { --azul-cstyles: #2a75bb; }
         
@@ -42,8 +41,8 @@
         .tarjeta-detalle {
             display: flex;
             width: 95%;
-            max-width: 1200px;
-            height: 80vh;
+            max-width: 1250px;
+            height: 85vh;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 25px;
             backdrop-filter: blur(15px);
@@ -52,38 +51,57 @@
             box-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
-        /* GALERÍA DE IMÁGENES (LADO IZQUIERDO) */
         .seccion-galeria {
-            flex: 1.5;
+            flex: 1.6;
             background: rgba(0,0,0,0.2);
-            padding: 20px;
-            overflow-y: auto; /* Scroll vertical para ver todas las fotos */
+            padding: 25px;
+            overflow-y: auto;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
             align-content: start;
         }
 
-        /* Personalización del scrollbar */
-        .seccion-galeria::-webkit-scrollbar { width: 6px; }
-        .seccion-galeria::-webkit-scrollbar-thumb { background: var(--azul-cstyles); border-radius: 10px; }
+        /* Estilo del contenedor de cada foto para el número */
+        .contenedor-foto {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease;
+        }
+        .contenedor-foto:hover {
+            transform: scale(1.03);
+            border-color: var(--azul-cstyles);
+        }
 
         .foto-item {
             width: 100%;
-            border-radius: 12px;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: zoom-in;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .foto-item:hover {
-            transform: scale(1.05);
-            border-color: var(--azul-cstyles);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
         }
 
-        /* SECCIÓN TEXTO (LADO DERECHO) */
+        /* Etiqueta de referencia (ID) */
+        .ref-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(42, 117, 187, 0.9); /* Azul de tu logo */
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            pointer-events: none;
+        }
+
         .seccion-texto {
-            flex: 0.8;
+            flex: 0.7;
             padding: 40px;
             display: flex;
             flex-direction: column;
@@ -91,26 +109,12 @@
             border-left: 1px solid rgba(255,255,255,0.05);
         }
 
-        .logo-en-texto {
-            max-width: 180px; 
-            margin-bottom: 25px; 
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
-        }
-
-        .categoria-tag { 
-            color: var(--azul-cstyles);
-            font-size: 0.7rem; 
-            letter-spacing: 4px; 
-            text-transform: uppercase; 
-            margin-bottom: 10px; 
-        }
-
-        .titulo-diseno { font-size: 2.2rem; letter-spacing: 5px; margin: 0 0 20px 0; text-transform: uppercase; font-weight: 900; }
-        
-        .descripcion-tecnica p { line-height: 1.6; color: #b8b8b8; font-size: 0.95rem; margin-bottom: 25px; }
+        .logo-en-texto { max-width: 160px; margin-bottom: 25px; }
+        .categoria-tag { color: var(--azul-cstyles); font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 10px; }
+        .titulo-diseno { font-size: 2rem; letter-spacing: 4px; margin: 0 0 20px 0; text-transform: uppercase; font-weight: 900; }
         
         .puntos-clave { margin: 0; padding: 0; list-style: none; }
-        .puntos-clave li { margin-bottom: 12px; font-size: 0.9rem; display: flex; gap: 12px; align-items: center; }
+        .puntos-clave li { margin-bottom: 12px; font-size: 0.85rem; display: flex; gap: 10px; align-items: center; color: #ccc; }
         .puntos-clave li::before { content: "✓"; color: var(--azul-cstyles); font-weight: bold; }
 
         .btn-whatsapp {
@@ -122,48 +126,40 @@
             background: transparent;
             color: var(--azul-cstyles);
             border: 2px solid var(--azul-cstyles);
-            padding: 18px;
+            padding: 16px;
             text-decoration: none;
             font-weight: bold;
-            border-radius: 15px;
+            border-radius: 12px;
             text-transform: uppercase;
             transition: 0.3s;
         }
+        .btn-whatsapp:hover { background: var(--azul-cstyles); color: white; box-shadow: 0 0 30px rgba(42, 117, 187, 0.4); }
 
-        .btn-whatsapp:hover { 
-            background: var(--azul-cstyles); 
-            color: #ffffff; 
-            box-shadow: 0 0 30px rgba(42, 117, 187, 0.4); 
-        }
-
-        /* RESPONSIVO */
         @media (max-width: 900px) {
             .tarjeta-detalle { flex-direction: column; height: auto; margin: 80px 20px 20px; }
-            .seccion-galeria { height: 400px; grid-template-columns: repeat(2, 1fr); }
-            .seccion-texto { border-left: none; border-top: 1px solid rgba(255,255,255,0.1); }
+            .seccion-galeria { height: 400px; }
         }
     </style>
 </head>
 <body>
 
-    <a href="/galeria/" class="btn-volver">❮ Volver al Catálogo</a>
+    <a href="../galeria/" class="btn-volver">❮ Volver al Catálogo</a>
 
     <div class="tarjeta-detalle">
-        <!-- AQUÍ SE CARGAN TODAS LAS FOTOS AUTOMÁTICAMENTE -->
         <div class="seccion-galeria" id="contenedorGaleria"></div>
 
         <div class="seccion-texto">
-            <img src="/imajen2.png" alt="Covering Styles" class="logo-en-texto">
-            <span class="categoria-tag">Línea de Protección Premium</span>
+            <img src="../imajen2.png" alt="Covering Styles" class="logo-en-texto">
+            <span class="categoria-tag">Línea Premium</span>
             <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
             
             <div class="descripcion-tecnica">
-                <p>Nuestra propuesta de <strong>Elegancia Minimalista</strong>. Estructura integral que prioriza la estética limpia sin cortes adicionales.</p>
+                <p style="font-size: 0.9rem; line-height: 1.6; color: #aaa;">Indica el código de referencia (ej: <strong>CL-01</strong>) al realizar tu consulta.</p>
                 <ul class="puntos-clave">
-                    <li><strong>Arquitectura:</strong> Dos laterales de ajuste perfecto.</li>
-                    <li><strong>Núcleo Central:</strong> Pieza ergonómica dividida.</li>
-                    <li><strong>Personalización:</strong> Costuras a elección.</li>
-                    <li><strong>Ingeniería:</strong> Estructura técnica para uso diario.</li>
+                    <li>Ajuste perfecto a medida</li>
+                    <li>Ergonomía superior</li>
+                    <li>Costuras reforzadas</li>
+                    <li>Material de alto tráfico</li>
                 </ul>
             </div>
             
@@ -174,23 +170,38 @@
     </div>
 
     <script>
-        // LISTA DE TUS FOTOS
+        // LISTA DE FOTOS
         const misFotos = [
-            "/clasico1.jpg", "/clasico2.jpg", "/clasico3.jpg", 
-            "/clasico4.jpg", "/clasico5.jpg", "/clasico6.jpg", 
-            "/clasico7.jpg", "/clasico8.jpg", "/clasico11.jpg", 
-            "/clasico10.jpg", "/clasico12.png", "/clasico13.png", "/clasico14.png"
+            "../clasico1.jpg", "../clasico2.jpg", "../clasico3.jpg", 
+            "../clasico4.jpg", "../clasico5.jpg", "../clasico6.jpg", 
+            "../clasico7.jpg", "../clasico8.jpg", "../clasico11.jpg", 
+            "../clasico10.jpg", "../clasico12.png", "../clasico13.png", "../clasico14.png"
         ];
 
         const galeria = document.getElementById("contenedorGaleria");
 
-        // Generar las imágenes en la cuadrícula
-        misFotos.forEach(ruta => {
+        misFotos.forEach((ruta, index) => {
+            // Crear el contenedor de la foto
+            const div = document.createElement("div");
+            div.className = "contenedor-foto";
+
+            // Crear la imagen
             const img = document.createElement("img");
             img.src = ruta;
             img.className = "foto-item";
-            img.alt = "Detalle Diseño Clásico";
-            galeria.appendChild(img);
+            img.onerror = function() { div.style.display = 'none'; }; // Oculta si no carga
+
+            // Crear la etiqueta de referencia (CL-01, CL-02...)
+            const tag = document.createElement("div");
+            tag.className = "ref-tag";
+            // El index + 1 es para que empiece en 01 y no en 00
+            const numero = (index + 1).toString().padStart(2, '0');
+            tag.innerText = `CL-${numero}`;
+
+            // Armar el conjunto
+            div.appendChild(img);
+            div.appendChild(tag);
+            galeria.appendChild(div);
         });
     </script>
 </body>

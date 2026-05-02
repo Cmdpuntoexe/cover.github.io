@@ -96,6 +96,7 @@
             text-transform: uppercase; width: 100%; margin-top: 10px;
             font-size: 0.8rem;
         }
+        .btn-whatsapp-general:hover { background: var(--azul-cstyles); color: white; }
 
         #modalImg {
             display: none; position: fixed; z-index: 2000;
@@ -109,26 +110,10 @@
             padding: 12px 30px; border-radius: 50px; font-weight: bold; margin-top: 15px;
         }
 
-        /* --- AJUSTE MÓVIL: CAMBIO DE ORDEN --- */
         @media (max-width: 900px) {
-            .tarjeta-detalle { 
-                flex-direction: column; 
-                height: auto; 
-                margin-top: 80px; 
-            }
-            .seccion-texto { 
-                order: 1; /* Esto lo pone ARRIBA en el teléfono */
-                border-left: none; 
-                border-bottom: 1px solid rgba(255,255,255,0.1); 
-                padding: 40px 20px; 
-            }
-            .seccion-galeria { 
-                order: 2; /* Esto pone las FOTOS abajo */
-                height: auto; 
-                grid-template-columns: repeat(2, 1fr); 
-                overflow: visible; 
-            }
-            .logo-en-texto { max-width: 200px; }
+            .tarjeta-detalle { flex-direction: column; height: auto; margin-top: 80px; }
+            .seccion-texto { order: 1; border-left: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 40px 20px; }
+            .seccion-galeria { order: 2; height: auto; grid-template-columns: repeat(2, 1fr); overflow: visible; }
         }
     </style>
 </head>
@@ -140,6 +125,7 @@
         <span style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;" onclick="cerrarVista()">&times;</span>
         <img class="modal-contenido" id="imgGrande">
         <div id="modalRef" style="background:var(--azul-cstyles); padding:8px 20px; border-radius:50px; font-weight:900; margin-top:10px;"></div>
+        <!-- Link de WhatsApp Dinámico para modal -->
         <a href="#" id="waLinkModal" class="btn-wa-modal" target="_blank">SOLICITAR DISEÑO 📱</a>
     </div>
 
@@ -150,14 +136,15 @@
             <div class="tagline">LÍNEA ESENCIAL</div>
             <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
             <div class="bloque-info">
-                <p>Nuestra propuesta más equilibrada. La eficiencia en su valor se basa en una <strong>arquitectura de confección optimizada</strong>, manteniendo la excelencia técnica.</p>
+                <p>Nuestra propuesta más equilibrada. La eficiencia en su valor se basa en una <strong>arquitectura de confección optimizada</strong>, manteniendo la excelencia técnica de la marca.</p>
                 <ul>
-                    <li><strong>Unificación de Estándares:</strong> Empleamos los mismos textiles automotrices de alta densidad.</li>
-                    <li><strong>Ingeniería Sobria:</strong> Una estructura con menor complejidad de cortes permite reducir tiempos de manufactura.</li>
+                    <li><strong>Unificación de Estándares:</strong> Empleamos los mismos textiles automotrices de alta densidad utilizados en nuestras líneas de gama superior.</li>
+                    <li><strong>Ingeniería Sobria:</strong> Una estructura con menor complejidad de cortes permite reducir tiempos de manufactura sin comprometer la durabilidad.</li>
                     <li><strong>Funcionalidad Profesional:</strong> Diseño minimalista enfocado en la protección integral del habitáculo original.</li>
                 </ul>
             </div>
             <p style="font-size: 0.7rem; color: #888; font-style: italic; margin-bottom: 10px;">Toca una foto para ver la referencia técnica.</p>
+            <!-- Link de WhatsApp corregido para el botón general -->
             <a href="https://wa.me" class="btn-whatsapp-general" target="_blank">CONSULTA PROFESIONAL 📱</a>
         </div>
     </div>
@@ -167,7 +154,7 @@
             "/clasico1.jpg", "/clasico2.jpg", "/clasico3.jpg", 
             "/clasico4.jpg", "/clasico5.jpg", "/clasico6.jpg", 
             "/clasico7.jpg", "/clasico8.jpg", "/Clasico11.jpg", 
-            "/clasico10.jpg", "/clasico12.png", "/clasico14.png"
+            "/clasico10.jpg", "/clasico12.jpg", "/clasico14.jpg"
         ];
 
         const galeria = document.getElementById("contenedorGaleria");
@@ -189,21 +176,16 @@
             galeria.appendChild(div);
         });
 
-function verGrande(ruta, ref) {
-    document.getElementById("modalImg").style.display = "flex";
-    document.getElementById("imgGrande").src = ruta;
-    document.getElementById("modalRef").innerText = ref;
-    
-    // MENSAJE AUTOMÁTICO
-    const texto = "Hola, me interesa el Diseño Clásico con referencia: " + ref;
-    const mensajeCifrado = encodeURIComponent(texto);
-    
-    // EL ENLACE CON TU NÚMERO REAL
-    document.getElementById("waLinkModal").href = "https://wa.me" + mensajeCifrado;
-    
-    document.body.style.overflow = "hidden";
-}
-
+        function verGrande(ruta, ref) {
+            document.getElementById("modalImg").style.display = "flex";
+            document.getElementById("imgGrande").src = ruta;
+            document.getElementById("modalRef").innerText = ref;
+            
+            // Corrección del enlace para que WhatsApp no dé error
+            const mensaje = encodeURIComponent("Hola, me interesa el Diseño Clásico con referencia: " + ref);
+            document.getElementById("waLinkModal").href = "https://wa.me" + miNumero + "?text=" + mensaje;
+            
+            document.body.style.overflow = "hidden";
         }
 
         function cerrarVista() {

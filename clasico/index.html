@@ -28,10 +28,10 @@
 
         .tarjeta-detalle {
             display: flex; width: 95%; max-width: 1250px; 
-            height: 85vh; 
+            height: 88vh; 
             background: rgba(255, 255, 255, 0.03); border-radius: 25px;
             backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08);
-            margin: 50px auto; overflow: hidden;
+            margin: 40px auto; overflow: hidden;
             box-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
@@ -57,78 +57,52 @@
             font-size: 0.6rem; font-weight: 600;
         }
 
-<!-- Busca la clase .seccion-texto en tu código y reemplaza su contenido por este -->
-<div class="seccion-texto">
-    <img src="../imajen2.png" alt="Covering Styles" class="logo-en-texto">
-    
-    <div class="tagline">LÍNEA ESENCIAL</div>
-    <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
-
-    <!-- BLOQUE INFORMATIVO PROFESIONAL -->
-    <div class="info-producto" style="text-align: left; margin: 20px 0;">
-        <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc; margin-bottom: 15px;">
-            El <strong>Diseño Clásico</strong> representa nuestra opción más equilibrada. Su valor competitivo no se debe a una reducción en la calidad, sino a una <strong>optimización en la ingeniería de confección</strong>.
-        </p>
-        
-        <ul style="font-size: 0.8rem; color: #b8b8b8; padding-left: 15px; line-height: 1.5;">
-            <li style="margin-bottom: 8px;"><strong>Misma Materia Prima:</strong> Utilizamos los mismos estándares de resistencia y durabilidad que en nuestras líneas de alta gama.</li>
-            <li style="margin-bottom: 8px;"><strong>Estética Sobria:</strong> Al contar con una estructura de menos cortes y costuras simplificadas, reducimos los tiempos de producción.</li>
-            <li style="margin-bottom: 8px;"><strong>Funcionalidad Pura:</strong> Ideal para quienes buscan proteger el interior original con un estilo discreto y profesional.</li>
-        </ul>
-    </div>
-    
-    <p class="instruccion" style="font-style: italic; font-size: 0.75rem; color: var(--azul-cstyles);">
-        Toca una imagen para ver la referencia técnica.
-    </p>
-    
-    <a href="https://wa.me" class="btn-whatsapp-general" target="_blank">
-        CONSULTA PROFESIONAL 📱
-    </a>
-</div>
-
+        /* --- SECCIÓN TEXTO PROFESIONAL --- */
+        .seccion-texto {
+            flex: 0.8; 
+            padding: 30px; 
+            display: flex; 
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.25); 
+            border-left: 1px solid rgba(255,255,255,0.05);
+            align-items: center; 
+            text-align: center;
+            justify-content: center;
         }
 
         .logo-en-texto { 
             width: 100%; 
-            max-width: 260px; /* Ajusté tamaño para equilibrio */
-            margin-bottom: 10px; /* Reduje espacio bajo el logo */
+            max-width: 240px; 
+            margin-bottom: 15px; 
             filter: drop-shadow(0 0 20px rgba(42, 117, 187, 0.4)); 
         }
 
-        .titulo-diseno { 
-            font-size: 1.8rem; 
-            letter-spacing: 4px; 
-            margin: 10px 0 5px 0; /* Espacio mínimo */
-            font-weight: 900; 
-            text-transform: uppercase;
+        .titulo-diseno { font-size: 1.7rem; letter-spacing: 4px; margin: 5px 0; font-weight: 900; text-transform: uppercase;}
+        .tagline { color: var(--azul-cstyles); font-size: 0.65rem; letter-spacing: 3px; font-weight: bold; margin-bottom: 15px;}
+
+        .bloque-info {
+            text-align: left;
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .tagline {
-            color: var(--azul-cstyles); 
-            font-size: 0.65rem; 
-            letter-spacing: 3px; 
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .instruccion {
-            font-size: 0.85rem; 
-            color: #b8b8b8; 
-            margin: 0 0 30px 0; 
-            line-height: 1.4;
-        }
+        .bloque-info p { font-size: 0.8rem; line-height: 1.5; color: #ccc; margin: 0 0 10px 0; }
+        .bloque-info ul { font-size: 0.75rem; color: #b8b8b8; padding-left: 15px; margin: 0; }
+        .bloque-info li { margin-bottom: 5px; }
 
         .btn-whatsapp-general {
             display: flex; align-items: center; justify-content: center;
             gap: 10px; background: transparent; color: var(--azul-cstyles);
             border: 1px solid var(--azul-cstyles); padding: 14px;
             text-decoration: none; font-weight: bold; border-radius: 12px;
-            text-transform: uppercase; width: 100%;
-            transition: 0.3s;
+            text-transform: uppercase; width: 100%; margin-top: 10px;
         }
         .btn-whatsapp-general:hover { background: var(--azul-cstyles); color: white; }
 
-        /* MODAL / LIGHTBOX */
+        /* MODAL */
         #modalImg {
             display: none; position: fixed; z-index: 2000;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -150,7 +124,7 @@
 </head>
 <body>
 
-    <a href="../galeria/" class="btn-volver">❮ Volver</a>
+    <a href="/galeria/" class="btn-volver">❮ Volver</a>
 
     <div id="modalImg">
         <span style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;" onclick="cerrarVista()">&times;</span>
@@ -163,24 +137,31 @@
         <div class="seccion-galeria" id="contenedorGaleria"></div>
 
         <div class="seccion-texto">
-            <img src="../imajen2.png" alt="Covering Styles" class="logo-en-texto">
-            
-            <div class="tagline">LÍNEA PREMIUM</div>
-            
+            <img src="/imajen2.png" alt="Covering Styles" class="logo-en-texto">
+            <div class="tagline">LÍNEA ESENCIAL</div>
             <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
+
+            <div class="bloque-info">
+                <p>Nuestra opción más equilibrada. Su valor competitivo se basa en la <strong>optimización de confección</strong>, manteniendo la excelencia técnica.</p>
+                <ul>
+                    <li><strong>Misma Calidad:</strong> Usamos los mismos materiales de alta resistencia.</li>
+                    <li><strong>Ingeniería Sobria:</strong> Menos cortes y costuras reducen el tiempo de producción.</li>
+                    <li><strong>Protección Pura:</strong> Ideal para un estilo discreto y profesional.</li>
+                </ul>
+            </div>
             
-            <p class="instruccion">Toca una foto para ampliarla <br> y ver su referencia.</p>
+            <p style="font-size: 0.75rem; color: #888; font-style: italic; margin-bottom: 15px;">Toca una foto para ver la referencia técnica.</p>
             
-            <a href="https://wa.me" class="btn-whatsapp-general" target="_blank">CONSULTA GENERAL 📱</a>
+            <a href="https://wa.me" class="btn-whatsapp-general" target="_blank">CONSULTA PROFESIONAL 📱</a>
         </div>
     </div>
 
     <script>
         const misFotos = [
-            "../clasico1.jpg", "../clasico2.jpg", "../clasico3.jpg", 
-            "../clasico4.jpg", "../clasico5.jpg", "../clasico6.jpg", 
-            "../clasico7.jpg", "../clasico8.jpg", "../Clasico11.jpg", 
-            "../clasico10.jpg", "../clasico12.jpg", "../clasico14.jpg"
+            "/clasico1.jpg", "/clasico2.jpg", "/clasico3.jpg", 
+            "/clasico4.jpg", "/clasico5.jpg", "/clasico6.jpg", 
+            "/clasico7.jpg", "/clasico8.jpg", "/Clasico11.jpg", 
+            "/clasico10.jpg", "/clasico12.jpg", "/clasico14.jpg"
         ];
 
         const galeria = document.getElementById("contenedorGaleria");

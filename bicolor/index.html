@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Diseño Bicolor - CStyles</title>
+    <style>
+        :root { --azul-cstyles: #2a75bb; --wa-green: #25d366; }
+        
+        body {
+            background: linear-gradient(180deg, #000000 0%, #373d42 100%);
+            background-attachment: fixed;
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-y: auto; 
+        }
+
+        .btn-volver {
+            position: fixed; top: 15px; left: 15px;
+            color: #b8b8b8; text-decoration: none;
+            font-size: 0.7rem; letter-spacing: 2px;
+            text-transform: uppercase; border: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 15px; border-radius: 5px;
+            z-index: 100; background: rgba(0,0,0,0.7);
+        }
+
+        .tarjeta-detalle {
+            display: flex; width: 95%; max-width: 1250px; 
+            height: 88vh; 
+            background: rgba(255, 255, 255, 0.03); border-radius: 25px;
+            backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08);
+            margin: 40px auto; overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+        }
+
+        .seccion-galeria {
+            flex: 1.6; background: rgba(0,0,0,0.2);
+            padding: 25px; overflow-y: auto;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px; align-content: start;
+        }
+
+        .contenedor-foto {
+            position: relative; width: 100%; height: 160px;
+            border-radius: 10px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            cursor: pointer;
+        }
+        .foto-item { width: 100%; height: 100%; object-fit: cover; }
+
+        .ref-tag {
+            position: absolute; top: 8px; left: 8px;
+            background: var(--azul-cstyles); color: white;
+            padding: 2px 8px; border-radius: 4px;
+            font-size: 0.6rem; font-weight: 600;
+        }
+
+        .seccion-texto {
+            flex: 0.8; 
+            padding: 25px 35px; 
+            display: flex; 
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.25); 
+            border-left: 1px solid rgba(255,255,255,0.05);
+            align-items: center; 
+            text-align: center;
+            justify-content: center;
+        }
+
+        .logo-en-texto { 
+            width: 100%; 
+            max-width: 230px; 
+            margin-bottom: 10px; 
+            filter: drop-shadow(0 0 20px rgba(42, 117, 187, 0.4)); 
+        }
+
+        .titulo-diseno { font-size: 1.6rem; letter-spacing: 4px; margin: 5px 0; font-weight: 900; text-transform: uppercase;}
+        .tagline { color: var(--azul-cstyles); font-size: 0.6rem; letter-spacing: 3px; font-weight: bold; margin-bottom: 10px;}
+
+        .bloque-info {
+            text-align: left;
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 10px 0;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .bloque-info p { font-size: 0.78rem; line-height: 1.5; color: #ccc; margin: 0 0 8px 0; }
+        .bloque-info ul { font-size: 0.72rem; color: #b8b8b8; padding-left: 15px; margin: 0; line-height: 1.4; }
+        .bloque-info li { margin-bottom: 4px; }
+
+        .btn-whatsapp-general {
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px; background: transparent; color: var(--azul-cstyles);
+            border: 1px solid var(--azul-cstyles); padding: 12px;
+            text-decoration: none; font-weight: bold; border-radius: 12px;
+            text-transform: uppercase; width: 100%; margin-top: 10px;
+            font-size: 0.8rem;
+        }
+        .btn-whatsapp-general:hover { background: var(--azul-cstyles); color: white; }
+
+        #modalImg {
+            display: none; position: fixed; z-index: 2000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            flex-direction: column; justify-content: center; align-items: center;
+        }
+        .modal-contenido { max-width: 90%; max-height: 70%; border-radius: 10px; }
+        .btn-wa-modal {
+            background: var(--wa-green); color: white; text-decoration: none;
+            padding: 12px 30px; border-radius: 50px; font-weight: bold; margin-top: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .tarjeta-detalle { flex-direction: column; height: auto; margin-top: 80px; }
+            .seccion-texto { order: 1; border-left: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 40px 20px; }
+            .seccion-galeria { order: 2; height: auto; grid-template-columns: repeat(2, 1fr); overflow: visible; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="/galeria/" class="btn-volver">❮ Volver</a>
+
+    <div id="modalImg">
+        <span style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;" onclick="cerrarVista()">&times;</span>
+        <img class="modal-contenido" id="imgGrande">
+        <div id="modalRef" style="background:var(--azul-cstyles); padding:8px 20px; border-radius:50px; font-weight:900; margin-top:10px;"></div>
+        <a href="#" id="waLinkModal" class="btn-wa-modal" target="_blank">SOLICITAR DISEÑO 📱</a>
+    </div>
+
+    <div class="tarjeta-detalle">
+        <div class="seccion-galeria" id="contenedorGaleria"></div>
+
+        <div class="seccion-texto">
+            <img src="/imajen2.png" alt="Covering Styles" class="logo-en-texto">
+            
+            <div class="tagline">LÍNEA DINÁMICA</div>
+            <h2 class="titulo-diseno">DISEÑO BICOLOR</h2>
+
+            <div class="bloque-info">
+                <p>Nuestra línea de alto impacto visual. El valor de este modelo responde a una <strong>arquitectura de ensamblaje multi-panel</strong>, diseñada para quienes buscan personalización total.</p>
+                <ul>
+                    <li><strong>Complejidad Técnica:</strong> Requiere una manufactura seccionada con mayor cantidad de cortes y uniones precisas.</li>
+                    <li><strong>Contraste Premium:</strong> Integración de dos textiles de alta densidad para generar dinamismo y profundidad estética.</li>
+                    <li><strong>Acabado Deportivo:</strong> Estructura ergonómica resaltada por costuras de contraste a elección.</li>
+                </ul>
+            </div>
+            
+            <p style="font-size: 0.7rem; color: #888; font-style: italic; margin-bottom: 10px;">Toca una foto para ver la referencia técnica.</p>
+            
+            <a href="https://whatsapp.com" class="btn-whatsapp-general" target="_blank">CONSULTA PROFESIONAL 📱</a>
+        </div>
+    </div>
+
+<script>
+    // LISTA DE FOTOS PARA BICOLOR (Asegúrate de que los nombres coincidan en tu GitHub)
+    const misFotos = [
+        "/bicolor1.jpg", "/bicolor2.jpg", "/bicolor3.jpg", 
+        "/bicolor4.jpg", "/bicolor5.jpg", "/bicolor6.jpg"
+    ];
+
+    const galeria = document.getElementById("contenedorGaleria");
+
+    misFotos.forEach((ruta, index) => {
+        const div = document.createElement("div");
+        div.className = "contenedor-foto";
+        // Referencia BI para Bicolor
+        const ref = "BI-" + (index + 1).toString().padStart(2, '0');
+        div.onclick = function() { verGrande(ruta, ref); };
+
+        const img = document.createElement("img");
+        img.src = ruta;
+        img.className = "foto-item";
+
+        const tag = document.createElement("div");
+        tag.className = "ref-tag";
+        tag.innerText = ref;
+
+        div.appendChild(img);
+        div.appendChild(tag);
+        galeria.appendChild(div);
+    });
+
+    function verGrande(ruta, ref) {
+        document.getElementById("modalImg").style.display = "flex";
+        document.getElementById("imgGrande").src = ruta;
+        document.getElementById("modalRef").innerText = ref;
+        
+        var miNumero = "56961960385";
+        var mensajeParaChat = "Hola CStyles, me interesa el diseño Bicolor con referencia: " + ref;
+        var urlFinal = "https://whatsapp.com" + miNumero + "&text=" + encodeURIComponent(mensajeParaChat);
+        
+        document.getElementById("waLinkModal").href = urlFinal;
+        document.body.style.overflow = "hidden";
+    }
+
+    function cerrarVista() {
+        document.getElementById("modalImg").style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+</script>
+</body>
+</html>

@@ -26,15 +26,15 @@
             left: 20px;
             color: #b8b8b8;
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 10px 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 15px;
             border-radius: 5px;
             transition: 0.3s;
             z-index: 100;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.4);
         }
         .btn-volver:hover { background: white; color: black; }
 
@@ -58,22 +58,21 @@
             overflow-y: auto;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
+            gap: 15px;
             align-content: start;
         }
 
-        /* Estilo del contenedor de cada foto para el número */
         .contenedor-foto {
             position: relative;
             width: 100%;
             height: 180px;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.08);
             transition: transform 0.3s ease;
         }
         .contenedor-foto:hover {
-            transform: scale(1.03);
+            transform: scale(1.02);
             border-color: var(--azul-cstyles);
         }
 
@@ -81,22 +80,21 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            cursor: pointer;
         }
 
-        /* Etiqueta de referencia (ID) */
+        /* ETIQUETA DE REFERENCIA MÁS PEQUEÑA */
         .ref-tag {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(42, 117, 187, 0.9); /* Azul de tu logo */
+            top: 8px;
+            left: 8px;
+            background: var(--azul-cstyles);
             color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.6rem; /* Tamaño reducido */
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
             pointer-events: none;
         }
 
@@ -109,12 +107,12 @@
             border-left: 1px solid rgba(255,255,255,0.05);
         }
 
-        .logo-en-texto { max-width: 160px; margin-bottom: 25px; }
-        .categoria-tag { color: var(--azul-cstyles); font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 10px; }
-        .titulo-diseno { font-size: 2rem; letter-spacing: 4px; margin: 0 0 20px 0; text-transform: uppercase; font-weight: 900; }
+        .logo-en-texto { max-width: 150px; margin-bottom: 25px; }
+        .categoria-tag { color: var(--azul-cstyles); font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+        .titulo-diseno { font-size: 1.8rem; letter-spacing: 4px; margin: 0 0 20px 0; text-transform: uppercase; font-weight: 900; }
         
         .puntos-clave { margin: 0; padding: 0; list-style: none; }
-        .puntos-clave li { margin-bottom: 12px; font-size: 0.85rem; display: flex; gap: 10px; align-items: center; color: #ccc; }
+        .puntos-clave li { margin-bottom: 10px; font-size: 0.8rem; display: flex; gap: 10px; align-items: center; color: #ccc; }
         .puntos-clave li::before { content: "✓"; color: var(--azul-cstyles); font-weight: bold; }
 
         .btn-whatsapp {
@@ -122,28 +120,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             background: transparent;
             color: var(--azul-cstyles);
-            border: 2px solid var(--azul-cstyles);
-            padding: 16px;
+            border: 1px solid var(--azul-cstyles);
+            padding: 14px;
             text-decoration: none;
             font-weight: bold;
-            border-radius: 12px;
+            font-size: 0.8rem;
+            border-radius: 10px;
             text-transform: uppercase;
             transition: 0.3s;
         }
-        .btn-whatsapp:hover { background: var(--azul-cstyles); color: white; box-shadow: 0 0 30px rgba(42, 117, 187, 0.4); }
+        .btn-whatsapp:hover { background: var(--azul-cstyles); color: white; box-shadow: 0 0 25px rgba(42, 117, 187, 0.3); }
 
         @media (max-width: 900px) {
-            .tarjeta-detalle { flex-direction: column; height: auto; margin: 80px 20px 20px; }
-            .seccion-galeria { height: 400px; }
+            .tarjeta-detalle { flex-direction: column; height: auto; margin: 80px 10px 20px; }
+            .seccion-galeria { height: 400px; padding: 15px; }
+            .seccion-texto { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <a href="../galeria/" class="btn-volver">❮ Volver al Catálogo</a>
+    <a href="../galeria/" class="btn-volver">❮ Volver</a>
 
     <div class="tarjeta-detalle">
         <div class="seccion-galeria" id="contenedorGaleria"></div>
@@ -154,12 +154,14 @@
             <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
             
             <div class="descripcion-tecnica">
-                <p style="font-size: 0.9rem; line-height: 1.6; color: #aaa;">Indica el código de referencia (ej: <strong>CL-01</strong>) al realizar tu consulta.</p>
+                <p style="font-size: 0.8rem; line-height: 1.5; color: #888; margin-bottom: 20px;">
+                    Menciona el código de referencia (ej: <strong>CL-01</strong>) para cotizar este modelo exacto.
+                </p>
                 <ul class="puntos-clave">
-                    <li>Ajuste perfecto a medida</li>
-                    <li>Ergonomía superior</li>
-                    <li>Costuras reforzadas</li>
-                    <li>Material de alto tráfico</li>
+                    <li>Ajuste a medida garantizado</li>
+                    <li>Ergonomía y confort</li>
+                    <li>Costuras de alta resistencia</li>
+                    <li>Material de uso intensivo</li>
                 </ul>
             </div>
             
@@ -170,7 +172,6 @@
     </div>
 
     <script>
-        // LISTA DE FOTOS
         const misFotos = [
             "../clasico1.jpg", "../clasico2.jpg", "../clasico3.jpg", 
             "../clasico4.jpg", "../clasico5.jpg", "../clasico6.jpg", 
@@ -181,24 +182,19 @@
         const galeria = document.getElementById("contenedorGaleria");
 
         misFotos.forEach((ruta, index) => {
-            // Crear el contenedor de la foto
             const div = document.createElement("div");
             div.className = "contenedor-foto";
 
-            // Crear la imagen
             const img = document.createElement("img");
             img.src = ruta;
             img.className = "foto-item";
-            img.onerror = function() { div.style.display = 'none'; }; // Oculta si no carga
+            img.onerror = function() { div.style.display = 'none'; };
 
-            // Crear la etiqueta de referencia (CL-01, CL-02...)
             const tag = document.createElement("div");
             tag.className = "ref-tag";
-            // El index + 1 es para que empiece en 01 y no en 00
             const numero = (index + 1).toString().padStart(2, '0');
             tag.innerText = `CL-${numero}`;
 
-            // Armar el conjunto
             div.appendChild(img);
             div.appendChild(tag);
             galeria.appendChild(div);

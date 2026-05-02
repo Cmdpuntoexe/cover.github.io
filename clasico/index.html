@@ -186,27 +186,27 @@
         galeria.appendChild(div);
     });
 
-function verGrande(ruta, ref) {
-    document.getElementById("modalImg").style.display = "flex";
-    document.getElementById("imgGrande").src = ruta;
-    document.getElementById("modalRef").innerText = ref;
-    
-    // 1. Definimos el número sin espacios ni símbolos
-    var miTelefono = "56961960385";
-    
-    // 2. Creamos el texto del mensaje
-    var textoParaEnviar = "Hola, me interesa el diseño clásico con referencia: " + ref;
-    
-    // 3. ENLACE UNIVERSAL FORZADO (Este no falla en móviles)
-    var urlUniversal = "https://whatsapp.com" + miTelefono + "&text=" + encodeURIComponent(textoParaEnviar) + "&type=phone_number&app_absent=0";
-    
-    document.getElementById("waLinkModal").href = urlUniversal;
-    document.body.style.overflow = "hidden";
-}
-function cerrarVista() {
-    document.getElementById("modalImg").style.display = "none";
-    document.body.style.overflow = "auto";
-}
-</script> <!-- ETIQUETA DE CIERRE CORREGIDA -->
+    function verGrande(ruta, ref) {
+        document.getElementById("modalImg").style.display = "flex";
+        document.getElementById("imgGrande").src = ruta;
+        document.getElementById("modalRef").innerText = ref;
+        
+        // EL FORMATO MÁS SIMPLE QUE EXISTE
+        var num = "56961960385";
+        var txt = "Hola, me interesa el diseño Clasico referencia " + ref;
+        
+        // Esta URL es la que mejor funciona en todos los modelos de celular
+        var urlFinal = "https://wa.me" + num + "?text=" + encodeURIComponent(txt);
+        
+        document.getElementById("waLinkModal").href = urlFinal;
+        document.body.style.overflow = "hidden";
+    }
+
+    function cerrarVista() {
+        document.getElementById("modalImg").style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+</script>
+
 </body>
 </html>

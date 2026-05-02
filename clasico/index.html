@@ -191,12 +191,19 @@ function verGrande(ruta, ref) {
     document.getElementById("imgGrande").src = ruta;
     document.getElementById("modalRef").innerText = ref;
     
-    // ENLACE CORREGIDO Y PRE-FORMATEADO
-    var textoChat = encodeURIComponent("Hola CStyles, me interesa el diseño clásico con referencia: " + ref);
-    var linkWA = "https://whatsapp.com&text=" + textoChat;
+    // 1. Definimos el número sin espacios ni símbolos
+    var miTelefono = "56961960385";
     
-    document.getElementById("waLinkModal").href = linkWA;
+    // 2. Creamos el texto del mensaje
+    var textoParaEnviar = "Hola, me interesa el diseño clásico con referencia: " + ref;
+    
+    // 3. ENLACE UNIVERSAL FORZADO (Este no falla en móviles)
+    var urlUniversal = "https://whatsapp.com" + miTelefono + "&text=" + encodeURIComponent(textoParaEnviar) + "&type=phone_number&app_absent=0";
+    
+    document.getElementById("waLinkModal").href = urlUniversal;
     document.body.style.overflow = "hidden";
+}
+
 }
 
 function cerrarVista() {

@@ -57,7 +57,6 @@
             font-size: 0.6rem; font-weight: 600;
         }
 
-        /* --- SECCIÓN TEXTO PROFESIONAL --- */
         .seccion-texto {
             flex: 0.8; 
             padding: 25px 35px; 
@@ -71,9 +70,7 @@
         }
 
         .logo-en-texto { 
-            width: 100%; 
-            max-width: 230px; 
-            margin-bottom: 10px; 
+            width: 100%; max-width: 230px; margin-bottom: 10px; 
             filter: drop-shadow(0 0 20px rgba(42, 117, 187, 0.4)); 
         }
 
@@ -83,9 +80,7 @@
         .bloque-info {
             text-align: left;
             background: rgba(255,255,255,0.03);
-            padding: 15px;
-            border-radius: 15px;
-            margin: 10px 0;
+            padding: 15px; border-radius: 15px; margin: 10px 0;
             border: 1px solid rgba(255,255,255,0.05);
         }
 
@@ -101,9 +96,7 @@
             text-transform: uppercase; width: 100%; margin-top: 10px;
             font-size: 0.8rem;
         }
-        .btn-whatsapp-general:hover { background: var(--azul-cstyles); color: white; }
 
-        /* VENTANA FLOTANTE */
         #modalImg {
             display: none; position: fixed; z-index: 2000;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -116,10 +109,26 @@
             padding: 12px 30px; border-radius: 50px; font-weight: bold; margin-top: 15px;
         }
 
+        /* --- AJUSTE MÓVIL: CAMBIO DE ORDEN --- */
         @media (max-width: 900px) {
-            .tarjeta-detalle { flex-direction: column; height: auto; margin-top: 80px; }
-            .seccion-galeria { height: auto; grid-template-columns: repeat(2, 1fr); overflow: visible; }
-            .seccion-texto { border-left: none; border-top: 1px solid rgba(255,255,255,0.1); padding: 40px 20px; }
+            .tarjeta-detalle { 
+                flex-direction: column; 
+                height: auto; 
+                margin-top: 80px; 
+            }
+            .seccion-texto { 
+                order: 1; /* Esto lo pone ARRIBA en el teléfono */
+                border-left: none; 
+                border-bottom: 1px solid rgba(255,255,255,0.1); 
+                padding: 40px 20px; 
+            }
+            .seccion-galeria { 
+                order: 2; /* Esto pone las FOTOS abajo */
+                height: auto; 
+                grid-template-columns: repeat(2, 1fr); 
+                overflow: visible; 
+            }
+            .logo-en-texto { max-width: 200px; }
         }
     </style>
 </head>
@@ -135,16 +144,11 @@
     </div>
 
     <div class="tarjeta-detalle">
-        <!-- LADO IZQUIERDO: GALERÍA -->
         <div class="seccion-galeria" id="contenedorGaleria"></div>
-
-        <!-- LADO DERECHO: TEXTO -->
         <div class="seccion-texto">
             <img src="/imajen2.png" alt="Covering Styles" class="logo-en-texto">
-            
             <div class="tagline">LÍNEA ESENCIAL</div>
             <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
-
             <div class="bloque-info">
                 <p>Nuestra propuesta más equilibrada. La eficiencia en su valor se basa en una <strong>arquitectura de confección optimizada</strong>, manteniendo la excelencia técnica.</p>
                 <ul>
@@ -153,9 +157,7 @@
                     <li><strong>Funcionalidad Profesional:</strong> Diseño minimalista enfocado en la protección integral del habitáculo original.</li>
                 </ul>
             </div>
-            
             <p style="font-size: 0.7rem; color: #888; font-style: italic; margin-bottom: 10px;">Toca una foto para ver la referencia técnica.</p>
-            
             <a href="https://wa.me" class="btn-whatsapp-general" target="_blank">CONSULTA PROFESIONAL 📱</a>
         </div>
     </div>
@@ -192,7 +194,7 @@
             document.getElementById("imgGrande").src = ruta;
             document.getElementById("modalRef").innerText = ref;
             const mensaje = encodeURIComponent(`Hola, me interesa el Diseño Clásico con referencia: ${ref}`);
-            document.getElementById("waLinkModal").href = `https://wa.me{56961960385}?text=${mensaje}`;
+            document.getElementById("waLinkModal").href = `https://wa.me{miNumero}?text=${mensaje}`;
             document.body.style.overflow = "hidden";
         }
 
@@ -203,3 +205,4 @@
     </script>
 </body>
 </html>
+

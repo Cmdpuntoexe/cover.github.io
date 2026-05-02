@@ -10,134 +10,99 @@
         body {
             background: linear-gradient(180deg, #000000 0%, #373d42 100%);
             background-attachment: fixed;
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             font-family: 'Segoe UI', Roboto, sans-serif;
             color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; overflow: hidden;
         }
 
+        /* 1. BOTÓN VOLVER */
         .btn-volver {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            color: #b8b8b8;
-            text-decoration: none;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: 0.3s;
-            z-index: 100;
-            background: rgba(0,0,0,0.4);
+            position: fixed; top: 20px; left: 20px;
+            color: #b8b8b8; text-decoration: none;
+            font-size: 0.7rem; letter-spacing: 2px;
+            text-transform: uppercase; border: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 15px; border-radius: 5px;
+            transition: 0.3s; z-index: 100; background: rgba(0,0,0,0.4);
         }
         .btn-volver:hover { background: white; color: black; }
 
+        /* 2. TARJETA PRINCIPAL */
         .tarjeta-detalle {
-            display: flex;
-            width: 95%;
-            max-width: 1250px;
-            height: 85vh;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 25px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.08);
-            overflow: hidden;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+            display: flex; width: 95%; max-width: 1250px; height: 85vh;
+            background: rgba(255, 255, 255, 0.03); border-radius: 25px;
+            backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08);
+            overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
         .seccion-galeria {
-            flex: 1.6;
-            background: rgba(0,0,0,0.2);
-            padding: 25px;
-            overflow-y: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
-            align-content: start;
+            flex: 1.6; background: rgba(0,0,0,0.2);
+            padding: 25px; overflow-y: auto;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px; align-content: start;
         }
 
         .contenedor-foto {
-            position: relative;
-            width: 100%;
-            height: 180px;
-            border-radius: 10px;
-            overflow: hidden;
+            position: relative; width: 100%; height: 160px;
+            border-radius: 10px; overflow: hidden;
             border: 1px solid rgba(255,255,255,0.08);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease; cursor: pointer;
         }
-        .contenedor-foto:hover {
-            transform: scale(1.02);
-            border-color: var(--azul-cstyles);
-        }
+        .contenedor-foto:hover { transform: scale(1.02); border-color: var(--azul-cstyles); }
 
-        .foto-item {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .foto-item { width: 100%; height: 100%; object-fit: cover; }
 
-        /* ETIQUETA DE REFERENCIA MÁS PEQUEÑA */
         .ref-tag {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: var(--azul-cstyles);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.6rem; /* Tamaño reducido */
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            opacity: 0.9;
-            pointer-events: none;
+            position: absolute; top: 8px; left: 8px;
+            background: var(--azul-cstyles); color: white;
+            padding: 2px 8px; border-radius: 4px;
+            font-size: 0.6rem; font-weight: 600;
         }
 
+        /* 3. VENTANA FLOTANTE (LIGHTBOX) */
+        #modalImg {
+            display: none; position: fixed; z-index: 2000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center; align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-contenido { max-width: 90%; max-height: 80%; border-radius: 15px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        
+        #modalRef {
+            position: absolute; bottom: 40px;
+            background: var(--azul-cstyles); color: white;
+            padding: 10px 25px; border-radius: 50px;
+            font-weight: 900; font-size: 1.2rem;
+        }
+
+        .cerrar-modal {
+            position: absolute; top: 30px; right: 40px;
+            color: white; font-size: 40px; cursor: pointer;
+        }
+
+        /* 4. SECCIÓN TEXTO */
         .seccion-texto {
-            flex: 0.7;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            background: rgba(0, 0, 0, 0.25);
-            border-left: 1px solid rgba(255,255,255,0.05);
+            flex: 0.7; padding: 40px; display: flex; flex-direction: column;
+            background: rgba(0, 0, 0, 0.25); border-left: 1px solid rgba(255,255,255,0.05);
         }
 
         .logo-en-texto { max-width: 150px; margin-bottom: 25px; }
-        .categoria-tag { color: var(--azul-cstyles); font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
         .titulo-diseno { font-size: 1.8rem; letter-spacing: 4px; margin: 0 0 20px 0; text-transform: uppercase; font-weight: 900; }
-        
-        .puntos-clave { margin: 0; padding: 0; list-style: none; }
-        .puntos-clave li { margin-bottom: 10px; font-size: 0.8rem; display: flex; gap: 10px; align-items: center; color: #ccc; }
-        .puntos-clave li::before { content: "✓"; color: var(--azul-cstyles); font-weight: bold; }
-
         .btn-whatsapp {
-            margin-top: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: transparent;
-            color: var(--azul-cstyles);
-            border: 1px solid var(--azul-cstyles);
-            padding: 14px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.8rem;
-            border-radius: 10px;
-            text-transform: uppercase;
-            transition: 0.3s;
+            margin-top: auto; display: flex; align-items: center; justify-content: center;
+            gap: 10px; background: transparent; color: var(--azul-cstyles);
+            border: 1px solid var(--azul-cstyles); padding: 14px;
+            text-decoration: none; font-weight: bold; border-radius: 10px;
+            text-transform: uppercase; transition: 0.3s;
         }
-        .btn-whatsapp:hover { background: var(--azul-cstyles); color: white; box-shadow: 0 0 25px rgba(42, 117, 187, 0.3); }
+        .btn-whatsapp:hover { background: var(--azul-cstyles); color: white; }
 
         @media (max-width: 900px) {
-            .tarjeta-detalle { flex-direction: column; height: auto; margin: 80px 10px 20px; }
-            .seccion-galeria { height: 400px; padding: 15px; }
-            .seccion-texto { padding: 30px 20px; }
+            .tarjeta-detalle { flex-direction: column; height: auto; margin: 80px 10px 20px; overflow-y: scroll; }
+            .seccion-galeria { height: 400px; }
         }
     </style>
 </head>
@@ -145,28 +110,25 @@
 
     <a href="../galeria/" class="btn-volver">❮ Volver</a>
 
+    <!-- VENTANA PARA VER EN GRANDE -->
+    <div id="modalImg">
+        <span class="cerrar-modal" onclick="cerrarVista()">&times;</span>
+        <img class="modal-contenido" id="imgGrande">
+        <div id="modalRef"></div>
+    </div>
+
     <div class="tarjeta-detalle">
         <div class="seccion-galeria" id="contenedorGaleria"></div>
 
         <div class="seccion-texto">
             <img src="../imajen2.png" alt="Covering Styles" class="logo-en-texto">
-            <span class="categoria-tag">Línea Premium</span>
+            <span style="color: var(--azul-cstyles); font-size: 0.6rem; letter-spacing: 3px;">LÍNEA PREMIUM</span>
             <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
             
-            <div class="descripcion-tecnica">
-                <p style="font-size: 0.8rem; line-height: 1.5; color: #888; margin-bottom: 20px;">
-                    Menciona el código de referencia (ej: <strong>CL-01</strong>) para cotizar este modelo exacto.
-                </p>
-                <ul class="puntos-clave">
-                    <li>Ajuste a medida garantizado</li>
-                    <li>Ergonomía y confort</li>
-                    <li>Costuras de alta resistencia</li>
-                    <li>Material de uso intensivo</li>
-                </ul>
-            </div>
+            <p style="font-size: 0.8rem; color: #888;">Haz clic en una foto para verla en grande.</p>
             
             <a href="https://wa.me" class="btn-whatsapp" target="_blank">
-                CONSULTAR POR WHATSAPP 📱
+                CONSULTAR DISEÑO 📱
             </a>
         </div>
     </div>
@@ -184,21 +146,33 @@
         misFotos.forEach((ruta, index) => {
             const div = document.createElement("div");
             div.className = "contenedor-foto";
+            const ref = `CL-${(index + 1).toString().padStart(2, '0')}`;
+            
+            // Al hacer clic abre el modal
+            div.onclick = () => verGrande(ruta, ref);
 
             const img = document.createElement("img");
             img.src = ruta;
             img.className = "foto-item";
-            img.onerror = function() { div.style.display = 'none'; };
 
             const tag = document.createElement("div");
             tag.className = "ref-tag";
-            const numero = (index + 1).toString().padStart(2, '0');
-            tag.innerText = `CL-${numero}`;
+            tag.innerText = ref;
 
             div.appendChild(img);
             div.appendChild(tag);
             galeria.appendChild(div);
         });
+
+        function verGrande(ruta, ref) {
+            document.getElementById("modalImg").style.display = "flex";
+            document.getElementById("imgGrande").src = ruta;
+            document.getElementById("modalRef").innerText = ref;
+        }
+
+        function cerrarVista() {
+            document.getElementById("modalImg").style.display = "none";
+        }
     </script>
 </body>
 </html>

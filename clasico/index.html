@@ -1,11 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diseño Clásico - Covering Styles</title>
+    <title>Diseño Clásico - Galería Completa</title>
     <style>
-        /* BASE ESTILO PREMIUM */
+        :root { --azul-cstyles: #2a75bb; }
+        
         body {
             background: linear-gradient(180deg, #000000 0%, #373d42 100%);
             background-attachment: fixed;
@@ -19,14 +21,13 @@
             min-height: 100vh;
         }
 
-        /* BOTÓN VOLVER */
         .btn-volver {
             position: fixed;
             top: 20px;
             left: 20px;
             color: #b8b8b8;
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             border: 1px solid rgba(255,255,255,0.2);
@@ -34,147 +35,112 @@
             border-radius: 5px;
             transition: 0.3s;
             z-index: 100;
+            background: rgba(0,0,0,0.5);
         }
         .btn-volver:hover { background: white; color: black; }
 
-        /* TARJETA */
         .tarjeta-detalle {
             display: flex;
             width: 95%;
-            max-width: 1150px;
-            height: 650px;
+            max-width: 1200px;
+            height: 80vh;
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            backdrop-filter: blur(12px);
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.08);
             overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            animation: aparecer 1s ease-out;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
-        @keyframes aparecer {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .seccion-imagen {
+        /* GALERÍA DE IMÁGENES (LADO IZQUIERDO) */
+        .seccion-galeria {
             flex: 1.5;
-            position: relative;
-            background: rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            overflow-y: auto; /* Scroll vertical para ver todas las fotos */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            align-content: start;
         }
 
-        #pantalla {
-            max-width: 92%;
-            max-height: 85%;
-            object-fit: contain;
-            transition: opacity 0.3s ease;
+        /* Personalización del scrollbar */
+        .seccion-galeria::-webkit-scrollbar { width: 6px; }
+        .seccion-galeria::-webkit-scrollbar-thumb { background: var(--azul-cstyles); border-radius: 10px; }
+
+        .foto-item {
+            width: 100%;
+            border-radius: 12px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: zoom-in;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .foto-item:hover {
+            transform: scale(1.05);
+            border-color: var(--azul-cstyles);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
 
-        .indicadores {
-            position: absolute;
-            bottom: 20px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 0 20px;
-        }
-
-        .punto {
-            width: 8px;
-            height: 8px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .punto.activo {
-            background: #2a75bb;
-            transform: scale(1.3);
-            box-shadow: 0 0 15px rgba(42, 117, 187, 0.6);
-        }
-
+        /* SECCIÓN TEXTO (LADO DERECHO) */
         .seccion-texto {
-            flex: 1;
-            padding: 10px 50px 40px 50px;
+            flex: 0.8;
+            padding: 40px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(0, 0, 0, 0.25);
+            border-left: 1px solid rgba(255,255,255,0.05);
         }
 
         .logo-en-texto {
             max-width: 180px; 
-            margin-top: 15px;
-            margin-bottom: 15px; 
+            margin-bottom: 25px; 
             filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
         }
 
         .categoria-tag { 
-            color: #2a75bb;
+            color: var(--azul-cstyles);
             font-size: 0.7rem; 
             letter-spacing: 4px; 
             text-transform: uppercase; 
-            margin-bottom: 8px; 
+            margin-bottom: 10px; 
         }
 
-        .titulo-diseno { font-size: 2rem; letter-spacing: 5px; margin: 0 0 15px 0; text-transform: uppercase; font-weight: 900; }
-        .descripcion-tecnica { line-height: 1.6; color: #b8b8b8; font-size: 0.95rem; }
+        .titulo-diseno { font-size: 2.2rem; letter-spacing: 5px; margin: 0 0 20px 0; text-transform: uppercase; font-weight: 900; }
         
-        .puntos-clave { margin-top: 15px; padding: 0; list-style: none; }
-        .puntos-clave li { margin-bottom: 10px; font-size: 0.85rem; display: flex; gap: 10px; }
-        .puntos-clave li::before { content: "✓"; color: #2a75bb; font-weight: bold; }
+        .descripcion-tecnica p { line-height: 1.6; color: #b8b8b8; font-size: 0.95rem; margin-bottom: 25px; }
+        
+        .puntos-clave { margin: 0; padding: 0; list-style: none; }
+        .puntos-clave li { margin-bottom: 12px; font-size: 0.9rem; display: flex; gap: 12px; align-items: center; }
+        .puntos-clave li::before { content: "✓"; color: var(--azul-cstyles); font-weight: bold; }
 
         .btn-whatsapp {
-            margin-top: 25px;
+            margin-top: auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             background: transparent;
-            color: #2a75bb;
-            border: 2px solid #2a75bb;
-            padding: 12px;
+            color: var(--azul-cstyles);
+            border: 2px solid var(--azul-cstyles);
+            padding: 18px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.85rem;
-            border-radius: 10px;
-            letter-spacing: 1px;
+            border-radius: 15px;
             text-transform: uppercase;
-            transition: 0.3s ease;
+            transition: 0.3s;
         }
 
         .btn-whatsapp:hover { 
-            background: #2a75bb; 
+            background: var(--azul-cstyles); 
             color: #ffffff; 
-            box-shadow: 0 0 20px rgba(42, 117, 187, 0.4); 
+            box-shadow: 0 0 30px rgba(42, 117, 187, 0.4); 
         }
 
-        .btn-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.7);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.1);
-            width: 45px; height: 45px;
-            cursor: pointer;
-            border-radius: 50%;
-            z-index: 10;
-        }
-        .btn-nav:hover { background: #2a75bb; border-color: #2a75bb; }
-        .prev { left: 10px; }
-        .next { right: 10px; }
-
-        @media (max-width: 768px) {
-            .tarjeta-detalle { flex-direction: column; height: auto; margin: 60px 0 20px; }
-            .seccion-imagen { height: 350px; }
-            .seccion-texto { padding: 30px 20px; align-items: center; text-align: center; }
-            .puntos-clave li { justify-content: center; }
+        /* RESPONSIVO */
+        @media (max-width: 900px) {
+            .tarjeta-detalle { flex-direction: column; height: auto; margin: 80px 20px 20px; }
+            .seccion-galeria { height: 400px; grid-template-columns: repeat(2, 1fr); }
+            .seccion-texto { border-left: none; border-top: 1px solid rgba(255,255,255,0.1); }
         }
     </style>
 </head>
@@ -183,12 +149,8 @@
     <a href="/galeria/" class="btn-volver">❮ Volver al Catálogo</a>
 
     <div class="tarjeta-detalle">
-        <div class="seccion-imagen">
-            <button class="btn-nav prev" onclick="mover(-1)">❮</button>
-            <img id="pantalla" src="/clasico1.jpg" alt="Diseño CStyles">
-            <button class="btn-nav next" onclick="mover(1)">❯</button>
-            <div class="indicadores" id="indicadores"></div>
-        </div>
+        <!-- AQUÍ SE CARGAN TODAS LAS FOTOS AUTOMÁTICAMENTE -->
+        <div class="seccion-galeria" id="contenedorGaleria"></div>
 
         <div class="seccion-texto">
             <img src="/imajen2.png" alt="Covering Styles" class="logo-en-texto">
@@ -198,61 +160,38 @@
             <div class="descripcion-tecnica">
                 <p>Nuestra propuesta de <strong>Elegancia Minimalista</strong>. Estructura integral que prioriza la estética limpia sin cortes adicionales.</p>
                 <ul class="puntos-clave">
-                    <li><strong>Arquitectura:</strong> Dos laterales robustos de ajuste perfecto.</li>
-                    <li><strong>Núcleo Central:</strong> Pieza ergonómica dividida en dos.</li>
-                    <li><strong>Personalización:</strong> Costuras superiores a elección.</li>
+                    <li><strong>Arquitectura:</strong> Dos laterales de ajuste perfecto.</li>
+                    <li><strong>Núcleo Central:</strong> Pieza ergonómica dividida.</li>
+                    <li><strong>Personalización:</strong> Costuras a elección.</li>
                     <li><strong>Ingeniería:</strong> Estructura técnica para uso diario.</li>
                 </ul>
             </div>
             
             <a href="https://wa.me" class="btn-whatsapp" target="_blank">
-                CONSULTAR DISEÑO 📱
+                CONSULTAR POR WHATSAPP 📱
             </a>
         </div>
     </div>
 
     <script>
+        // LISTA DE TUS FOTOS
         const misFotos = [
             "/clasico1.jpg", "/clasico2.jpg", "/clasico3.jpg", 
             "/clasico4.jpg", "/clasico5.jpg", "/clasico6.jpg", 
             "/clasico7.jpg", "/clasico8.jpg", "/clasico11.jpg", 
             "/clasico10.jpg", "/clasico12.png", "/clasico13.png", "/clasico14.png"
         ];
-        
-        let i = 0;
-        const img = document.getElementById("pantalla");
-        const contenedorPuntos = document.getElementById("indicadores");
 
-        misFotos.forEach((_, index) => {
-            const punto = document.createElement("div");
-            punto.classList.add("punto");
-            if (index === 0) punto.classList.add("activo");
-            punto.onclick = () => saltarAFoto(index);
-            contenedorPuntos.appendChild(punto);
+        const galeria = document.getElementById("contenedorGaleria");
+
+        // Generar las imágenes en la cuadrícula
+        misFotos.forEach(ruta => {
+            const img = document.createElement("img");
+            img.src = ruta;
+            img.className = "foto-item";
+            img.alt = "Detalle Diseño Clásico";
+            galeria.appendChild(img);
         });
-
-        const puntos = document.querySelectorAll(".punto");
-
-        function actualizarPuntos() {
-            puntos.forEach((p, idx) => {
-                p.classList.toggle("activo", idx === i);
-            });
-        }
-
-        function saltarAFoto(index) {
-            i = index;
-            img.style.opacity = 0;
-            setTimeout(() => {
-                img.src = misFotos[i];
-                img.style.opacity = 1;
-                actualizarPuntos();
-            }, 200);
-        }
-
-        function mover(dir) {
-            i = (i + dir + misFotos.length) % misFotos.length;
-            saltarAFoto(i);
-        }
     </script>
 </body>
 </html>

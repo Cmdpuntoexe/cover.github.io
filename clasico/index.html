@@ -149,50 +149,54 @@
         </div>
     </div>
 
-    <script>
-        const misFotos = [
-            "/clasico1.jpg", "/clasico2.jpg", "/clasico3.jpg", 
-            "/clasico4.jpg", "/clasico5.jpg", "/clasico6.jpg", 
-            "/clasico7.jpg", "/clasico8.jpg", "/Clasico11.jpg", 
-            "/clasico10.jpg", "/clasico12.png", "/clasico14.png"
-        ];
+ <script>
+    const misFotos = [
+        "/clasico1.jpg", "/clasico2.jpg", "/clasico3.jpg", 
+        "/clasico4.jpg", "/clasico5.jpg", "/clasico6.jpg", 
+        "/clasico7.jpg", "/clasico8.jpg", "/Clasico11.jpg", 
+        "/clasico10.jpg", "/clasico12.jpg", "/clasico14.jpg"
+    ];
 
-        const galeria = document.getElementById("contenedorGaleria");
-        const miNumero = "56961960385"; 
+    const galeria = document.getElementById("contenedorGaleria");
+    // Tu número sin símbolos ni espacios
+    const miNumero = "56961960385"; 
 
-        misFotos.forEach((ruta, index) => {
-            const div = document.createElement("div");
-            div.className = "contenedor-foto";
-            const ref = `CL-${(index + 1).toString().padStart(2, '0')}`;
-            div.onclick = () => verGrande(ruta, ref);
-            const img = document.createElement("img");
-            img.src = ruta;
-            img.className = "foto-item";
-            const tag = document.createElement("div");
-            tag.className = "ref-tag";
-            tag.innerText = ref;
-            div.appendChild(img);
-            div.appendChild(tag);
-            galeria.appendChild(div);
-        });
+    misFotos.forEach((ruta, index) => {
+        const div = document.createElement("div");
+        div.className = "contenedor-foto";
+        const ref = "CL-" + (index + 1).toString().padStart(2, '0');
+        div.onclick = function() { verGrande(ruta, ref); };
 
-        function verGrande(ruta, ref) {
-            document.getElementById("modalImg").style.display = "flex";
-            document.getElementById("imgGrande").src = ruta;
-            document.getElementById("modalRef").innerText = ref;
-            
-            // Corrección del enlace para que WhatsApp no dé error
-            const mensaje = encodeURIComponent("Hola, me interesa el Diseño Clásico con referencia: " + ref);
-            document.getElementById("waLinkModal").href = "https://wa.me" + miNumero + "?text=" + mensaje;
-            
-            document.body.style.overflow = "hidden";
-        }
+        const img = document.createElement("img");
+        img.src = ruta;
+        img.className = "foto-item";
 
-        function cerrarVista() {
-            document.getElementById("modalImg").style.display = "none";
-            document.body.style.overflow = "auto";
-        }
-    </script>
-</body>
-</html>
+        const tag = document.createElement("div");
+        tag.className = "ref-tag";
+        tag.innerText = ref;
 
+        div.appendChild(img);
+        div.appendChild(tag);
+        galeria.appendChild(div);
+    });
+
+    function verGrande(ruta, ref) {
+        document.getElementById("modalImg").style.display = "flex";
+        document.getElementById("imgGrande").src = ruta;
+        document.getElementById("modalRef").innerText = ref;
+        
+        // MENSAJE PARA EL CHAT
+        var textoChat = "Hola, me interesa el Diseño Clásico con referencia: " + ref;
+        
+        // FORMATO DE ENLACE MÁS COMPATIBLE (API)
+        var linkFinal = "https://whatsapp.com" + miNumero + "&text=" + encodeURIComponent(textoChat);
+        
+        document.getElementById("waLinkModal").href = linkFinal;
+        document.body.style.overflow = "hidden";
+    }
+
+    function cerrarVista() {
+        document.getElementById("modalImg").style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+</script>

@@ -148,18 +148,18 @@
         galeria.appendChild(div);
     });
 
-    function verGrande(ruta, ref) {
-        document.getElementById("modalImg").style.display = "flex";
-        document.getElementById("imgGrande").src = ruta;
-        document.getElementById("modalRef").innerText = ref;
-        
-        // Enlace ultra-simple sin variables complejas
-        var texto = encodeURIComponent("Hola, me interesa el Diseño Clásico referencia " + ref);
-        var url = "https://whatsapp.com" + texto;
-        
-        document.getElementById("waLinkModal").setAttribute("href", url);
-        document.body.style.overflow = "hidden";
-    }
+function verGrande(ruta, ref) {
+    document.getElementById("modalImg").style.display = "flex";
+    document.getElementById("imgGrande").src = ruta;
+    document.getElementById("modalRef").innerText = ref;
+    
+    // El enlace más básico posible
+    var link = "https://wa.me" + ref;
+    
+    document.getElementById("waLinkModal").href = link;
+    document.body.style.overflow = "hidden";
+}
+
 
     function cerrarVista() {
         document.getElementById("modalImg").style.display = "none";

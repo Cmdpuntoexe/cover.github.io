@@ -153,14 +153,11 @@ function verGrande(ruta, ref) {
     document.getElementById("imgGrande").src = ruta;
     document.getElementById("modalRef").innerText = ref;
     
-    // Texto simple sin tildes ni símbolos raros para asegurar compatibilidad
-    var miNumero = "56961960385";
-    var mensajeParaChat = "Hola, consulto por el diseño Clasico referencia " + ref;
+    // Formato de texto ultra-seguro para WhatsApp
+    // El %20 es el espacio y %3A es el símbolo de dos puntos
+    var linkWA = "https://whatsapp.com" + ref;
     
-    // Usamos el formato oficial que fuerza el mensaje en el teléfono
-    var urlWa = "https://wa.me" + miNumero + "&text=" + encodeURIComponent(mensajeParaChat);
-    
-    document.getElementById("waLinkModal").href = urlWa;
+    document.getElementById("waLinkModal").href = linkWA;
     document.body.style.overflow = "hidden";
 }
 

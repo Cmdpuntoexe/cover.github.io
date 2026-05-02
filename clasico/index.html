@@ -153,17 +153,15 @@ function verGrande(ruta, ref) {
     document.getElementById("imgGrande").src = ruta;
     document.getElementById("modalRef").innerText = ref;
     
-    // Formato de texto ultra-seguro para WhatsApp
-    // El %20 es el espacio y %3A es el símbolo de dos puntos
-    var linkWA = "https://whatsapp.com" + ref;
+    // Texto pre-formateado para evitar errores de símbolos
+    var enlaceWA = "https://whatsapp.com" + ref;
     
-    document.getElementById("waLinkModal").href = linkWA;
-    document.body.style.overflow = "hidden";
+    document.getElementById("waLinkModal").href = enlaceWA;
+    document.body.style.overflow = "hidden"; // Bloquea el scroll al abrir
 }
 
-
-    function cerrarVista() {
-        document.getElementById("modalImg").style.display = "none";
-        document.body.style.overflow = "auto";
-    }
-</script>
+function cerrarVista() {
+    document.getElementById("modalImg").style.display = "none";
+    document.body.style.overflow = "auto"; // Devuelve el scroll al cerrar
+}
+<script>

@@ -189,13 +189,21 @@
             galeria.appendChild(div);
         });
 
-        function verGrande(ruta, ref) {
-            document.getElementById("modalImg").style.display = "flex";
-            document.getElementById("imgGrande").src = ruta;
-            document.getElementById("modalRef").innerText = ref;
-            const mensaje = encodeURIComponent(`Hola, me interesa el Diseño Clásico con referencia: ${ref}`);
-            document.getElementById("waLinkModal").href = `https://wa.me{miNumero}?text=${mensaje}`;
-            document.body.style.overflow = "hidden";
+function verGrande(ruta, ref) {
+    document.getElementById("modalImg").style.display = "flex";
+    document.getElementById("imgGrande").src = ruta;
+    document.getElementById("modalRef").innerText = ref;
+    
+    // MENSAJE AUTOMÁTICO
+    const texto = "Hola, me interesa el Diseño Clásico con referencia: " + ref;
+    const mensajeCifrado = encodeURIComponent(texto);
+    
+    // EL ENLACE CON TU NÚMERO REAL
+    document.getElementById("waLinkModal").href = "https://wa.me" + mensajeCifrado;
+    
+    document.body.style.overflow = "hidden";
+}
+
         }
 
         function cerrarVista() {

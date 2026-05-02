@@ -14,9 +14,7 @@
             font-family: 'Segoe UI', Roboto, sans-serif;
             color: #ffffff;
             min-height: 100vh;
-            /* Permite el scroll natural del sistema */
             overflow-y: auto; 
-            -webkit-overflow-scrolling: touch;
         }
 
         .btn-volver {
@@ -28,10 +26,9 @@
             z-index: 100; background: rgba(0,0,0,0.7);
         }
 
-        /* TARJETA ADAPTADA */
         .tarjeta-detalle {
             display: flex; width: 95%; max-width: 1250px; 
-            height: 85vh; /* Altura fija solo en PC */
+            height: 85vh; 
             background: rgba(255, 255, 255, 0.03); border-radius: 25px;
             backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08);
             margin: 50px auto; overflow: hidden;
@@ -51,7 +48,7 @@
             border: 1px solid rgba(255,255,255,0.08);
             cursor: pointer;
         }
-        .foto-item { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+        .foto-item { width: 100%; height: 100%; object-fit: cover; }
 
         .ref-tag {
             position: absolute; top: 8px; left: 8px;
@@ -60,24 +57,60 @@
             font-size: 0.6rem; font-weight: 600;
         }
 
+        /* --- SECCIÓN TEXTO COMPACTA --- */
         .seccion-texto {
-            flex: 0.7; padding: 40px; display: flex; flex-direction: column;
-            background: rgba(0, 0, 0, 0.25); border-left: 1px solid rgba(255,255,255,0.05);
-            align-items: center; text-align: center;
+            flex: 0.7; 
+            padding: 20px 40px; /* Reduje padding vertical */
+            display: flex; 
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.25); 
+            border-left: 1px solid rgba(255,255,255,0.05);
+            align-items: center; 
+            text-align: center;
+            justify-content: center; /* Centra todo el bloque verticalmente */
         }
 
-        .logo-en-texto { width: 100%; max-width: 280px; margin-bottom: 25px; }
-        .titulo-diseno { font-size: 1.8rem; letter-spacing: 4px; margin: 0; font-weight: 900; }
+        .logo-en-texto { 
+            width: 100%; 
+            max-width: 260px; /* Ajusté tamaño para equilibrio */
+            margin-bottom: 10px; /* Reduje espacio bajo el logo */
+            filter: drop-shadow(0 0 20px rgba(42, 117, 187, 0.4)); 
+        }
+
+        .titulo-diseno { 
+            font-size: 1.8rem; 
+            letter-spacing: 4px; 
+            margin: 10px 0 5px 0; /* Espacio mínimo */
+            font-weight: 900; 
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            color: var(--azul-cstyles); 
+            font-size: 0.65rem; 
+            letter-spacing: 3px; 
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .instruccion {
+            font-size: 0.85rem; 
+            color: #b8b8b8; 
+            margin: 0 0 30px 0; 
+            line-height: 1.4;
+        }
 
         .btn-whatsapp-general {
-            margin-top: 30px; display: flex; align-items: center; justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             gap: 10px; background: transparent; color: var(--azul-cstyles);
-            border: 1px solid var(--azul-cstyles); padding: 16px;
+            border: 1px solid var(--azul-cstyles); padding: 14px;
             text-decoration: none; font-weight: bold; border-radius: 12px;
             text-transform: uppercase; width: 100%;
+            transition: 0.3s;
         }
+        .btn-whatsapp-general:hover { background: var(--azul-cstyles); color: white; }
 
-        /* LIGHTBOX */
+        /* MODAL / LIGHTBOX */
         #modalImg {
             display: none; position: fixed; z-index: 2000;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -90,31 +123,10 @@
             padding: 12px 30px; border-radius: 50px; font-weight: bold; margin-top: 15px;
         }
 
-        /* --- SOLUCIÓN MÓVIL CRÍTICA --- */
         @media (max-width: 900px) {
-            .tarjeta-detalle {
-                flex-direction: column;
-                height: auto; /* IMPORTANTE: Deja de tener altura fija */
-                overflow: visible; /* IMPORTANTE: Deja de atrapar el scroll */
-                margin-top: 80px;
-                background: none; border: none; backdrop-filter: none; box-shadow: none;
-            }
-            .seccion-galeria {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
-                height: auto; /* Que crezca según las fotos */
-                overflow: visible;
-                padding: 10px;
-            }
-            .seccion-texto {
-                background: rgba(255, 255, 255, 0.03);
-                backdrop-filter: blur(10px);
-                border-radius: 25px;
-                border: 1px solid rgba(255,255,255,0.08);
-                margin: 20px 0;
-                padding: 40px 20px;
-            }
-            .contenedor-foto { height: 140px; } /* Fotos un poco más pequeñas para que quepan 2 */
+            .tarjeta-detalle { flex-direction: column; height: auto; margin-top: 80px; }
+            .seccion-galeria { height: auto; grid-template-columns: repeat(2, 1fr); overflow: visible; }
+            .seccion-texto { border-left: none; border-top: 1px solid rgba(255,255,255,0.1); padding: 40px 20px; }
         }
     </style>
 </head>
@@ -130,15 +142,17 @@
     </div>
 
     <div class="tarjeta-detalle">
-        <!-- Galería -->
         <div class="seccion-galeria" id="contenedorGaleria"></div>
 
-        <!-- Información -->
         <div class="seccion-texto">
             <img src="../imajen2.png" alt="Covering Styles" class="logo-en-texto">
-            <span style="color: var(--azul-cstyles); font-size: 0.65rem; letter-spacing: 3px; font-weight: bold;">LÍNEA PREMIUM</span>
+            
+            <div class="tagline">LÍNEA PREMIUM</div>
+            
             <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
-            <p style="font-size: 0.85rem; color: #b8b8b8; margin: 15px 0;">Toca una foto para ampliarla y ver su referencia.</p>
+            
+            <p class="instruccion">Toca una foto para ampliarla <br> y ver su referencia.</p>
+            
             <a href="https://wa.me" class="btn-whatsapp-general" target="_blank">CONSULTA GENERAL 📱</a>
         </div>
     </div>
@@ -148,8 +162,7 @@
             "../clasico1.jpg", "../clasico2.jpg", "../clasico3.jpg", 
             "../clasico4.jpg", "../clasico5.jpg", "../clasico6.jpg", 
             "../clasico7.jpg", "../clasico8.jpg", "../Clasico11.jpg", 
-            "../clasico10.jpg", "../clasico13.png",
-            "../clasico14.png"
+            "../clasico10.jpg", "../clasico12.jpg", "../clasico14.jpg"
         ];
 
         const galeria = document.getElementById("contenedorGaleria");
@@ -160,15 +173,12 @@
             div.className = "contenedor-foto";
             const ref = `CL-${(index + 1).toString().padStart(2, '0')}`;
             div.onclick = () => verGrande(ruta, ref);
-
             const img = document.createElement("img");
             img.src = ruta;
             img.className = "foto-item";
-
             const tag = document.createElement("div");
             tag.className = "ref-tag";
             tag.innerText = ref;
-
             div.appendChild(img);
             div.appendChild(tag);
             galeria.appendChild(div);
@@ -179,13 +189,13 @@
             document.getElementById("imgGrande").src = ruta;
             document.getElementById("modalRef").innerText = ref;
             const mensaje = encodeURIComponent(`Hola, me interesa el Diseño Clásico con referencia: ${ref}`);
-            document.getElementById("waLinkModal").href = `https://wa.me{miNumero}?text=${mensaje}`;
-            document.body.style.overflow = "hidden"; // Bloquea scroll fondo
+            document.getElementById("waLinkModal").href = `https://wa.me{56961960385}?text=${mensaje}`;
+            document.body.style.overflow = "hidden";
         }
 
         function cerrarVista() {
             document.getElementById("modalImg").style.display = "none";
-            document.body.style.overflow = "auto"; // Libera scroll fondo
+            document.body.style.overflow = "auto";
         }
     </script>
 </body>

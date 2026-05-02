@@ -19,6 +19,24 @@
             min-height: 100vh;
         }
 
+        /* BOTÓN VOLVER */
+        .btn-volver {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: #b8b8b8;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: 0.3s;
+            z-index: 100;
+        }
+        .btn-volver:hover { background: white; color: black; }
+
         /* TARJETA */
         .tarjeta-detalle {
             display: flex;
@@ -39,7 +57,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* IMAGEN Y PUNTOS AZULES */
         .seccion-imagen {
             flex: 1.5;
             position: relative;
@@ -61,11 +78,14 @@
             bottom: 20px;
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 20px;
         }
 
         .punto {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: rgba(255,255,255,0.2);
             border-radius: 50%;
             cursor: pointer;
@@ -78,7 +98,6 @@
             box-shadow: 0 0 15px rgba(42, 117, 187, 0.6);
         }
 
-        /* SECCIÓN TEXTO */
         .seccion-texto {
             flex: 1;
             padding: 10px 50px 40px 50px;
@@ -108,12 +127,7 @@
         
         .puntos-clave { margin-top: 15px; padding: 0; list-style: none; }
         .puntos-clave li { margin-bottom: 10px; font-size: 0.85rem; display: flex; gap: 10px; }
-        
-        .puntos-clave li::before { 
-            content: "✓"; 
-            color: #2a75bb;
-            font-weight: bold; 
-        }
+        .puntos-clave li::before { content: "✓"; color: #2a75bb; font-weight: bold; }
 
         .btn-whatsapp {
             margin-top: 25px;
@@ -152,11 +166,12 @@
             border-radius: 50%;
             z-index: 10;
         }
-
         .btn-nav:hover { background: #2a75bb; border-color: #2a75bb; }
+        .prev { left: 10px; }
+        .next { right: 10px; }
 
         @media (max-width: 768px) {
-            .tarjeta-detalle { flex-direction: column; height: auto; margin: 20px 0; }
+            .tarjeta-detalle { flex-direction: column; height: auto; margin: 60px 0 20px; }
             .seccion-imagen { height: 350px; }
             .seccion-texto { padding: 30px 20px; align-items: center; text-align: center; }
             .puntos-clave li { justify-content: center; }
@@ -165,17 +180,17 @@
 </head>
 <body>
 
+    <a href="/galeria/" class="btn-volver">❮ Volver al Catálogo</a>
+
     <div class="tarjeta-detalle">
         <div class="seccion-imagen">
             <button class="btn-nav prev" onclick="mover(-1)">❮</button>
-            <!-- Ruta corregida con / -->
             <img id="pantalla" src="/clasico1.jpg" alt="Diseño CStyles">
             <button class="btn-nav next" onclick="mover(1)">❯</button>
             <div class="indicadores" id="indicadores"></div>
         </div>
 
         <div class="seccion-texto">
-            <!-- Ruta del logo corregida con / -->
             <img src="/imajen2.png" alt="Covering Styles" class="logo-en-texto">
             <span class="categoria-tag">Línea de Protección Premium</span>
             <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
@@ -197,7 +212,6 @@
     </div>
 
     <script>
-        // Rutas de fotos corregidas con / para GitHub
         const misFotos = [
             "/clasico1.jpg", "/clasico2.jpg", "/clasico3.jpg", 
             "/clasico4.jpg", "/clasico5.jpg", "/clasico6.jpg", 

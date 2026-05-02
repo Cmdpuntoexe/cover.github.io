@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Diseño Clásico - CStyles</title>
     <style>
         :root { --azul-cstyles: #2a75bb; --wa-green: #25d366; }
@@ -13,24 +13,29 @@
             margin: 0; padding: 0;
             font-family: 'Segoe UI', Roboto, sans-serif;
             color: #ffffff;
-            display: flex; justify-content: center; align-items: center;
             min-height: 100vh;
+            /* Permite el scroll natural del sistema */
+            overflow-y: auto; 
+            -webkit-overflow-scrolling: touch;
         }
 
         .btn-volver {
-            position: fixed; top: 20px; left: 20px;
+            position: fixed; top: 15px; left: 15px;
             color: #b8b8b8; text-decoration: none;
             font-size: 0.7rem; letter-spacing: 2px;
             text-transform: uppercase; border: 1px solid rgba(255,255,255,0.15);
             padding: 8px 15px; border-radius: 5px;
-            z-index: 100; background: rgba(0,0,0,0.6);
+            z-index: 100; background: rgba(0,0,0,0.7);
         }
 
+        /* TARJETA ADAPTADA */
         .tarjeta-detalle {
-            display: flex; width: 95%; max-width: 1250px; height: 85vh;
+            display: flex; width: 95%; max-width: 1250px; 
+            height: 85vh; /* Altura fija solo en PC */
             background: rgba(255, 255, 255, 0.03); border-radius: 25px;
             backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08);
-            overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+            margin: 50px auto; overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
         .seccion-galeria {
@@ -38,17 +43,15 @@
             padding: 25px; overflow-y: auto;
             display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px; align-content: start;
-            -webkit-overflow-scrolling: touch; /* Mejora el scroll en iPhone */
         }
 
         .contenedor-foto {
             position: relative; width: 100%; height: 160px;
             border-radius: 10px; overflow: hidden;
             border: 1px solid rgba(255,255,255,0.08);
-            transition: transform 0.3s ease; cursor: pointer;
+            cursor: pointer;
         }
-        .contenedor-foto:hover { transform: scale(1.02); border-color: var(--azul-cstyles); }
-        .foto-item { width: 100%; height: 100%; object-fit: cover; }
+        .foto-item { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 
         .ref-tag {
             position: absolute; top: 8px; left: 8px;
@@ -57,61 +60,61 @@
             font-size: 0.6rem; font-weight: 600;
         }
 
-        #modalImg {
-            display: none; position: fixed; z-index: 2000;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
-            flex-direction: column; justify-content: center; align-items: center;
-            backdrop-filter: blur(15px);
-        }
-        .modal-contenido { max-width: 90%; max-height: 70%; border-radius: 15px; margin-bottom: 20px; }
-        .btn-wa-modal {
-            background: var(--wa-green); color: white; text-decoration: none;
-            padding: 12px 30px; border-radius: 50px; font-weight: bold;
-        }
-
         .seccion-texto {
             flex: 0.7; padding: 40px; display: flex; flex-direction: column;
             background: rgba(0, 0, 0, 0.25); border-left: 1px solid rgba(255,255,255,0.05);
             align-items: center; text-align: center;
         }
 
-        .logo-en-texto { 
-            width: 100%; max-width: 320px;
-            margin-bottom: 30px; 
-            filter: drop-shadow(0 0 20px rgba(42, 117, 187, 0.4)); 
-        }
+        .logo-en-texto { width: 100%; max-width: 280px; margin-bottom: 25px; }
+        .titulo-diseno { font-size: 1.8rem; letter-spacing: 4px; margin: 0; font-weight: 900; }
 
-        .titulo-diseno { font-size: 1.8rem; letter-spacing: 4px; margin: 0 0 20px 0; text-transform: uppercase; font-weight: 900; }
-        
         .btn-whatsapp-general {
-            margin-top: auto; display: flex; align-items: center; justify-content: center;
+            margin-top: 30px; display: flex; align-items: center; justify-content: center;
             gap: 10px; background: transparent; color: var(--azul-cstyles);
             border: 1px solid var(--azul-cstyles); padding: 16px;
             text-decoration: none; font-weight: bold; border-radius: 12px;
             text-transform: uppercase; width: 100%;
         }
 
-        /* AJUSTES PARA MÓVILES */
+        /* LIGHTBOX */
+        #modalImg {
+            display: none; position: fixed; z-index: 2000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            flex-direction: column; justify-content: center; align-items: center;
+        }
+        .modal-contenido { max-width: 90%; max-height: 70%; border-radius: 10px; }
+        .btn-wa-modal {
+            background: var(--wa-green); color: white; text-decoration: none;
+            padding: 12px 30px; border-radius: 50px; font-weight: bold; margin-top: 15px;
+        }
+
+        /* --- SOLUCIÓN MÓVIL CRÍTICA --- */
         @media (max-width: 900px) {
-            body { overflow-y: auto; align-items: flex-start; } /* Permite scroll en el body */
-            .tarjeta-detalle { 
-                flex-direction: column; 
-                height: auto; /* La tarjeta ya no está bloqueada a una altura fija */
-                margin: 80px 10px 20px; 
-                overflow: visible; /* Permite que el contenido fluya */
+            .tarjeta-detalle {
+                flex-direction: column;
+                height: auto; /* IMPORTANTE: Deja de tener altura fija */
+                overflow: visible; /* IMPORTANTE: Deja de atrapar el scroll */
+                margin-top: 80px;
+                background: none; border: none; backdrop-filter: none; box-shadow: none;
             }
-            .seccion-galeria { 
-                height: 500px; /* Altura controlada para la zona de fotos */
-                flex: none; 
-                grid-template-columns: repeat(2, 1fr); /* Dos columnas para que no sean tan pequeñas */
+            .seccion-galeria {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
+                height: auto; /* Que crezca según las fotos */
+                overflow: visible;
+                padding: 10px;
             }
-            .seccion-texto { 
-                border-left: none; 
-                border-top: 1px solid rgba(255,255,255,0.1);
-                padding: 30px 20px;
+            .seccion-texto {
+                background: rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(10px);
+                border-radius: 25px;
+                border: 1px solid rgba(255,255,255,0.08);
+                margin: 20px 0;
+                padding: 40px 20px;
             }
-            .logo-en-texto { max-width: 200px; }
+            .contenedor-foto { height: 140px; } /* Fotos un poco más pequeñas para que quepan 2 */
         }
     </style>
 </head>
@@ -120,21 +123,22 @@
     <a href="../galeria/" class="btn-volver">❮ Volver</a>
 
     <div id="modalImg">
-        <span style="position:absolute; top:30px; right:40px; color:white; font-size:40px; cursor:pointer;" onclick="cerrarVista()">&times;</span>
+        <span style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;" onclick="cerrarVista()">&times;</span>
         <img class="modal-contenido" id="imgGrande">
-        <div style="display:flex; flex-direction:column; align-items:center; gap:15px;">
-            <div id="modalRef" style="background:var(--azul-cstyles); padding:8px 20px; border-radius:50px; font-weight:900;"></div>
-            <a href="#" id="waLinkModal" class="btn-wa-modal" target="_blank">SOLICITAR ESTE MODELO 📱</a>
-        </div>
+        <div id="modalRef" style="background:var(--azul-cstyles); padding:8px 20px; border-radius:50px; font-weight:900; margin-top:10px;"></div>
+        <a href="#" id="waLinkModal" class="btn-wa-modal" target="_blank">SOLICITAR DISEÑO 📱</a>
     </div>
 
     <div class="tarjeta-detalle">
+        <!-- Galería -->
         <div class="seccion-galeria" id="contenedorGaleria"></div>
+
+        <!-- Información -->
         <div class="seccion-texto">
             <img src="../imajen2.png" alt="Covering Styles" class="logo-en-texto">
-            <span style="color: var(--azul-cstyles); font-size: 0.6rem; letter-spacing: 3px; font-weight: bold;">LÍNEA PREMIUM</span>
+            <span style="color: var(--azul-cstyles); font-size: 0.65rem; letter-spacing: 3px; font-weight: bold;">LÍNEA PREMIUM</span>
             <h2 class="titulo-diseno">DISEÑO CLÁSICO</h2>
-            <p style="font-size: 0.8rem; color: #888; margin-bottom: 25px;">Haz clic en una foto para ver detalles y solicitar la referencia.</p>
+            <p style="font-size: 0.85rem; color: #b8b8b8; margin: 15px 0;">Toca una foto para ampliarla y ver su referencia.</p>
             <a href="https://wa.me" class="btn-whatsapp-general" target="_blank">CONSULTA GENERAL 📱</a>
         </div>
     </div>
@@ -144,23 +148,27 @@
             "../clasico1.jpg", "../clasico2.jpg", "../clasico3.jpg", 
             "../clasico4.jpg", "../clasico5.jpg", "../clasico6.jpg", 
             "../clasico7.jpg", "../clasico8.jpg", "../clasico11.jpg", 
-            "../clasico10.jpg", "../clasico12.jpg", "../clasico13.jpg", "../clasico14.jpg"
+            "../clasico10.jpg", "../clasico12.jpg", "../clasico13.jpg",
+            "../clasico14.jpg"
         ];
 
         const galeria = document.getElementById("contenedorGaleria");
-        const miNumero = "56961960385"; // <-- REEMPLAZA CON TU NÚMERO AQUÍ
+        const miNumero = "56961960385"; 
 
         misFotos.forEach((ruta, index) => {
             const div = document.createElement("div");
             div.className = "contenedor-foto";
             const ref = `CL-${(index + 1).toString().padStart(2, '0')}`;
             div.onclick = () => verGrande(ruta, ref);
+
             const img = document.createElement("img");
             img.src = ruta;
             img.className = "foto-item";
+
             const tag = document.createElement("div");
             tag.className = "ref-tag";
             tag.innerText = ref;
+
             div.appendChild(img);
             div.appendChild(tag);
             galeria.appendChild(div);
@@ -172,9 +180,13 @@
             document.getElementById("modalRef").innerText = ref;
             const mensaje = encodeURIComponent(`Hola, me interesa el Diseño Clásico con referencia: ${ref}`);
             document.getElementById("waLinkModal").href = `https://wa.me{miNumero}?text=${mensaje}`;
+            document.body.style.overflow = "hidden"; // Bloquea scroll fondo
         }
 
-        function cerrarVista() { document.getElementById("modalImg").style.display = "none"; }
+        function cerrarVista() {
+            document.getElementById("modalImg").style.display = "none";
+            document.body.style.overflow = "auto"; // Libera scroll fondo
+        }
     </script>
 </body>
 </html>

@@ -3,316 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo - Covering Styles</title>
+    <title>Nuestros Diseños - Covering Styles</title>
     <style>
-        /* 1. BASE Y FONDO PREMIUM */
+        :root { --azul-cstyles: #2a75bb; --dark-bg: #0a0a0a; }
+
         body {
-            background: linear-gradient(180deg, #000000 0%, #373d42 100%);
+            background: linear-gradient(180deg, #000000 0%, #1a1c1e 100%);
             background-attachment: fixed;
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            color: white;
-            padding-bottom: 100px;
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
         }
 
-        /* 2. HERO / CABECERA */
-        .hero {
-            background-color: #000000;
-            height: 120px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
-            border-bottom: 2px solid #4a4e52;
+        /* 1. MENÚ SUPERIOR (Igual a la principal) */
+        .menu-superior {
+            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+            background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 2000;
+            display: flex; justify-content: center;
         }
-
-        .hero-logo img {
-            max-width: 280px;
-            height: auto;
-            animation: brilloPulso 3s infinite ease-in-out;
+        .menu-superior nav { display: flex; width: 100%; max-width: 1200px; }
+        .menu-superior a {
+            flex: 1; color: #b8b8b8; text-decoration: none; font-size: 0.75rem;
+            font-weight: bold; letter-spacing: 2px; display: flex;
+            justify-content: center; align-items: center; gap: 8px;
+            transition: 0.3s; text-transform: uppercase;
         }
+        .menu-superior a:hover { color: #fff; background: rgba(255,255,255,0.05); }
 
-        .btn-inicio {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            border: 1px solid #ffffff;
-            padding: 10px 25px;
-            border-radius: 50px;
-            transition: 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .btn-inicio:hover { background: white; color: black; }
-
-        @keyframes brilloPulso {
-            0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2)); }
-            50% { filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5)); }
-        }
-
-        /* 3. TÍTULO */
-        .titulo-seccion {
-            text-align: center;
-            font-size: 2rem;
-            color: #999B9B;
-            margin: 40px 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* 4. GRID DE TARJETAS */
+        /* 2. CONTENEDOR PRINCIPAL */
         .seccion-disenos {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            padding: 20px;
-            flex-wrap: wrap;
+            padding: 120px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        .tarjeta-diseno {
-            width: 300px;
-            background: #ffffff;
-            border-radius: 15px;
+        .titulo-principal {
+            font-size: 2.5rem; letter-spacing: 8px; font-weight: 900;
+            text-transform: uppercase; margin-bottom: 50px;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+        }
+
+        /* 3. GRID DE TARJETAS */
+        .grid-disenos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* 4. ESTILO DE TARJETA PREMIUM (AZUL) */
+        .tarjeta {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: 0.4s;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
         }
 
-        .tarjeta-diseno:hover { transform: translateY(-10px); }
-
-        .imagen-contenedor {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            cursor: zoom-in;
-            background: #eee;
-            position: relative;
+        .tarjeta:hover {
+            transform: translateY(-10px);
+            border-color: var(--azul-cstyles);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(42, 117, 187, 0.2);
         }
 
-        .imagen-contenedor img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.5s;
+        .img-contenedor {
+            width: 100%; height: 200px; background: rgba(0,0,0,0.4);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .img-contenedor img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.4s; }
+        .tarjeta:hover .img-contenedor img { opacity: 1; transform: scale(1.05); }
+
+        .info-tarjeta { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+
+        .info-tarjeta h3 {
+            font-size: 1.2rem; letter-spacing: 3px; margin: 0 0 10px 0;
+            text-transform: uppercase; font-weight: 800;
         }
 
-        .imagen-contenedor:hover img { transform: scale(1.1); }
+        .info-tarjeta p { font-size: 0.85rem; color: #b8b8b8; line-height: 1.5; margin-bottom: 20px; }
 
-        /* Lupa sutil sobre la foto */
-        .imagen-contenedor::after {
-            content: '🔍';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            padding: 5px;
-            border-radius: 50%;
-            font-size: 12px;
-        }
-
-        .info-cuerpo {
-            padding: 20px;
-            text-align: center;
-            color: #111;
-        }
-
-        .titulo-diseno {
-            font-size: 1.2rem;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
-
-        .descripcion {
-            font-size: 0.85rem;
-            color: #444;
-            margin-bottom: 20px;
-            height: 40px;
-        }
-
-        /* 5. BOTONES (ENLACES) */
-        .boton-accion {
-            display: block;
-            width: 100%;
-            padding: 12px 0;
-            background: #000;
-            color: #fff;
+        /* BOTONES */
+        .btn-ver {
+            margin-top: auto;
             text-decoration: none;
-            border-radius: 8px;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
             font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             transition: 0.3s;
-            text-align: center;
         }
 
-        .boton-accion:hover { background: #333; }
-
-        .btn-empezar {
-            background: #000;
-            border: 2px solid #25d366;
-            color: #25d366;
-        }
-        .btn-empezar:hover { background: #25d366; color: #fff; }
-
-        /* 6. WHATSAPP FLOTANTE */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #25d366;
-            color: #fff;
-            padding: 15px 25px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            font-weight: 900;
-            z-index: 2000;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-            border: 2px solid white;
+        .tarjeta:hover .btn-ver {
+            background: var(--azul-cstyles);
+            border-color: var(--azul-cstyles);
+            box-shadow: 0 0 15px rgba(42, 117, 187, 0.4);
         }
 
-        /* MODAL ZOOM */
-        #miModal {
-            display:none; position:fixed; z-index:3000; top:0; left:0; width:100%; height:100%; 
-            background:rgba(0,0,0,0.95); align-items:center; justify-content:center; cursor: pointer;
+        /* BOTÓN ESPECIAL COTIZAR */
+        .btn-flotante-wa {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #25d366; color: #fff; padding: 15px 30px;
+            border-radius: 50px; text-decoration: none; font-weight: 900;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            z-index: 1000; transition: 0.3s;
+        }
+        .btn-flotante-wa:hover { transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            .menu-superior a span { display: none; }
+            .titulo-principal { font-size: 1.8rem; letter-spacing: 4px; }
         }
     </style>
 </head>
 <body>
 
-<!-- MODAL PARA ZOOM -->
-<div id="miModal" onclick="this.style.display='none'">
-    <img id="imgModal" src="" style="max-width:95%; max-height:90%; border:3px solid white; border-radius:10px;">
-</div>
+    <header class="menu-superior">
+        <nav>
+            <a href="/">Inicio <span>🏠</span></a>
+            <a href="/galeria" style="color:white; border-bottom: 2px solid var(--azul-cstyles);">Catálogo <span>📂</span></a>
+            <a href="/clasico">Clásico <span>✨</span></a>
+            <a href="/plantillas">Plantillas <span>📏</span></a>
+            <a href="/#contacto">Contacto <span>📞</span></a>
+        </nav>
+    </header>
 
-<!-- BOTÓN FLOTANTE COTIZAR -->
-<a href="https://wa.me" class="whatsapp-float" target="_blank">
-    <span>COTIZAR AHORA 📱</span>
-</a>
+    <main class="seccion-disenos">
+        <h1 class="titulo-principal">NUESTROS DISEÑOS</h1>
 
-<div class="hero">
-    <div class="hero-logo">
-        <img src="imajen2.png" alt="Covering Styles">
-    </div>
-    <a href="index.html" class="btn-inicio">INICIO</a>
-</div>      
+        <div class="grid-disenos">
+            
+            <!-- TARJETA 1: PERSONALIZAR -->
+            <div class="tarjeta">
+                <div class="img-contenedor"><img src="/portada-personalizar.jpg" alt="Personalizar"></div>
+                <div class="info-tarjeta">
+                    <h3>Personalizar</h3>
+                    <p>Combina colores y texturas a tu gusto total. Crea algo único.</p>
+                    <a href="https://wa.me" class="btn-ver">Empezar</a>
+                </div>
+            </div>
 
-<h2 class="titulo-seccion">Nuestros Diseños</h2>             
+            <!-- TARJETA 2: DISEÑO CLÁSICO -->
+            <div class="tarjeta">
+                <div class="img-contenedor"><img src="/clasico1.jpg" alt="Diseño Clásico"></div>
+                <div class="info-tarjeta">
+                    <h3>Diseño Clásico</h3>
+                    <p>Elegancia tradicional y materiales premium para tu vehículo.</p>
+                    <a href="/clasico" class="btn-ver">Ver Detalles</a>
+                </div>
+            </div>
 
-<div class="seccion-disenos">
-  
-    <!-- 1. PERSONALIZAR (EMPEZAR) -->
-    <div class="tarjeta-diseno">
-        <div class="imagen-contenedor" onclick="zoom('dp1.jpg')">
-            <img src="dp1.jpg" alt="Personalizado">
+            <!-- TARJETA 3: TELA AUTOMOTRIZ -->
+            <div class="tarjeta">
+                <div class="img-contenedor"><img src="/portada-tela.jpg" alt="Tela Automotriz"></div>
+                <div class="info-tarjeta">
+                    <h3>Tela Automotriz</h3>
+                    <p>Resistencia original y confort máximo para el uso diario.</p>
+                    <a href="https://wa.me" class="btn-ver">Ver</a>
+                </div>
+            </div>
+
+            <!-- TARJETA 4: DISEÑO BICOLOR -->
+            <div class="tarjeta">
+                <div class="img-contenedor"><img src="/portada-bicolor.jpg" alt="Diseño Bicolor"></div>
+                <div class="info-tarjeta">
+                    <h3>Diseño Bicolor</h3>
+                    <p>Estilo deportivo en dos tonos dinámicos y modernos.</p>
+                    <a href="https://wa.me" class="btn-ver">Ver</a>
+                </div>
+            </div>
+
         </div>
-        <div class="info-cuerpo">
-            <div class="titulo-diseno">PERSONALIZAR</div>
-            <p class="descripcion">Combina colores y texturas a tu gusto total.</p>
-            <a href="personalizar.html" class="boton-accion btn-empezar">EMPEZAR</a>
-        </div>
-    </div>
+    </main>
 
-    <!-- 2. DISEÑO CLÁSICO -->
-    <div class="tarjeta-diseno">
-        <div class="imagen-contenedor" onclick="zoom('funda.png')">
-            <img src="/funda.png/" alt="Clásico">
-        </div>
-        <div class="info-cuerpo">
-            <div class="titulo-diseno">DISEÑO CLÁSICO</div>
-            <p class="descripcion">Elegancia tradicional y materiales premium.</p>
-            <a href="/clasico/" class="boton-accion">VER</a>
-        </div>
-    </div>
-
-    <!-- 3. TELA AUTOMOTRIZ -->
-    <div class="tarjeta-diseno">
-        <div class="imagen-contenedor" onclick="zoom('tela1.jpg')">
-            <img src="tela1.jpg" alt="Tela">
-        </div>
-        <div class="info-cuerpo">
-            <div class="titulo-diseno">TELA AUTOMOTRIZ</div>
-            <p class="descripcion">Resistencia original y confort máximo.</p>
-            <a href="tela.html" class="boton-accion">VER</a>
-        </div>
-    </div>
-
-    <!-- 4. DISEÑO BICOLOR -->
-    <div class="tarjeta-diseno">
-        <div class="imagen-contenedor" onclick="zoom('bicolor.jpg')">
-            <img src="bicolor.jpg" alt="Bicolor">
-        </div>
-        <div class="info-cuerpo">
-            <div class="titulo-diseno">DISEÑO BICOLOR</div>
-            <p class="descripcion">Estilo deportivo en dos tonos dinámicos.</p>
-            <a href="bicolor.html" class="boton-accion">VER</a>
-        </div>
-    </div>
-
-    <!-- 5. DISEÑO CON BORDADO -->
-    <div class="tarjeta-diseno">
-        <div class="imagen-contenedor" onclick="zoom('bordado.jpg')">
-            <img src="bordado.jpg" alt="Bordado">
-        </div>
-        <div class="info-cuerpo">
-            <div class="titulo-diseno">CON BORDADO</div>
-            <p class="descripcion">Costuras reforzadas que realzan la forma.</p>
-            <a href="bordado.html" class="boton-accion">VER</a>
-        </div>
-    </div>
-
-    <!-- 6. DISEÑO SOLO GÉNERO -->
-    <div class="tarjeta-diseno">
-        <div class="imagen-contenedor" onclick="zoom('genero.jpg')">
-            <img src="genero.jpg" alt="Género">
-        </div>
-        <div class="info-cuerpo">
-            <div class="titulo-diseno">SOLO GÉNERO</div>
-            <p class="descripcion">Acabado suave y fresco de alta gama.</p>
-            <a href="genero.html" class="boton-accion">VER</a>
-        </div>
-    </div>
-
-</div>
-
-<script>
-    // --- TUS FOTOS ---
-    const misFotos = [
-            "clasico1.jpg", 
-            "clasico2.jpg", 
-            "clasico3.jpg", 
-            "clasico4.jpg", 
-            "clasico5.jpg", 
-            "clasico6.jpg", 
-            "clasico7.jpg", 
-            "clasico8.jpg", 
-            "clasico11.jpg",
-            "clasico10.jpg",
-    ];
-
-    let i = 0;
-    const img = document.getElementById("pantalla");
-
-    // ESTA FUNCIÓN CORRIGE EL ERROR: Carga la primera foto de inmediato
-    window.onload = function() {
-        if(misFotos.length > 0) {
-            img.src = misFotos[0];
-        }
-    };
-
-    function mover(dir) {
-        img.style.opacity = 0;
-        setTimeout(() => {
-            i = (i + dir + misFotos.length) % misFotos.length;
-            img.src = misFotos[i];
-            img.style.opacity = 1;
-        }, 250);
-    }
-</script>
-
+    <a href="https://wa.me" class="btn-flotante-wa" target="_blank">
+        COTIZAR AHORA 📱
+    </a>
 
 </body>
 </html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Telas Automotrices - CStyles</title>
+    <style>
+        :root { --azul-cstyles: #2a75bb; --wa-green: #25d366; }
+        
+        body {
+            background: linear-gradient(180deg, #000000 0%, #1a1c1e 100%);
+            background-attachment: fixed;
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-y: auto; 
+        }
+
+        .btn-volver {
+            position: fixed; top: 15px; left: 15px;
+            color: #b8b8b8; text-decoration: none;
+            font-size: 0.7rem; letter-spacing: 2px;
+            text-transform: uppercase; border: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 15px; border-radius: 5px;
+            z-index: 100; background: rgba(0,0,0,0.7);
+        }
+
+        .tarjeta-detalle {
+            display: flex; width: 95%; max-width: 1250px; 
+            height: 88vh; 
+            background: rgba(255, 255, 255, 0.03); border-radius: 25px;
+            backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08);
+            margin: 40px auto; overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+        }
+
+        .seccion-galeria {
+            flex: 1.6; background: rgba(0,0,0,0.2);
+            padding: 25px; overflow-y: auto;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px; align-content: start;
+        }
+
+        .contenedor-foto {
+            position: relative; width: 100%; height: 160px;
+            border-radius: 12px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .contenedor-foto:hover { border-color: var(--azul-cstyles); transform: translateY(-3px); }
+        .foto-item { width: 100%; height: 100%; object-fit: cover; }
+
+        .ref-tag {
+            position: absolute; top: 8px; left: 8px;
+            background: var(--azul-cstyles); color: white;
+            padding: 2px 8px; border-radius: 4px;
+            font-size: 0.6rem; font-weight: 600;
+        }
+
+        .seccion-texto {
+            flex: 0.8; padding: 25px 35px; 
+            display: flex; flex-direction: column;
+            background: rgba(0, 0, 0, 0.25); 
+            border-left: 1px solid rgba(255,255,255,0.05);
+            align-items: center; text-align: center; justify-content: center;
+        }
+
+        .titulo-seccion { font-size: 1.6rem; letter-spacing: 4px; margin: 5px 0; font-weight: 900; text-transform: uppercase;}
+        .tagline { color: var(--azul-cstyles); font-size: 0.6rem; letter-spacing: 3px; font-weight: bold; margin-bottom: 10px;}
+
+        .bloque-info {
+            text-align: left; background: rgba(255,255,255,0.03);
+            padding: 15px; border-radius: 15px; margin: 10px 0;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .bloque-info p { font-size: 0.78rem; line-height: 1.5; color: #ccc; margin: 0 0 8px 0; }
+        .bloque-info ul { font-size: 0.72rem; color: #b8b8b8; padding-left: 15px; margin: 0; line-height: 1.4; }
+
+        /* SLIDER MODAL */
+        #modalImg {
+            display: none; position: fixed; z-index: 2000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.97);
+            flex-direction: column; justify-content: center; align-items: center;
+        }
+        .contenedor-slider {
+            position: relative; display: flex; align-items: center; justify-content: center;
+            width: 90%; max-width: 800px;
+        }
+        .modal-contenido { max-width: 100%; max-height: 75vh; border-radius: 15px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        .btn-nav {
+            position: absolute; background: rgba(255,255,255,0.1);
+            color: white; border: none; font-size: 2rem; padding: 15px;
+            cursor: pointer; border-radius: 50%;
+        }
+        .btn-nav:hover { background: var(--azul-cstyles); }
+        .prev { left: -70px; } .next { right: -70px; }
+
+        .btn-wa-modal {
+            background: var(--wa-green); color: white; text-decoration: none;
+            padding: 12px 35px; border-radius: 50px; font-weight: bold; margin-top: 20px;
+            text-transform: uppercase; font-size: 0.8rem;
+        }
+
+        @media (max-width: 900px) {
+            .tarjeta-detalle { flex-direction: column; height: auto; margin-top: 70px; }
+            .seccion-texto { order: 1; border-left: none; padding: 40px 20px; }
+            .seccion-galeria { order: 2; height: auto; grid-template-columns: repeat(2, 1fr); }
+            .btn-nav { padding: 8px; font-size: 1.2rem; }
+            .prev { left: 5px; } .next { right: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="/galeria/" class="btn-volver">❮ Catálogo</a>
+
+    <div id="modalImg">
+        <span style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;" onclick="cerrarVista()">&times;</span>
+        <div class="contenedor-slider">
+            <button class="btn-nav prev" onclick="cambiarFoto(-1)">❮</button>
+            <img class="modal-contenido" id="imgGrande">
+            <button class="btn-nav next" onclick="cambiarFoto(1)">❯</button>
+        </div>
+        <div id="modalRef" style="background:var(--azul-cstyles); padding:8px 25px; border-radius:50px; font-weight:900; margin-top:15px; letter-spacing:1px;"></div>
+        <a href="#" id="waLinkModal" class="btn-wa-modal" target="_blank">Consultar Disponibilidad 📱</a>
+    </div>
+
+    <div class="tarjeta-detalle">
+        <div class="seccion-galeria" id="contenedorTelas"></div>
+
+        <div class="seccion-texto">
+            <div class="tagline">CATÁLOGO PREMIUM</div>
+            <h2 class="titulo-seccion">TELA AUTOMOTRIZ</h2>
+            
+            <div class="bloque-info">
+                <p>Nuestra selección de textiles de ingeniería alemana y nacional, diseñados para resistir el roce constante y la exposición UV.</p>
+                <ul>
+                    <li><strong>Alta Resistencia:</strong> Telas con test de Martindale superior.</li>
+                    <li><strong>Transpirabilidad:</strong> Tejidos micro-perforados para mayor confort térmico.</li>
+                    <li><strong>Fácil Limpieza:</strong> Tratamiento anti-manchas integrado.</li>
+                </ul>
+            </div>
+
+            <p style="font-size: 0.65rem; color: #777; font-style: italic;">Explora las texturas y variantes disponibles.</p>
+            <a href="https://wa.me" class="btn-wa-modal" style="width: 80%; text-align: center;">ASESORÍA TÉCNICA 📱</a>
+        </div>
+    </div>
+
+<script>
+    // --- EDITA AQUÍ TUS TELAS ---
+    const telas = [
+        { ref: "TELA-01", fotos: ["/tela_original_negra.jpg", "/variante_gris.jpg"] }, 
+        { ref: "TELA-02", fotos: ["/jacquard_deportivo.jpg"] },
+        { ref: "TELA-03", fotos: ["/chenille_premium.jpg", "/chenille_azul.jpg"] },
+        { ref: "TELA-04", fotos: ["/microfibra_pro.jpg"] }
+    ];
+
+    let telaActual = 0;
+    let fotoActual = 0;
+    const contenedor = document.getElementById("contenedorTelas");
+
+    telas.forEach((t, index) => {
+        const div = document.createElement("div");
+        div.className = "contenedor-foto";
+        div.onclick = () => abrirModal(index);
+        
+        const img = document.createElement("img");
+        img.src = t.fotos[0];
+        img.className = "foto-item";
+        
+        const tag = document.createElement("div");
+        tag.className = "ref-tag";
+        tag.innerText = t.ref;
+
+        div.appendChild(img);
+        div.appendChild(tag);
+        contenedor.appendChild(div);
+    });
+
+    function abrirModal(index) {
+        telaActual = index;
+        fotoActual = 0;
+        actualizarModal();
+        document.getElementById("modalImg").style.display = "flex";
+    }
+
+    function cambiarFoto(dir) {
+        const fotos = telas[telaActual].fotos;
+        fotoActual = (fotoActual + dir + fotos.length) % fotos.length;
+        actualizarModal();
+    }
+
+    function actualizarModal() {
+        const t = telas[telaActual];
+        document.getElementById("imgGrande").src = t.fotos[fotoActual];
+        document.getElementById("modalRef").innerText = `${t.ref} - VARIANTE ${fotoActual + 1}`;
+        
+        const msg = encodeURIComponent(`Hola, consulto por la TELA referencia ${t.ref} (Variante ${fotoActual + 1})`);
+        document.getElementById("waLinkModal").href = `https://wa.me?text=${msg}`;
+        
+        const btns = document.querySelectorAll('.btn-nav');
+        btns.forEach(b => b.style.display = t.fotos.length > 1 ? 'block' : 'none');
+    }
+
+    function cerrarVista() { document.getElementById("modalImg").style.display = "none"; }
+</script>
+</body>
+</html>

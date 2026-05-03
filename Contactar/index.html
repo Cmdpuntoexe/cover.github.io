@@ -68,26 +68,26 @@
     <main class="contenedor-principal">
         <div class="header-seccion">
             <h1>Cotización Oficial</h1>
-            <p>Envíanos los detalles para confirmar la plantilla de tu vehículo</p>
+            <p>Tus datos llegarán directamente a nuestro equipo técnico</p>
         </div>
 
         <div class="tarjeta-formulario">
-            <!-- Formulario directo para evitar el error 405 -->
+            <!-- FORMULARIO DIRECTO (Sin JavaScript de envío para evitar error 405) -->
             <form action="https://web3forms.com" method="POST" enctype="multipart/form-data">
                 
                 <input type="hidden" name="access_key" value="0318e171-2b9a-481a-8648-9ca0a0de109a">
                 
-                <!-- Redirección obligatoria para confirmar envío -->
+                <!-- Página a la que irá el cliente después de enviar (Opcional) -->
                 <input type="hidden" name="redirect" value="https://web3forms.com">
 
                 <div class="grupo-input">
                     <input type="text" name="Nombre_Cliente" placeholder="Tu Nombre" required>
-                    <input type="tel" name="WhatsApp_Contacto" placeholder="WhatsApp (569...)" required>
+                    <input type="tel" name="WhatsApp_Contacto" placeholder="WhatsApp" required>
                 </div>
 
                 <div class="grupo-input">
-                    <input type="text" name="Vehiculo_Modelo_Anio" placeholder="Auto y Año" required>
-                    <select name="Codigo_Diseno" required>
+                    <input type="text" name="Vehiculo_Info" placeholder="Auto y Año" required>
+                    <select name="Diseño_Elegido" required>
                         <option value="" disabled selected>Selecciona Diseño</option>
                         <option value="BI-01">Bicolor BI-01</option>
                         <option value="BI-02">Bicolor BI-02</option>
@@ -103,17 +103,17 @@
                     <input type="file" name="attachment" id="archivo" accept="image/*" style="display:none" onchange="validar()">
                 </div>
 
-                <button type="submit" class="btn-enviar">Enviar Formulario 🚀</button>
+                <button type="submit" class="btn-enviar">ENVIAR SOLICITUD 🚀</button>
             </form>
         </div>
     </main>
 
     <script>
+        // Solo dejamos la función que cambia el texto de la foto seleccionada
         function validar() {
             const input = document.getElementById('archivo');
             const texto = document.getElementById('info-archivo');
             if (input.files.length > 0) {
-                // Reemplazamos espacios por guiones bajos para evitar problemas de URL
                 texto.innerText = "✅ Foto: " + input.files[0].name.replace(/\s+/g, '_');
                 texto.style.color = "#25d366";
             }
@@ -121,4 +121,3 @@
     </script>
 </body>
 </html>
-

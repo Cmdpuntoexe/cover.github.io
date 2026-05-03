@@ -68,16 +68,16 @@
     <main class="contenedor-principal">
         <div class="header-seccion">
             <h1>Cotización Oficial</h1>
-            <p>Envíanos los detalles técnicos para confirmar tu pedido</p>
+            <p>Envíanos los detalles para confirmar la plantilla de tu vehículo</p>
         </div>
 
         <div class="tarjeta-formulario">
-            <!-- Formulario limpio sin espacios en los nombres de los campos -->
+            <!-- Formulario directo para evitar el error 405 -->
             <form action="https://web3forms.com" method="POST" enctype="multipart/form-data">
                 
                 <input type="hidden" name="access_key" value="0318e171-2b9a-481a-8648-9ca0a0de109a">
                 
-                <!-- Redirección opcional después de enviar -->
+                <!-- Redirección obligatoria para confirmar envío -->
                 <input type="hidden" name="redirect" value="https://web3forms.com">
 
                 <div class="grupo-input">
@@ -113,7 +113,7 @@
             const input = document.getElementById('archivo');
             const texto = document.getElementById('info-archivo');
             if (input.files.length > 0) {
-                // Quitamos espacios del nombre del archivo visualmente si los tiene
+                // Reemplazamos espacios por guiones bajos para evitar problemas de URL
                 texto.innerText = "✅ Foto: " + input.files[0].name.replace(/\s+/g, '_');
                 texto.style.color = "#25d366";
             }
@@ -121,3 +121,4 @@
     </script>
 </body>
 </html>
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cotización Oficial por Email - CStyles</title>
+    <title>Cotización Oficial - Covering Styles</title>
     <style>
         :root { --azul-cstyles: #2a75bb; --dark-card: rgba(255, 255, 255, 0.03); }
         
@@ -22,7 +22,7 @@
             display: flex; align-items: center; justify-content: center;
             position: sticky; top: 0; z-index: 1000;
         }
-        .nav-cotizar a { color: var(--azul-cstyles); text-decoration: none; font-weight: 900; letter-spacing: 3px; }
+        .nav-cotizar a { color: var(--azul-cstyles); text-decoration: none; font-weight: 900; letter-spacing: 3px; font-size: 1.2rem; }
 
         .contenedor-principal { max-width: 800px; margin: 50px auto; padding: 0 20px; text-align: center; }
 
@@ -40,6 +40,7 @@
         input, select {
             background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
             padding: 15px; border-radius: 12px; color: #fff; font-size: 0.9rem; outline: none; transition: 0.3s;
+            width: 100%; box-sizing: border-box;
         }
         input:focus, select:focus { border-color: var(--azul-cstyles); background: rgba(0,0,0,0.8); }
         select option { background: #1a1c1e; color: #fff; }
@@ -50,6 +51,7 @@
         }
         .zona-carga-foto:hover { background: rgba(42, 117, 187, 0.05); border-color: var(--azul-cstyles); }
         .zona-carga-foto span { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+        .zona-carga-foto p { margin: 5px 0; font-weight: bold; }
 
         .btn-enviar {
             width: 100%; background: var(--azul-cstyles); color: white; border: none;
@@ -68,23 +70,23 @@
     <main class="contenedor-principal">
         <div class="header-seccion">
             <h1>Cotización Oficial</h1>
-            <p>La información llegará directamente a nuestra oficina técnica</p>
+            <p>Tus datos y fotos llegarán directamente a nuestro equipo técnico</p>
         </div>
 
         <div class="tarjeta-formulario">
-            <!-- REEMPLAZA "TU_FORM_ID" con el código que te dé Formspree -->
-            <form action="https://formspree.io" method="POST" enctype="multipart/form-data">
+            <!-- Formulario conectado a tu Formspree mkoyjgjy -->
+            <form action="https://formspree.io/f/mkoyjgjy" method="POST" enctype="multipart/form-data">
                 
                 <div class="grupo-input">
-                    <input type="text" name="Nombre" placeholder="Tu Nombre" required>
-                    <input type="tel" name="WhatsApp" placeholder="Número de Contacto" required>
+                    <input type="text" name="Nombre_Cliente" placeholder="Tu Nombre Completo" required>
+                    <input type="tel" name="WhatsApp_Contacto" placeholder="WhatsApp (Ej: 569...)" required>
                 </div>
 
                 <div class="grupo-input">
-                    <input type="text" name="Vehiculo" placeholder="Modelo y Año del Auto" required>
+                    <input type="text" name="Vehiculo_Modelo_Año" placeholder="Modelo y Año del Auto" required>
                     
-                    <select name="Diseno_Elegido" required>
-                        <option value="" disabled selected>Selecciona un Diseño</option>
+                    <select name="Diseño_Interés" required>
+                        <option value="" disabled selected>Selecciona el Diseño</option>
                         <optgroup label="LÍNEA BICOLOR">
                             <option value="BI-01">Bicolor BI-01</option>
                             <option value="BI-02">Bicolor BI-02</option>
@@ -92,48 +94,36 @@
                             <option value="BI-04">Bicolor BI-04</option>
                             <option value="BI-05">Bicolor BI-05</option>
                         </optgroup>
-                        <option value="Clasico">Diseño Clásico</option>
-                        <option value="Tela">Tela Automotriz</option>
-                        <option value="Personalizado">Personalizado Especial</option>
+                        <optgroup label="OTRAS LÍNEAS">
+                            <option value="Clasico">Diseño Clásico</option>
+                            <option value="Tela">Tela Automotriz</option>
+                            <option value="Personalizado">Personalizado Especial</option>
+                        </optgroup>
                     </select>
                 </div>
 
-                <!-- CARGA DE FOTO REAL -->
-                <div class="zona-carga-foto" onclick="document.getElementById('upload').click()">
+                <!-- SECCIÓN DE CARGA DE IMAGEN -->
+                <div class="zona-carga-foto" onclick="document.getElementById('archivo').click()">
                     <span>📸</span>
-                    <p id="file-name">Subir foto de tus asientos actuales</p>
-                    <small>Formato: JPG, PNG (Max 5MB)</small>
-                    <input type="file" name="Foto_Asiento" id="upload" accept="image/*" style="display:none" onchange="showName()">
+                    <p id="info-archivo">Subir foto de tus asientos actuales</p>
+                    <small style="color: #666;">Formatos aceptados: JPG o PNG</small>
+                    <input type="file" name="Foto_Butaca" id="archivo" accept="image/*" style="display:none" onchange="validarArchivo()">
                 </div>
 
-                <button type="submit" class="btn-enviar">Enviar Solicitud al Correo 📩</button>
+                <button type="submit" class="btn-enviar">Enviar Solicitud 📩</button>
             </form>
         </div>
     </main>
 
     <script>
-        function showName() {
-            const file = document.getElementById('upload');
-            const label = document.getElementById('file-name');
-            if (file.files.length > 0) {
-                label.innerText = "✅ Archivo listo: " + file.files[0].name;
-                label.style.color = "#25d366";
+        function validarArchivo() {
+            const input = document.getElementById('archivo');
+            const texto = document.getElementById('info-archivo');
+            if (input.files.length > 0) {
+                texto.innerText = "✅ Archivo seleccionado: " + input.files[0].name;
+                texto.style.color = "#25d366";
             }
         }
-    </script>
-</body>
-</html>
-
-                `👤 *Cliente:* ${nom}%0A` +
-                `📱 *WhatsApp:* ${tel}%0A` +
-                `🚗 *Auto:* ${aut}%0A` +
-                `🎨 *Modelo Elegido:* ${cod}%0A%0A` +
-                `_Te envío la foto de mi butaca para validar la plantilla._`
-            );
-            
-            // CORRECCIÓN FINAL DEL ENLACE
-            window.open(`https://wa.me{msg}`, '_blank');
-        });
     </script>
 </body>
 </html>

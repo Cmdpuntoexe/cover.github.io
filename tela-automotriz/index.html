@@ -90,7 +90,7 @@
             position: relative; display: flex; align-items: center; justify-content: center;
             width: 90%; max-width: 800px;
         }
-        .modal-contenido { max-width: 100%; max-height: 75vh; border-radius: 15px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        .modal-contenido { max-width: 100%; max-height: 70vh; border-radius: 15px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
         .btn-nav {
             position: absolute; background: rgba(255,255,255,0.1);
             color: white; border: none; font-size: 2rem; padding: 15px;
@@ -98,6 +98,16 @@
         }
         .btn-nav:hover { background: var(--azul-cstyles); }
         .prev { left: -70px; } .next { right: -70px; }
+
+        /* Estilo para la descripción en el modal */
+        #descVariante {
+            color: #b8b8b8;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            max-width: 80%;
+            text-align: center;
+            line-height: 1.4;
+        }
 
         .btn-wa-modal {
             background: var(--wa-green); color: white; text-decoration: none;
@@ -126,6 +136,10 @@
             <button class="btn-nav next" onclick="cambiarFoto(1)">❯</button>
         </div>
         <div id="modalRef" style="background:var(--azul-cstyles); padding:8px 25px; border-radius:50px; font-weight:900; margin-top:15px; letter-spacing:1px;"></div>
+        
+        <!-- Aquí aparecerá la descripción -->
+        <p id="descVariante"></p>
+
         <a href="#" id="waLinkModal" class="btn-wa-modal" target="_blank">Consultar Disponibilidad 📱</a>
     </div>
 
@@ -151,12 +165,35 @@
     </div>
 
 <script>
-    // --- EDITA AQUÍ TUS TELAS ---
+    // --- EDITA AQUÍ TUS TELAS Y DESCRIPCIONES ---
+    // Estructura: fotos: [ { ruta: "...", desc: "..." } ]
     const telas = [
-        { ref: "TELA-01", fotos: ["/mixto1.jpg", "/variante_gris.jpg"] }, 
-        { ref: "TELA-02", fotos: ["/Misxto2.jpg"] },
-        { ref: "TELA-03", fotos: ["/chenille_premium.jpg", "/chenille_azul.jpg"] },
-        { ref: "TELA-04", fotos: ["/microfibra_pro.jpg"] }
+        { 
+            ref: "TELA-01", 
+            fotos: [
+                { ruta: "/mixto1.jpg", desc: "Jacquard reforzado con trama de alta densidad, color negro." },
+                { ruta: "/variante_gris.jpg", desc: "Textura micro-malla transpirable en tono gris carbón." }
+            ] 
+        }, 
+        { 
+            ref: "TELA-02", 
+            fotos: [
+                { ruta: "/Misxto2.jpg", desc: "Tela de punto circular con acabado suave y resistente al roce." }
+            ] 
+        },
+        { 
+            ref: "TELA-03", 
+            fotos: [
+                { ruta: "/chenille_premium.jpg", desc: "Chenille premium de tacto aterciopelado para máximo confort." },
+                { ruta: "/chenille_azul.jpg", desc: "Variante en azul cobalto con protección UV." }
+            ] 
+        },
+        { 
+            ref: "TELA-04", 
+            fotos: [
+                { ruta: "/microfibra_pro.jpg", desc: "Microfibra técnica repelente a líquidos y fácil de limpiar." }
+            ] 
+        }
     ];
 
     let telaActual = 0;
@@ -169,7 +206,7 @@
         div.onclick = () => abrirModal(index);
         
         const img = document.createElement("img");
-        img.src = t.fotos[0];
+        img.src = t.fotos[0].ruta; // Muestra la primera variante en la galería
         img.className = "foto-item";
         
         const tag = document.createElement("div");
@@ -196,11 +233,15 @@
 
     function actualizarModal() {
         const t = telas[telaActual];
-        document.getElementById("imgGrande").src = t.fotos[fotoActual];
-        document.getElementById("modalRef").innerText = `${t.ref} - VARIANTE ${fotoActual + 1}`;
+        const variante = t.fotos[fotoActual];
         
-        const msg = encodeURIComponent(`Hola, consulto por la TELA referencia ${t.ref} (Variante ${fotoActual + 1})`);
-        document.getElementById("waLinkModal").href = `https://wa.me?text=${msg}`;
+        document.getElementById("imgGrande").src = variante.ruta;
+        document.getElementById("modalRef").innerText = `${t.ref} - VARIANTE ${fotoActual + 1}`;
+        document.getElementById("descVariante").innerText = variante.desc; // Poner descripción
+        
+        const miNumero = "56961960385";
+        const msg = encodeURIComponent(`Hola, consulto por la TELA ${t.ref} (Variante ${fotoActual + 1}): ${variante.desc}`);
+        document.getElementById("waLinkModal").href = `https://wa.me{miNumero}?text=${msg}`;
         
         const btns = document.querySelectorAll('.btn-nav');
         btns.forEach(b => b.style.display = t.fotos.length > 1 ? 'block' : 'none');

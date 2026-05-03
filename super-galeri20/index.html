@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestros Diseños - Covering Styles</title>
     <style>
-        :root { --azul-cstyles: #2a75bb; --dark-bg: #0a0a0a; }
+        :root { --azul-cstyles: #2a75bb; --wa-green: #25d366; }
 
         body {
             background: linear-gradient(180deg, #000000 0%, #1a1c1e 100%);
@@ -14,9 +14,10 @@
             font-family: 'Segoe UI', Roboto, sans-serif;
             color: #ffffff;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* 1. MENÚ SUPERIOR (Igual a la principal) */
+        /* 1. MENÚ SUPERIOR */
         .menu-superior {
             position: fixed; top: 0; left: 0; width: 100%; height: 60px;
             background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(15px);
@@ -25,7 +26,7 @@
         }
         .menu-superior nav { display: flex; width: 100%; max-width: 1200px; }
         .menu-superior a {
-            flex: 1; color: #b8b8b8; text-decoration: none; font-size: 0.75rem;
+            flex: 1; color: #b8b8b8; text-decoration: none; font-size: 0.7rem;
             font-weight: bold; letter-spacing: 2px; display: flex;
             justify-content: center; align-items: center; gap: 8px;
             transition: 0.3s; text-transform: uppercase;
@@ -34,16 +35,36 @@
 
         /* 2. CONTENEDOR PRINCIPAL */
         .seccion-disenos {
-            padding: 120px 20px 60px;
+            padding: 140px 20px 60px;
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
         }
 
+        .contenedor-titulo {
+            display: inline-block;
+            margin-bottom: 60px;
+        }
+
         .titulo-principal {
             font-size: 2.5rem; letter-spacing: 8px; font-weight: 900;
-            text-transform: uppercase; margin-bottom: 50px;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+            text-transform: uppercase; margin: 0;
+            color: var(--azul-cstyles);
+            text-shadow: 0 0 20px rgba(42, 117, 187, 0.5);
+        }
+
+        .linea-decorativa {
+            width: 0; height: 3px;
+            background: var(--azul-cstyles);
+            margin: 10px auto 0;
+            border-radius: 5px;
+            animation: expandirLinea 1.5s ease forwards;
+            box-shadow: 0 0 10px var(--azul-cstyles);
+        }
+
+        @keyframes expandirLinea {
+            from { width: 0; }
+            to { width: 100%; }
         }
 
         /* 3. GRID DE TARJETAS */
@@ -53,50 +74,48 @@
             gap: 30px;
         }
 
-        /* 4. ESTILO DE TARJETA PREMIUM (AZUL) */
         .tarjeta {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 20px;
             overflow: hidden;
             backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
         }
 
         .tarjeta:hover {
-            transform: translateY(-10px);
+            transform: translateY(-12px);
             border-color: var(--azul-cstyles);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(42, 117, 187, 0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 20px rgba(42, 117, 187, 0.3);
         }
 
         .img-contenedor {
-            width: 100%; height: 200px; background: rgba(0,0,0,0.4);
-            display: flex; align-items: center; justify-content: center;
+            width: 100%; height: 220px; background: rgba(0,0,0,0.4);
+            overflow: hidden;
         }
-        .img-contenedor img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.4s; }
-        .tarjeta:hover .img-contenedor img { opacity: 1; transform: scale(1.05); }
+        .img-contenedor img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
+        .tarjeta:hover .img-contenedor img { opacity: 1; transform: scale(1.1); }
 
         .info-tarjeta { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
 
         .info-tarjeta h3 {
-            font-size: 1.2rem; letter-spacing: 3px; margin: 0 0 10px 0;
-            text-transform: uppercase; font-weight: 800;
+            font-size: 1.1rem; letter-spacing: 3px; margin: 0 0 12px 0;
+            text-transform: uppercase; font-weight: 800; color: #fff;
         }
 
-        .info-tarjeta p { font-size: 0.85rem; color: #b8b8b8; line-height: 1.5; margin-bottom: 20px; }
+        .info-tarjeta p { font-size: 0.85rem; color: #b8b8b8; line-height: 1.6; margin-bottom: 25px; }
 
-        /* BOTONES */
         .btn-ver {
             margin-top: auto;
             text-decoration: none;
             color: #fff;
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: bold;
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 900;
             letter-spacing: 2px;
             text-transform: uppercase;
             transition: 0.3s;
@@ -105,22 +124,23 @@
         .tarjeta:hover .btn-ver {
             background: var(--azul-cstyles);
             border-color: var(--azul-cstyles);
-            box-shadow: 0 0 15px rgba(42, 117, 187, 0.4);
+            box-shadow: 0 5px 15px rgba(42, 117, 187, 0.4);
         }
 
-        /* BOTÓN ESPECIAL COTIZAR */
+        /* 4. BOTÓN FLOTANTE WA */
         .btn-flotante-wa {
             position: fixed; bottom: 30px; right: 30px;
-            background: #25d366; color: #fff; padding: 15px 30px;
+            background: var(--wa-green); color: #fff; padding: 16px 32px;
             border-radius: 50px; text-decoration: none; font-weight: 900;
             box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
             z-index: 1000; transition: 0.3s;
         }
-        .btn-flotante-wa:hover { transform: scale(1.1); }
+        .btn-flotante-wa:hover { transform: scale(1.1) translateY(-5px); background: #1ebd59; }
 
         @media (max-width: 768px) {
             .menu-superior a span { display: none; }
-            .titulo-principal { font-size: 1.8rem; letter-spacing: 4px; }
+            .titulo-principal { font-size: 1.7rem; letter-spacing: 4px; }
+            .btn-flotante-wa { padding: 12px 24px; font-size: 0.8rem; bottom: 20px; right: 20px; }
         }
     </style>
 </head>
@@ -130,57 +150,58 @@
         <nav>
             <a href="/">Inicio <span>🏠</span></a>
             <a href="/galeria" style="color:white; border-bottom: 2px solid var(--azul-cstyles);">Catálogo <span>📂</span></a>
-            <a href="/clasico">Clásico <span>✨</span></a>
-            <a href="/plantillas">Plantillas <span>📏</span></a>
-            <a href="/#contacto">Contacto <span>📞</span></a>
+            <a href="/clasico/">Clásico <span>✨</span></a>
+            <a href="/tela-automotriz/">Tela <span>🧵</span></a>
+            <a href="/bicolor/">Bicolor <span>🌗</span></a>
         </nav>
     </header>
 
     <main class="seccion-disenos">
-        <h1 class="titulo-principal">NUESTROS DISEÑOS</h1>
+        <div class="contenedor-titulo">
+            <h1 class="titulo-principal">NUESTROS DISEÑOS</h1>
+            <div class="linea-decorativa"></div>
+        </div>
 
         <div class="grid-disenos">
-            
-            <!-- TARJETA 1: PERSONALIZAR -->
+            <!-- PERSONALIZADOS -->
             <div class="tarjeta">
                 <div class="img-contenedor"><img src="/dp1.jpg" alt="Personalizar"></div>
                 <div class="info-tarjeta">
-                    <h3>diseños Personalizados</h3>
-                    <p>Combina colores y texturas a tu gusto total. Crea algo único.</p>
-                    <a href="/estilos-personalizados/" class="btn-ver">ver</a>
+                    <h3>Personalizados</h3>
+                    <p>Crea un diseño exclusivo combinando los colores que más te gusten.</p>
+                    <a href="/estilos-personalizados/" class="btn-ver">Ver Catálogo</a>
                 </div>
             </div>
 
-            <!-- TARJETA 2: DISEÑO CLÁSICO -->
+            <!-- CLÁSICO -->
             <div class="tarjeta">
-                <div class="img-contenedor"><img src="/clasico1.jpg" alt="Diseño Clásico"></div>
+                <div class="img-contenedor"><img src="/clasico1.jpg" alt="Clásico"></div>
                 <div class="info-tarjeta">
                     <h3>Diseño Clásico</h3>
-                    <p>Elegancia tradicional y materiales premium para tu vehículo.</p>
-                    <a href="/clasico" class="btn-ver">Ver</a>
+                    <p>El balance perfecto entre elegancia y sobriedad para tu interior.</p>
+                    <a href="/clasico/" class="btn-ver">Ver Catálogo</a>
                 </div>
             </div>
 
-            <!-- TARJETA 3: TELA AUTOMOTRIZ -->
+            <!-- TELA -->
             <div class="tarjeta">
-                <div class="img-contenedor"><img src="/Misxto2.jpg" alt="Tela Automotriz"></div>
+                <div class="img-contenedor"><img src="/Misxto2.jpg" alt="Tela"></div>
                 <div class="info-tarjeta">
                     <h3>Tela Automotriz</h3>
-                    <p>Resistencia original y confort máximo para el uso diario.</p>
-                    <a href="/tela-automotriz/" class="btn-ver">Ver</a>
+                    <p>Materiales originales de alta durabilidad y confort térmico.</p>
+                    <a href="/tela-automotriz/" class="btn-ver">Ver Catálogo</a>
                 </div>
             </div>
 
-            <!-- TARJETA 4: DISEÑO BICOLOR -->
+            <!-- BICOLOR -->
             <div class="tarjeta">
-                <div class="img-contenedor"><img src="/bicolor1.png" alt="Diseño Bicolor"></div>
+                <div class="img-contenedor"><img src="/bicolor1.png" alt="Bicolor"></div>
                 <div class="info-tarjeta">
                     <h3>Diseño Bicolor</h3>
-                    <p>Estilo deportivo en dos tonos dinámicos y modernos.</p>
-                    <a href="/bicolor/" class="btn-ver">Ver</a>
+                    <p>Estilo deportivo con contrastes modernos que resaltan cada detalle.</p>
+                    <a href="/bicolor/" class="btn-ver">Ver Catálogo</a>
                 </div>
             </div>
-
         </div>
     </main>
 

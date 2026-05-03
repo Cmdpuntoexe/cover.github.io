@@ -117,30 +117,54 @@
             .prev { left: 5px; } .next { right: 5px; }
         }
 
-        .enlace-logo-ig {
-    text-decoration: none;
+   /* Estilos del Menú */
+.nav-principal {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    padding: 15px 20px;
 }
 
-.ig-badge {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    color: white;
-    font-size: 0.55rem;
+.nav-logo {
+    color: var(--azul-cstyles);
+    text-decoration: none;
     font-weight: 900;
-    padding: 4px 12px;
-    border-radius: 50px;
-    margin-top: -15px; /* Para que quede montado un poquito sobre el logo */
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    transition: 0.3s;
+    letter-spacing: 3px;
+    font-size: 1.2rem;
 }
 
-.enlace-logo-ig:hover .ig-badge {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(204, 35, 102, 0.5);
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    opacity: 0.7;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    opacity: 1;
+    color: var(--azul-cstyles);
+}
+
+@media (max-width: 600px) {
+    .nav-container { flex-direction: column; gap: 10px; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .nav-links a { margin: 0 5px; font-size: 0.7rem; }
 }
         .instagram-link-top {
     color: #ffffff;

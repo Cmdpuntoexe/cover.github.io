@@ -35,7 +35,6 @@
             box-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
-        /* Volvemos a la proporción original: Galería más ancha */
         .seccion-galeria {
             flex: 1.6; 
             background: rgba(0,0,0,0.2);
@@ -97,14 +96,41 @@
         }
         .btn-whatsapp-general:hover { background: var(--azul-cstyles); color: white; }
 
-        /* MODAL */
+        /* MODAL CON NAVEGACIÓN */
         #modalImg {
             display: none; position: fixed; z-index: 2000;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95);
             flex-direction: column; justify-content: center; align-items: center;
         }
-        .modal-contenido { max-width: 90%; max-height: 70%; border-radius: 10px; }
+        
+        .contenedor-slider {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .modal-contenido { max-width: 100%; max-height: 70vh; border-radius: 10px; }
+
+        .btn-nav {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: 0.3s;
+            z-index: 2100;
+        }
+        .btn-nav:hover { background: var(--azul-cstyles); }
+        .prev { left: -80px; }
+        .next { right: -80px; }
+
         .btn-wa-modal {
             background: var(--wa-green); color: white; text-decoration: none;
             padding: 12px 30px; border-radius: 50px; font-weight: bold; margin-top: 15px;
@@ -114,6 +140,8 @@
             .tarjeta-detalle { flex-direction: column; height: auto; margin-top: 80px; }
             .seccion-texto { order: 1; border-left: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 40px 20px; }
             .seccion-galeria { order: 2; height: auto; grid-template-columns: repeat(2, 1fr); overflow: visible; }
+            .btn-nav { padding: 10px; font-size: 1.5rem; }
+            .prev { left: 10px; } .next { right: 10px; }
         }
     </style>
 </head>
@@ -123,89 +151,100 @@
 
     <div id="modalImg">
         <span style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;" onclick="cerrarVista()">&times;</span>
-        <img class="modal-contenido" id="imgGrande">
+        
+        <div class="contenedor-slider">
+            <button class="btn-nav prev" onclick="cambiarFoto(-1)">❮</button>
+            <img class="modal-contenido" id="imgGrande">
+            <button class="btn-nav next" onclick="cambiarFoto(1)">❯</button>
+        </div>
+
         <div id="modalRef" style="background:var(--azul-cstyles); padding:8px 20px; border-radius:50px; font-weight:900; margin-top:10px;"></div>
         <a href="#" id="waLinkModal" class="btn-wa-modal" target="_blank">SOLICITAR DISEÑO 📱</a>
     </div>
 
     <div class="tarjeta-detalle">
-        <!-- Galería a la izquierda -->
         <div class="seccion-galeria" id="contenedorGaleria"></div>
-
-        <!-- Texto a la derecha (SIN LA IMAGEN SUPERIOR) -->
         <div class="seccion-texto">
-            
             <div class="tagline">LÍNEA DINÁMICA</div>
             <h2 class="titulo-diseno">DISEÑO BICOLOR</h2>
-
             <div class="bloque-info">
-                <p>Nuestra línea de alto impacto visual. El valor de este modelo responde a una <strong>arquitectura de ensamblaje multi-panel</strong>, diseñada para quienes buscan personalización total.</p>
+                <p>Nuestra línea de alto impacto visual con arquitectura multi-panel.</p>
                 <ul>
-                    <li><strong>Complejidad Técnica:</strong> Requiere una manufactura seccionada con mayor cantidad de cortes y uniones precisas.</li>
-                    <li><strong>Contraste Premium:</strong> Integración de dos textiles de alta densidad para generar dinamismo y profundidad estética.</li>
-                    <li><strong>Acabado Deportivo:</strong> Estructura ergonómica resaltada por costuras de contraste a elección.</li>
+                    <li><strong>Complejidad Técnica:</strong> Manufactura seccionada precisa.</li>
+                    <li><strong>Contraste Premium:</strong> Integración de textiles de alta densidad.</li>
                 </ul>
             </div>
-            
-            <p style="font-size: 0.7rem; color: #888; font-style: italic; margin-bottom: 10px;">Toca una foto para ver la referencia técnica.</p>
-            
+            <p style="font-size: 0.7rem; color: #888; font-style: italic;">Toca un diseño para ver sus variantes de color.</p>
             <a href="https://wa.me" class="btn-whatsapp-general" target="_blank">CONSULTA PROFESIONAL 📱</a>
         </div>
     </div>
 
 <script>
-    const misFotos = [
-        "/bicolor1.png", "/diamante4.png", "/2Bicolor.jpg", 
-        "/1b.jpg", "/funda.png", "/bicolor2.png"
+    // ESTRUCTURA DE FOTOS: Agrupa aquí las variantes por diseño
+    const diseños = [
+        { ref: "BI-01", fotos: ["/bicolor1.png", "/2Bicolor.jpg", "/1b.jpg"] }, // Aquí tus 5 colores si quieres
+        { ref: "BI-02", fotos: ["/diamante4.png"] },
+        { ref: "BI-03", fotos: ["/funda.png"] },
+        { ref: "BI-04", fotos: ["/bicolor2.png"] }
     ];
+
+    let diseñoActual = 0;
+    let fotoActual = 0;
 
     const galeria = document.getElementById("contenedorGaleria");
 
-    misFotos.forEach((ruta, index) => {
+    diseños.forEach((diseno, index) => {
         const div = document.createElement("div");
         div.className = "contenedor-foto";
-        const ref = "BI-" + (index + 1).toString().padStart(2, '0');
-        div.onclick = function() { verGrande(ruta, ref); };
+        div.onclick = function() { abrirModal(index); };
 
         const img = document.createElement("img");
-        img.src = ruta;
+        img.src = diseno.fotos[0];
         img.className = "foto-item";
 
         const tag = document.createElement("div");
         tag.className = "ref-tag";
-        tag.innerText = ref;
+        tag.innerText = diseno.ref;
 
         div.appendChild(img);
         div.appendChild(tag);
         galeria.appendChild(div);
     });
 
-    function verGrande(ruta, ref) {
-        const modal = document.getElementById("modalImg");
-        const img = document.getElementById("imgGrande");
-        const refDiv = document.getElementById("modalRef");
+    function abrirModal(index) {
+        diseñoActual = index;
+        fotoActual = 0;
+        mostrarFoto();
+        document.getElementById("modalImg").style.display = "flex";
+    }
+
+    function cambiarFoto(dir) {
+        const fotos = diseños[diseñoActual].fotos;
+        fotoActual = (fotoActual + dir + fotos.length) % fotos.length;
+        mostrarFoto();
+    }
+
+    function mostrarFoto() {
+        const diseno = diseños[diseñoActual];
+        const ruta = diseno.fotos[fotoActual];
+        const modalImg = document.getElementById("imgGrande");
+        const modalRef = document.getElementById("modalRef");
         const waLink = document.getElementById("waLinkModal");
 
-        modal.style.display = "flex";
-        img.src = ruta;
-        refDiv.innerText = ref;
+        modalImg.src = ruta;
+        modalRef.innerText = `${diseno.ref} - Opción ${fotoActual + 1}`;
 
-        const miNumero = "56961960385";
-        const mensaje = encodeURIComponent("Hola, me interesa el diseño Bicolor con referencia: " + ref);
-        waLink.href = `https://wa.me{miNumero}?text=${mensaje}`;
+        const mensaje = encodeURIComponent(`Hola, me interesa el diseño ${diseno.ref} (Opción ${fotoActual + 1})`);
+        waLink.href = `https://wa.me?text=${mensaje}`;
+        
+        // Ocultar flechas si solo hay una foto
+        const botones = document.querySelectorAll('.btn-nav');
+        botones.forEach(btn => btn.style.display = diseno.fotos.length > 1 ? 'block' : 'none');
     }
 
-    function cerrarVista() {
-        document.getElementById("modalImg").style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        const modal = document.getElementById("modalImg");
-        if (event.target == modal) {
-            cerrarVista();
-        }
-    }
+    function cerrarVista() { document.getElementById("modalImg").style.display = "none"; }
+    
+    window.onclick = function(e) { if(e.target == document.getElementById("modalImg")) cerrarVista(); }
 </script>
-
 </body>
 </html>

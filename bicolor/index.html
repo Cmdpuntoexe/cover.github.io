@@ -116,9 +116,73 @@
             .btn-nav { padding: 10px; font-size: 1.5rem; }
             .prev { left: 5px; } .next { right: 5px; }
         }
+        /* Estilos del Menú */
+.nav-principal {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.nav-logo {
+    color: var(--azul-cstyles);
+    text-decoration: none;
+    font-weight: 900;
+    letter-spacing: 3px;
+    font-size: 1.2rem;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    opacity: 0.7;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    opacity: 1;
+    color: var(--azul-cstyles);
+}
+
+@media (max-width: 600px) {
+    .nav-container { flex-direction: column; gap: 10px; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .nav-links a { margin: 0 5px; font-size: 0.7rem; }
+}
+
     </style>
 </head>
 <body>
+
+    <!-- Barra de Navegación CStyles -->
+<nav class="nav-principal">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">CSTYLES</a>
+        <div class="nav-links">
+            <a href="/clasico/">Clásico</a>
+            <a href="/tela-automotriz/">Tela Automotriz</a>
+            <a href="/bicolor/">Bicolor</a>
+            <a href="/estilos-personalizados/" class="active">Personalizados</a>
+        </div>
+    </div>
+</nav>
+
 
     <a href="/super-galeri20/" class="btn-volver">❮ Volver</a>
 

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Personalizados - CStyles</title>
+    <style>
+        :root { --azul-cstyles: #2a75bb; --wa-green: #25d366; --gold: #d4af37; }
+        
+        body {
+            background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+            background-attachment: fixed;
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-y: auto; 
+        }
+
+        .btn-volver {
+            position: fixed; top: 15px; left: 15px;
+            color: #b8b8b8; text-decoration: none;
+            font-size: 0.7rem; letter-spacing: 2px;
+            text-transform: uppercase; border: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 15px; border-radius: 5px;
+            z-index: 100; background: rgba(0,0,0,0.7);
+        }
+
+        .tarjeta-personalizado {
+            display: flex; width: 95%; max-width: 1100px; 
+            min-height: 80vh;
+            margin: 60px auto; background: rgba(255, 255, 255, 0.03);
+            border-radius: 30px; border: 1px solid rgba(255,255,255,0.08);
+            overflow: hidden; backdrop-filter: blur(15px);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+        }
+
+        .seccion-preview {
+            flex: 1.2; padding: 40px; background: rgba(0,0,0,0.2);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        .img-principal {
+            width: 100%; max-width: 380px; border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .seccion-info {
+            flex: 1; padding: 45px; display: flex; flex-direction: column;
+            align-items: center; text-align: center; justify-content: center;
+            background: rgba(0, 0, 0, 0.25);
+            border-left: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- ESTILO DEL LOGO (imajen2.png) --- */
+        .logo-personalizados {
+            width: 150px; 
+            height: auto; 
+            margin-bottom: 25px; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+        }
+        .logo-personalizados:hover {
+            transform: scale(1.1) rotate(-3deg);
+            filter: brightness(1.2) drop-shadow(0 0 20px rgba(42, 117, 187, 0.6));
+        }
+
+        .paso-item {
+            margin-bottom: 20px; width: 100%; max-width: 300px;
+            text-align: left; padding-left: 15px;
+            border-left: 3px solid var(--azul-cstyles);
+        }
+
+        .paso-titulo { font-size: 0.65rem; letter-spacing: 2px; color: var(--azul-cstyles); font-weight: bold; }
+        .paso-desc { font-size: 1.1rem; font-weight: 800; margin: 3px 0; letter-spacing: 1px; }
+
+        .btn-personalizar {
+            background: var(--wa-green); color: white; text-decoration: none;
+            padding: 18px 40px; border-radius: 50px; font-weight: 900;
+            margin-top: 25px; transition: 0.3s; font-size: 0.9rem;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+        }
+        .btn-personalizar:hover { transform: translateY(-3px); background: #1ebd59; box-shadow: 0 15px 25px rgba(37, 211, 102, 0.3); }
+
+        @media (max-width: 900px) {
+            .tarjeta-personalizado { flex-direction: column; height: auto; margin-top: 80px; }
+            .seccion-info { border-left: none; padding: 40px 20px; }
+            .logo-personalizados { width: 120px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="/galeria/" class="btn-volver">❮ Volver</a>
+
+    <div class="tarjeta-personalizado">
+        <div class="seccion-preview">
+            <!-- Imagen de ejemplo de funda personalizada -->
+            <img src="/foto-ejemplo-personalizado.jpg" alt="Tu Diseño Aquí" class="img-principal">
+            <p style="margin-top: 20px; font-size: 0.75rem; color: #888; letter-spacing: 1px;">ACABADO PROFESIONAL</p>
+        </div>
+
+        <div class="seccion-info">
+            <!-- TU LOGO AQUÍ -->
+            <img src="/imajen2.png" alt="Logo CStyles" class="logo-personalizados">
+
+            <div style="letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 5px;">CATÁLOGO EXCLUSIVO</div>
+            <h1 style="font-size: 1.8rem; margin: 0 0 30px 0; letter-spacing: 2px; font-weight: 900;">PERSONALIZADOS</h1>
+
+            <div class="paso-item">
+                <div class="paso-titulo">PASO 1</div>
+                <div class="paso-desc">Elige tu modelo</div>
+            </div>
+
+            <div class="paso-item" style="border-color: #fff;">
+                <div class="paso-titulo">PASO 2</div>
+                <div class="paso-desc">Envíanos tu foto</div>
+            </div>
+
+            <div class="paso-item">
+                <div class="paso-titulo">PASO 3</div>
+                <div class="paso-desc">¡Listo para entrega!</div>
+            </div>
+
+            <a href="https://wa.me! Me gustaría cotizar una funda personalizada." class="btn-personalizar">
+                DISEÑAR MI FUNDA 📱
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

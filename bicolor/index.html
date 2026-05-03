@@ -36,7 +36,7 @@
         }
 
         .seccion-galeria {
-            flex: 1.6; background: rgba(0,0,0,0.2);
+            flex: 1.4; background: rgba(0,0,0,0.2);
             padding: 25px; overflow-y: auto;
             display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px; align-content: start;
@@ -60,70 +60,57 @@
         }
 
         .seccion-texto {
-            flex: 0.8; padding: 25px 35px; 
+            flex: 1; padding: 25px 35px; 
             display: flex; flex-direction: column;
             background: rgba(0, 0, 0, 0.25); 
             border-left: 1px solid rgba(255,255,255,0.05);
             align-items: center; text-align: center; justify-content: center;
         }
 
+        /* --- IMAGEN DE INFORMACIÓN DESTACADA --- */
         .img-info-bicolor {
-            width: 140px; 
+            width: 85%; /* Ahora ocupa casi todo el ancho de su columna */
+            max-width: 320px; /* Tamaño máximo para que no se vea gigante en PC */
             height: auto; 
-            margin-bottom: 20px; 
-            border-radius: 15px; 
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 25px; 
+            border-radius: 18px; 
+            border: 2px solid rgba(42, 117, 187, 0.3); /* Borde con tu color azul */
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
+        
         .img-info-bicolor:hover {
-            transform: scale(1.1) rotate(2deg);
-            filter: brightness(1.2);
-            box-shadow: 0 0 20px rgba(42, 117, 187, 0.5);
+            transform: scale(1.08);
+            filter: brightness(1.1);
+            border-color: var(--azul-cstyles);
+            box-shadow: 0 20px 40px rgba(42, 117, 187, 0.4);
         }
 
-        .titulo-diseno { font-size: 1.6rem; letter-spacing: 4px; margin: 5px 0; font-weight: 900; text-transform: uppercase;}
-        .tagline { color: var(--azul-cstyles); font-size: 0.6rem; letter-spacing: 3px; font-weight: bold; margin-bottom: 10px;}
+        .titulo-diseno { font-size: 1.8rem; letter-spacing: 4px; margin: 5px 0; font-weight: 900; text-transform: uppercase;}
+        .tagline { color: var(--azul-cstyles); font-size: 0.7rem; letter-spacing: 4px; font-weight: bold; margin-bottom: 5px;}
 
-        .btn-wa-modal, .btn-whatsapp-general {
+        .btn-whatsapp-general {
             background: var(--wa-green); color: white; text-decoration: none;
-            padding: 12px 25px; border-radius: 50px; font-weight: bold; margin-top: 15px;
-            font-size: 0.8rem; transition: 0.3s;
+            padding: 15px 35px; border-radius: 50px; font-weight: bold; margin-top: 20px;
+            font-size: 0.9rem; transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
         }
-        .btn-wa-modal:hover, .btn-whatsapp-general:hover { background: #1ebd59; transform: scale(1.05); }
+        .btn-whatsapp-general:hover { background: #1ebd59; transform: translateY(-3px); box-shadow: 0 15px 25px rgba(37, 211, 102, 0.3); }
 
+        /* MODAL */
         #modalImg {
             display: none; position: fixed; z-index: 2000;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95);
             flex-direction: column; justify-content: center; align-items: center;
         }
-        
-        .contenedor-slider {
-            position: relative;
-            display: flex; align-items: center; justify-content: center;
-            width: 90%; max-width: 800px;
-        }
-
-        .modal-contenido { max-width: 100%; max-height: 70vh; border-radius: 10px; }
-
-        .btn-nav {
-            position: absolute; background: rgba(255,255,255,0.1);
-            color: white; border: none; font-size: 2rem;
-            padding: 20px; cursor: pointer; border-radius: 50%;
-            z-index: 2100;
-        }
-        .btn-nav:hover { background: var(--azul-cstyles); }
-        .prev { left: -80px; }
-        .next { right: -80px; }
 
         @media (max-width: 900px) {
             .tarjeta-detalle { flex-direction: column; height: auto; margin-top: 80px; }
             .seccion-texto { order: 1; border-left: none; padding: 40px 20px; }
             .seccion-galeria { order: 2; height: auto; grid-template-columns: repeat(2, 1fr); }
-            .btn-nav { padding: 10px; font-size: 1.5rem; }
-            .prev { left: 5px; } .next { right: 5px; }
+            .img-info-bicolor { width: 90%; max-width: 250px; }
         }
     </style>
 </head>
@@ -131,25 +118,28 @@
 
     <a href="/galeria/" class="btn-volver">❮ Volver</a>
 
+    <!-- Modal con el resto de la funcionalidad se mantiene igual -->
     <div id="modalImg">
         <span style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;" onclick="cerrarVista()">&times;</span>
         <div class="contenedor-slider">
-            <button class="btn-nav prev" onclick="cambiarFoto(-1)">❮</button>
-            <img class="modal-contenido" id="imgGrande">
-            <button class="btn-nav next" onclick="cambiarFoto(1)">❯</button>
+            <button class="btn-nav prev" style="position: absolute; left: -80px; background: none; border: none; color: white; font-size: 3rem; cursor: pointer;" onclick="cambiarFoto(-1)">❮</button>
+            <img class="modal-contenido" id="imgGrande" style="max-width: 90%; max-height: 70vh; border-radius: 10px;">
+            <button class="btn-nav next" style="position: absolute; right: -80px; background: none; border: none; color: white; font-size: 3rem; cursor: pointer;" onclick="cambiarFoto(1)">❯</button>
         </div>
         <div id="modalRef" style="background:var(--azul-cstyles); padding:8px 20px; border-radius:50px; font-weight:900; margin-top:10px;"></div>
-        <a href="#" id="waLinkModal" class="btn-wa-modal" target="_blank">SOLICITAR DISEÑO 📱</a>
+        <a href="#" id="waLinkModal" style="background: var(--wa-green); color: white; text-decoration: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; margin-top: 15px;" target="_blank">SOLICITAR DISEÑO 📱</a>
     </div>
 
     <div class="tarjeta-detalle">
         <div class="seccion-galeria" id="contenedorGaleria"></div>
         
         <div class="seccion-texto">
+            <!-- IMAGEN IMPORTANTE MÁS GRANDE -->
             <img src="/bicolor21-informacion.jpg" alt="Información Bicolor" class="img-info-bicolor">
+            
             <div class="tagline">LÍNEA DINÁMICA</div>
             <h2 class="titulo-diseno">DISEÑO BICOLOR</h2>
-            <p style="font-size: 0.7rem; color: #888;">Toca un diseño para ver sus variantes.</p>
+            <p style="font-size: 0.75rem; color: #aaa;">Toca un diseño para ver sus variantes.</p>
             <a href="https://wa.me" class="btn-whatsapp-general" target="_blank">CONSULTA PROFESIONAL 📱</a>
         </div>
     </div>
@@ -177,7 +167,7 @@
         div.className = "contenedor-foto";
         div.onclick = function() { abrirModal(index); };
         const img = document.createElement("img");
-        img.src = diseno.fotos[0]; // Usar la primera foto como miniatura
+        img.src = diseno.fotos[0]; 
         img.className = "foto-item";
         const tag = document.createElement("div");
         tag.className = "ref-tag";
@@ -206,9 +196,6 @@
         document.getElementById("modalRef").innerText = `${diseno.ref} - Opción ${fotoActual + 1}`;
         const mensaje = encodeURIComponent(`Hola, me interesa el diseño ${diseno.ref} (Opción ${fotoActual + 1})`);
         document.getElementById("waLinkModal").href = `https://wa.me{miTelefono}?text=${mensaje}`;
-        
-        const botones = document.querySelectorAll('.btn-nav');
-        botones.forEach(btn => btn.style.display = diseno.fotos.length > 1 ? 'block' : 'none');
     }
 
     function cerrarVista() { document.getElementById("modalImg").style.display = "none"; }

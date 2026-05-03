@@ -79,7 +79,6 @@
         .bloque-info p { font-size: 0.78rem; line-height: 1.5; color: #ccc; margin: 0 0 8px 0; }
         .bloque-info ul { font-size: 0.72rem; color: #b8b8b8; padding-left: 15px; margin: 0; line-height: 1.4; }
 
-        /* SLIDER MODAL */
         #modalImg {
             display: none; position: fixed; z-index: 2000;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -99,14 +98,9 @@
         .btn-nav:hover { background: var(--azul-cstyles); }
         .prev { left: -70px; } .next { right: -70px; }
 
-        /* Estilo para la descripción en el modal */
         #descVariante {
-            color: #b8b8b8;
-            font-size: 0.85rem;
-            margin-top: 12px;
-            max-width: 80%;
-            text-align: center;
-            line-height: 1.4;
+            color: #b8b8b8; font-size: 0.85rem; margin-top: 12px;
+            max-width: 80%; text-align: center; line-height: 1.4;
         }
 
         .btn-wa-modal {
@@ -136,62 +130,64 @@
             <button class="btn-nav next" onclick="cambiarFoto(1)">❯</button>
         </div>
         <div id="modalRef" style="background:var(--azul-cstyles); padding:8px 25px; border-radius:50px; font-weight:900; margin-top:15px; letter-spacing:1px;"></div>
-        
-        <!-- Aquí aparecerá la descripción -->
         <p id="descVariante"></p>
-
         <a href="#" id="waLinkModal" class="btn-wa-modal" target="_blank">Consultar Disponibilidad 📱</a>
     </div>
 
     <div class="tarjeta-detalle">
         <div class="seccion-galeria" id="contenedorTelas"></div>
-
         <div class="seccion-texto">
             <div class="tagline">CATÁLOGO PREMIUM</div>
             <h2 class="titulo-seccion">TELA AUTOMOTRIZ</h2>
-            
             <div class="bloque-info">
-                <p>Nuestra selección de textiles de ingeniería alemana y nacional, diseñados para resistir el roce constante y la exposición UV.</p>
+                <p>Textiles de alta ingeniería diseñados para resistir el uso rudo y mantener la frescura.</p>
                 <ul>
-                    <li><strong>Alta Resistencia:</strong> Telas con test de Martindale superior.</li>
-                    <li><strong>Transpirabilidad:</strong> Tejidos micro-perforados para mayor confort térmico.</li>
-                    <li><strong>Fácil Limpieza:</strong> Tratamiento anti-manchas integrado.</li>
+                    <li><strong>Alta Resistencia:</strong> Certificación de durabilidad.</li>
+                    <li><strong>Transpirabilidad:</strong> Confort térmico superior.</li>
                 </ul>
             </div>
-
-            <p style="font-size: 0.65rem; color: #777; font-style: italic;">Explora las texturas y variantes disponibles.</p>
+            <p style="font-size: 0.65rem; color: #777; font-style: italic;">Toca para ver texturas y colores.</p>
             <a href="https://wa.me" class="btn-wa-modal" style="width: 80%; text-align: center;">ASESORÍA TÉCNICA 📱</a>
         </div>
     </div>
 
 <script>
-    // --- EDITA AQUÍ TUS TELAS Y DESCRIPCIONES ---
-    // Estructura: fotos: [ { ruta: "...", desc: "..." } ]
     const telas = [
         { 
             ref: "TELA-01", 
             fotos: [
-                { ruta: "/mixto1.jpg", desc: "Diseño Mixto (Policuero-Genero): Tela Automotriz en la parte central de la funda con un corte horizontal y dos lineas Ligeramente arqueadas en la pieza inferior." },
-                { ruta: "/variante_gris.jpg", desc: "Diseño Mixto (policuero-genero): Tela Automotriz en todo el frente con un corte en el area central y cuatro lineas horizontales en la pieza inferior." }
+                { ruta: "/mixto1.jpg", desc: "Diseño Mixto (Policuero-Genero): Tela Automotriz en la parte central de la funda..." },
+                { ruta: "/variante_gris.jpg", desc: "Variante en tono gris carbón con textura transpirable." }
             ] 
         }, 
         { 
             ref: "TELA-02", 
             fotos: [
-                { ruta: "/Misxto2.jpg", desc: "Diseño Mixto (Policuero-Genero): Tela Automotriz en todo el frente con un corte en el area central y cuatro lineas horizontales en la pieza inferior." }
+                { ruta: "/Misxto2.jpg", desc: "Diseño Mixto (Policuero-Genero): Tela Automotriz en todo el frente..." }
             ] 
         },
         { 
             ref: "TELA-03", 
             fotos: [
-                { ruta: "/chenille_premium.jpg", desc: "Chenille premium de tacto aterciopelado para máximo confort." },
-                { ruta: "/chenille_azul.jpg", desc: "Variante en azul cobalto con protección UV." }
+                { ruta: "/tu-foto-aqui.jpg", desc: "Añade aquí la descripción para el modelo 03." }
             ] 
         },
         { 
             ref: "TELA-04", 
             fotos: [
-                { ruta: "/microfibra_pro.jpg", desc: "Microfibra técnica repelente a líquidos y fácil de limpiar." }
+                { ruta: "/tu-foto-aqui.jpg", desc: "Añade aquí la descripción para el modelo 04." }
+            ] 
+        },
+        { 
+            ref: "TELA-05", 
+            fotos: [
+                { ruta: "/tu-foto-aqui.jpg", desc: "Añade aquí la descripción para el modelo 05." }
+            ] 
+        },
+        { 
+            ref: "TELA-06", 
+            fotos: [
+                { ruta: "/tu-foto-aqui.jpg", desc: "Añade aquí la descripción para el modelo 06." }
             ] 
         }
     ];
@@ -206,7 +202,7 @@
         div.onclick = () => abrirModal(index);
         
         const img = document.createElement("img");
-        img.src = t.fotos[0].ruta; // Muestra la primera variante en la galería
+        img.src = t.fotos[0].ruta;
         img.className = "foto-item";
         
         const tag = document.createElement("div");
@@ -237,17 +233,17 @@
         
         document.getElementById("imgGrande").src = variante.ruta;
         document.getElementById("modalRef").innerText = `${t.ref} - VARIANTE ${fotoActual + 1}`;
-        document.getElementById("descVariante").innerText = variante.desc; // Poner descripción
+        document.getElementById("descVariante").innerText = variante.desc;
         
-        const miNumero = "56961960385";
-        const msg = encodeURIComponent(`Hola, consulto por la TELA ${t.ref} (Variante ${fotoActual + 1}): ${variante.desc}`);
-        document.getElementById("waLinkModal").href = `https://wa.me{miNumero}?text=${msg}`;
+        const msg = encodeURIComponent(`Hola CStyles, consulto por la TELA ${t.ref} (Opción ${fotoActual + 1}): ${variante.desc}`);
+        document.getElementById("waLinkModal").href = `https://wa.me?text=${msg}`;
         
         const btns = document.querySelectorAll('.btn-nav');
         btns.forEach(b => b.style.display = t.fotos.length > 1 ? 'block' : 'none');
     }
 
     function cerrarVista() { document.getElementById("modalImg").style.display = "none"; }
+    window.onclick = function(e) { if(e.target == document.getElementById("modalImg")) cerrarVista(); }
 </script>
 </body>
 </html>

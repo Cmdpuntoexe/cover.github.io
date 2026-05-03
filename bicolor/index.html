@@ -47,7 +47,9 @@
             border-radius: 10px; overflow: hidden;
             border: 1px solid rgba(255,255,255,0.08);
             cursor: pointer;
+            transition: transform 0.3s ease;
         }
+        .contenedor-foto:hover { transform: translateY(-5px); }
         .foto-item { width: 100%; height: 100%; object-fit: cover; }
 
         .ref-tag {
@@ -65,10 +67,32 @@
             align-items: center; text-align: center; justify-content: center;
         }
 
+        .img-info-bicolor {
+            width: 140px; 
+            height: auto; 
+            margin-bottom: 20px; 
+            border-radius: 15px; 
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .img-info-bicolor:hover {
+            transform: scale(1.1) rotate(2deg);
+            filter: brightness(1.2);
+            box-shadow: 0 0 20px rgba(42, 117, 187, 0.5);
+        }
+
         .titulo-diseno { font-size: 1.6rem; letter-spacing: 4px; margin: 5px 0; font-weight: 900; text-transform: uppercase;}
         .tagline { color: var(--azul-cstyles); font-size: 0.6rem; letter-spacing: 3px; font-weight: bold; margin-bottom: 10px;}
 
-        /* MODAL CON NAVEGACIÓN */
+        .btn-wa-modal, .btn-whatsapp-general {
+            background: var(--wa-green); color: white; text-decoration: none;
+            padding: 12px 25px; border-radius: 50px; font-weight: bold; margin-top: 15px;
+            font-size: 0.8rem; transition: 0.3s;
+        }
+        .btn-wa-modal:hover, .btn-whatsapp-general:hover { background: #1ebd59; transform: scale(1.05); }
+
         #modalImg {
             display: none; position: fixed; z-index: 2000;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -93,11 +117,6 @@
         .btn-nav:hover { background: var(--azul-cstyles); }
         .prev { left: -80px; }
         .next { right: -80px; }
-
-        .btn-wa-modal {
-            background: var(--wa-green); color: white; text-decoration: none;
-            padding: 12px 30px; border-radius: 50px; font-weight: bold; margin-top: 15px;
-        }
 
         @media (max-width: 900px) {
             .tarjeta-detalle { flex-direction: column; height: auto; margin-top: 80px; }
@@ -125,7 +144,9 @@
 
     <div class="tarjeta-detalle">
         <div class="seccion-galeria" id="contenedorGaleria"></div>
+        
         <div class="seccion-texto">
+            <img src="/bicolor-informacion.jpg" alt="Información Bicolor" class="img-info-bicolor">
             <div class="tagline">LÍNEA DINÁMICA</div>
             <h2 class="titulo-diseno">DISEÑO BICOLOR</h2>
             <p style="font-size: 0.7rem; color: #888;">Toca un diseño para ver sus variantes.</p>
@@ -134,12 +155,12 @@
     </div>
 
 <script>
-    // --- ESPACIO PARA TUS FOTOS ---
-    // Agrega las rutas de las variantes separadas por coma entre los corchetes [ ]
+    const miTelefono = "56961960385"; 
+
     const diseños = [
         { ref: "BI-01", fotos: ["/bicolor1.png", "/variante1.jpg", "/variante2.jpg"] }, 
         { ref: "BI-02", fotos: ["/diamante4.png", "/1b.jpg"] },
-        { ref: "BI-03", fotos: ["/ponerimajenaqui.jpg"] },
+        { ref: "BI-03", fotos: ["/tu-foto-real-bi03.jpg"] }, 
         { ref: "BI-04", fotos: ["/bicolor2.png"] },
         { ref: "BI-05", fotos: ["/bicolor3.png","/bicolor4.png", "/bicolor5.png", "/bicolor6.png"] },
         { ref: "BI-06", fotos: ["/2Bicolor.jpg"] },
@@ -156,7 +177,7 @@
         div.className = "contenedor-foto";
         div.onclick = function() { abrirModal(index); };
         const img = document.createElement("img");
-        img.src = diseno.fotos[0]; // Portada de la tarjeta
+        img.src = diseno.fotos[0]; // Usar la primera foto como miniatura
         img.className = "foto-item";
         const tag = document.createElement("div");
         tag.className = "ref-tag";
@@ -184,9 +205,8 @@
         document.getElementById("imgGrande").src = diseno.fotos[fotoActual];
         document.getElementById("modalRef").innerText = `${diseno.ref} - Opción ${fotoActual + 1}`;
         const mensaje = encodeURIComponent(`Hola, me interesa el diseño ${diseno.ref} (Opción ${fotoActual + 1})`);
-        document.getElementById("waLinkModal").href = `https://wa.me?text=${mensaje}`;
+        document.getElementById("waLinkModal").href = `https://wa.me{miTelefono}?text=${mensaje}`;
         
-        // Oculta flechas si solo hay una imagen
         const botones = document.querySelectorAll('.btn-nav');
         botones.forEach(btn => btn.style.display = diseno.fotos.length > 1 ? 'block' : 'none');
     }

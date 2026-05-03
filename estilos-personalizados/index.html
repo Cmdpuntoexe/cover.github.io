@@ -41,10 +41,12 @@
         }
 
         .img-principal {
-            width: 100%; max-width: 380px; border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
+            width: 100%; max-width: 400px; border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border: 1px solid rgba(42, 117, 187, 0.3);
+            transition: transform 0.5s ease;
         }
+        .img-principal:hover { transform: scale(1.03); }
 
         .seccion-info {
             flex: 1; padding: 45px; display: flex; flex-direction: column;
@@ -53,11 +55,10 @@
             border-left: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* --- ESTILO DEL LOGO (imajen2.png) --- */
         .logo-personalizados {
-            width: 150px; 
+            width: 190px; 
             height: auto; 
-            margin-bottom: 25px; 
+            margin-bottom: 30px; 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
@@ -81,13 +82,15 @@
             padding: 18px 40px; border-radius: 50px; font-weight: 900;
             margin-top: 25px; transition: 0.3s; font-size: 0.9rem;
             box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+            display: inline-block;
         }
         .btn-personalizar:hover { transform: translateY(-3px); background: #1ebd59; box-shadow: 0 15px 25px rgba(37, 211, 102, 0.3); }
 
         @media (max-width: 900px) {
             .tarjeta-personalizado { flex-direction: column; height: auto; margin-top: 80px; }
             .seccion-info { border-left: none; padding: 40px 20px; }
-            .logo-personalizados { width: 120px; }
+            .logo-personalizados { width: 140px; }
+            .img-principal { max-width: 300px; }
         }
     </style>
 </head>
@@ -97,13 +100,13 @@
 
     <div class="tarjeta-personalizado">
         <div class="seccion-preview">
-            <!-- Imagen de ejemplo de funda personalizada -->
-            <img src="/foto-ejemplo-personalizado.jpg" alt="Tu Diseño Aquí" class="img-principal">
-            <p style="margin-top: 20px; font-size: 0.75rem; color: #888; letter-spacing: 1px;">ACABADO PROFESIONAL</p>
+            <!-- Tu imagen de ejemplo real -->
+            <img src="/especial3.jpg" alt="Funda Personalizada" class="img-principal">
+            <p style="margin-top: 20px; font-size: 0.75rem; color: #888; letter-spacing: 1px;">CALIDAD PROFESIONAL</p>
         </div>
 
         <div class="seccion-info">
-            <!-- TU LOGO AQUÍ -->
+            <!-- Tu logo imajen2.png -->
             <img src="/imajen2.png" alt="Logo CStyles" class="logo-personalizados">
 
             <div style="letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 5px;">CATÁLOGO EXCLUSIVO</div>
@@ -124,11 +127,15 @@
                 <div class="paso-desc">¡Listo para entrega!</div>
             </div>
 
-            <a href="https://wa.me! Me gustaría cotizar una funda personalizada." class="btn-personalizar">
+            <!-- Botón directo a tu número de WhatsApp -->
+            <a href="https://wa.me" class="btn-personalizar">
                 DISEÑAR MI FUNDA 📱
             </a>
         </div>
     </div>
+
+</body>
+</html>
 
 </body>
 </html>

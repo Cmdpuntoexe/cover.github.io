@@ -166,42 +166,34 @@
         </div>
     </main>
 
-    <script>
-        // Función para cambiar el texto cuando seleccionan una foto
-        function actualizarTexto() {
-            const input = document.getElementById('inputFoto');
-            const texto = document.getElementById('textoFoto');
-            if (input.files.length > 0) {
-                texto.innerText = "✅ Foto seleccionada: " + input.files[0].name;
-                texto.style.color = "#25d366";
-            }
+<script>
+    function actualizarTexto() {
+        const input = document.getElementById('inputFoto');
+        const texto = document.getElementById('textoFoto');
+        if (input.files.length > 0) {
+            texto.innerText = "✅ Foto seleccionada: " + input.files[0].name;
+            texto.style.color = "#25d366";
         }
+    }
 
-        // Lógica de envío a WhatsApp
-        document.getElementById('formCstyles').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const nom = document.getElementById('nombre').value;
-            const tel = document.getElementById('telefono').value;
-            const aut = document.getElementById('auto').value;
-            const cod = document.getElementById('codigo').value || "No especificado";
-            
-            // Construimos el mensaje con los espacios %20 y saltos de línea %0A
-            const msg = encodeURIComponent(
-                `*NUEVA SOLICITUD DE COTIZACIÓN*%0A%0A` +
-                `👤 *Cliente:* ${nom}%0A` +
-                `📱 *Teléfono:* ${tel}%0A` +
-                `🚗 *Vehículo:* ${aut}%0A` +
-                `🎨 *Diseño:* ${cod}%0A%0A` +
-                `_Adjunto la foto de mi butaca para confirmar la plantilla._`
-            );
-            
-            const waUrl = `https://wa.me{msg}`;
-            
-            // Abrimos WhatsApp
-            window.open(waUrl, '_blank');
-        });
-    </script>
-
-</body>
-</html>
+    document.getElementById('formCstyles').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const nom = document.getElementById('nombre').value;
+        const tel = document.getElementById('telefono').value;
+        const aut = document.getElementById('auto').value;
+        const cod = document.getElementById('codigo').value || "No especificado";
+        
+        const msg = encodeURIComponent(
+            `*NUEVA SOLICITUD DE COTIZACIÓN*%0A%0A` +
+            `👤 *Cliente:* ${nom}%0A` +
+            `📱 *Teléfono:* ${tel}%0A` +
+            `🚗 *Vehículo:* ${aut}%0A` +
+            `🎨 *Diseño:* ${cod}%0A%0A` +
+            `_Adjunto la foto de mi butaca para confirmar la plantilla._`
+        );
+        
+        // LA LÍNEA CLAVE ES ESTA:
+        window.open(`https://wa.me{msg}`, '_blank');
+    });
+</script>

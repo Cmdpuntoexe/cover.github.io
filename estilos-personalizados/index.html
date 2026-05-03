@@ -92,11 +92,50 @@
             .logo-personalizados { width: 140px; }
             .img-principal { max-width: 300px; }
         }
+        .instagram-link-top {
+    color: #ffffff; /* Color blanco inicial */
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.instagram-link-top:hover {
+    opacity: 1;
+    color: var(--azul-cstyles); /* Cambia a tu azul al pasar el mouse */
+    transform: translateX(5px); /* Se mueve un poquito a la derecha */
+    text-shadow: 0 0 10px rgba(42, 117, 187, 0.5);
+}
+
+.ig-icon {
+    font-size: 0.9rem;
+    margin-right: 5px;
+}
+
     </style>
 </head>
 <body>
+        <!-- Barra de Navegación CStyles -->
+<nav class="nav-principal">
+    <div class="nav-container">
+<!-- Enlace exacto a tu Instagram -->
+<a href="https://www.instagram.com/covering_styles?igsh=aXg1dnh5MHpqOHFh" target="_blank" class="instagram-link-top">
+    📸 @covering_styles
+</a>
 
-    <a href="/galeria/" class="btn-volver">❮ Volver</a>
+        <div class="nav-links">
+            <a href="/clasico/">Clásico</a>
+            <a href="/tela-automotriz/">Tela Automotriz</a>
+            <a href="/bicolor/">Bicolor</a>
+            <a href="/estilos-personalizados/" class="active">Personalizados</a>
+        </div>
+    </div>
+</nav>
+
+
+    <a href="super-galeri20" class="btn-volver">❮ Volver</a>
 
     <div class="tarjeta-personalizado">
         <div class="seccion-preview">

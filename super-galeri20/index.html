@@ -115,6 +115,46 @@
             .seccion-disenos { padding: 100px 15px 40px; }
             .titulo-principal { font-size: 1.5rem; letter-spacing: 4px; }
         }
+
+        .footer-catalogo {
+    margin-top: 80px; /* Espacio después de las tarjetas */
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.logo-footer {
+    width: 140px; /* Tamaño ideal para el cierre */
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(42, 117, 187, 0.3)); /* Brillo sutil azul */
+    transition: transform 0.3s ease;
+}
+
+.logo-footer:hover {
+    transform: scale(1.05);
+}
+
+.frase-cierre {
+    font-size: 0.75rem;
+    letter-spacing: 5px;
+    color: #ffffff;
+    font-weight: 900;
+    text-transform: uppercase;
+    opacity: 0.7; /* Para que no compita con el título principal */
+}
+
+.linea-final {
+    width: 60px;
+    height: 3px;
+    background: var(--azul-cstyles);
+    margin-top: 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px var(--azul-cstyles);
+}
+
     </style>
 </head>
 <body>
@@ -173,6 +213,13 @@
                 </div>
             </div>
         </div>
+        <!-- CIERRE DEL CATÁLOGO -->
+<div class="footer-catalogo">
+    <img src="/imajen2.png" alt="Logo CStyles" class="logo-footer">
+    <p class="frase-cierre">EXCLUSIVIDAD Y CALIDAD EN CADA DETALLE</p>
+    <div class="linea-final"></div>
+</div>
+
     </main>
 
     <a href="https://wa.me" class="btn-flotante-wa" target="_blank">

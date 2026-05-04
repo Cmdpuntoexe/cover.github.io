@@ -2,88 +2,126 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotizar - Covering Styles</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cotización Oficial - Covering Styles</title>
     <style>
-        :root { --azul: #2a75bb; --wa: #25d366; }
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; }
-        .nav { padding: 20px; border-bottom: 1px solid #333; font-weight: 900; letter-spacing: 3px; color: var(--azul); }
-        .tarjeta { 
-            max-width: 450px; margin: 50px auto; padding: 30px; 
-            background: #111; border-radius: 25px; border: 1px solid #333;
+        :root { --azul-cstyles: #2a75bb; --wa-green: #25d366; }
+        
+        body {
+            background: linear-gradient(180deg, #000000 0%, #1a1c1e 100%);
+            background-attachment: fixed;
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        input, select { 
-            width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 12px; 
-            background: #000; border: 1px solid #444; color: #fff; box-sizing: border-box; outline: none;
+
+        .nav-cotizar {
+            width: 100%; height: 70px; background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            position: sticky; top: 0; z-index: 1000;
         }
-        .btn-wa { 
-            width: 100%; padding: 18px; background: var(--wa); color: #fff; 
-            border: none; border-radius: 50px; font-weight: 900; cursor: pointer; 
-            text-transform: uppercase; transition: 0.3s;
+        .nav-cotizar a { color: var(--azul-cstyles); text-decoration: none; font-weight: 900; letter-spacing: 3px; font-size: 1.2rem; }
+
+        .contenedor-principal { max-width: 500px; width: 90%; margin: 50px auto; text-align: center; }
+
+        .tarjeta-formulario {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 30px; padding: 40px; backdrop-filter: blur(10px);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
         }
-        .referencia-preview { font-size: 0.7rem; color: #555; margin-bottom: 20px; word-break: break-all; }
+
+        input, select {
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px; border-radius: 12px; color: #fff; font-size: 0.9rem; outline: none; transition: 0.3s;
+            width: 100%; box-sizing: border-box; margin-bottom: 20px;
+        }
+        input:focus, select:focus { border-color: var(--azul-cstyles); background: rgba(0,0,0,0.8); }
+
+        .btn-enviar {
+            width: 100%; background: var(--wa-green); color: white; border: none;
+            padding: 20px; border-radius: 50px; font-size: 1rem; font-weight: 900;
+            letter-spacing: 2px; cursor: pointer; transition: 0.4s; text-transform: uppercase;
+        }
+        .btn-enviar:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3); background: #1ebd59; }
+
+        .referencia-preview {
+            background: rgba(42, 117, 187, 0.1); padding: 15px; border-radius: 12px;
+            margin-bottom: 20px; font-size: 0.75rem; color: #888; word-break: break-all;
+        }
     </style>
 </head>
 <body>
 
-    <div class="nav">CSTYLES</div>
+    <nav class="nav-cotizar"><a href="/">CSTYLES</a></nav>
 
-    <div class="tarjeta">
-        <h2 style="color: var(--azul); letter-spacing: 2px;">COTIZACIÓN RÁPIDA</h2>
-        <p style="color: #888; font-size: 0.85rem; margin-bottom: 30px;">Recibirás la respuesta en tu WhatsApp</p>
+    <main class="contenedor-principal">
+        <h1 style="color: var(--azul-cstyles); font-weight: 900; letter-spacing: 3px; font-size: 1.8rem;">SOLICITUD DE DISEÑO</h1>
+        <p style="color: #666; font-size: 0.85rem; margin-bottom: 30px;">Recibirás respuesta inmediata en tu WhatsApp</p>
 
-        <form id="formCstyles">
+        <div class="tarjeta-formulario">
             <input type="text" id="nombre" placeholder="Tu Nombre" required>
-            <input type="text" id="auto" placeholder="Vehículo y Año" required>
+            <input type="text" id="auto" placeholder="Vehículo y Año (Ej: Aveo 2015)" required>
             
-            <select id="modelo" onchange="mostrarRuta()" required>
-                <option value="" disabled selected>Selecciona un Diseño</option>
-                <!-- Usamos nombres sin espacios para las rutas de las fotos -->
+            <select id="modelo" onchange="actualizarLinkVisual()" required>
+                <option value="" disabled selected>Selecciona el Diseño</option>
                 <option value="bicolor1.png">Bicolor BI-01</option>
                 <option value="bicolor2.png">Bicolor BI-02</option>
                 <option value="2Bicolor.jpg">Bicolor BI-03</option>
                 <option value="clasico1.jpg">Diseño Clásico</option>
             </select>
 
-            <div class="referencia-preview" id="previewRuta">Link de referencia aparecerá aquí</div>
+            <div class="referencia-preview">
+                <strong>Link de Referencia:</strong><br>
+                <span id="txtLink">Selecciona un modelo...</span>
+            </div>
 
-            <button type="button" onclick="enviarWA()" class="btn-wa">Enviar a WhatsApp 📱</button>
-        </form>
-    </div>
+            <button type="button" onclick="enviarWhatsApp()" class="btn-enviar">ENVIAR A WHATSAPP 📱</button>
+        </div>
+    </main>
 
     <script>
-        function mostrarRuta() {
+        // Esta función solo actualiza lo que el cliente ve en pantalla
+        function actualizarLinkVisual() {
             const modelo = document.getElementById('modelo').value;
-            const preview = document.getElementById('previewRuta');
-            preview.innerText = `Referencia: https://fundascs.com{modelo}`;
+            const txtLink = document.getElementById('txtLink');
+            const urlCompleta = `https://fundascs.com{modelo}`;
+            txtLink.innerText = urlCompleta;
+            txtLink.style.color = "#2a75bb";
         }
 
-        function enviarWA() {
+        // Esta es la función que hace la magia del envío
+        function enviarWhatsApp() {
             const nombre = document.getElementById('nombre').value;
             const auto = document.getElementById('auto').value;
             const modelo = document.getElementById('modelo').value;
 
             if(!nombre || !auto || !modelo) {
-                alert("Por favor, completa los campos.");
+                alert("Por favor, completa todos los campos antes de enviar.");
                 return;
             }
 
-            // URL de la foto sin espacios
             const urlFoto = `https://fundascs.com{modelo}`;
 
-            // Construimos el mensaje usando %20 para reemplazar los espacios
-            // Así la URL de WhatsApp nunca se rompe
-            const mensaje = encodeURIComponent(
-                `*SOLICITUD%20DE%20COTIZACIÓN%20CStyles*%0A%0A` +
-                `👤%20*Nombre:*%20${nombre}%0A` +
-                `🚗%20*Auto:*%20${auto}%0A` +
-                `🎨%20*Diseño:*%20${modelo}%0A%0A` +
-                `🖼️%20*Ver%20Foto:*%20${urlFoto}`
-            );
+            // 1. Creamos el texto normal
+            const textoMensaje = `*NUEVA COTIZACIÓN CStyles*\n\n` +
+                                 `👤 *Nombre:* ${nombre}\n` +
+                                 `🚗 *Vehículo:* ${auto}\n` +
+                                 `🎨 *Diseño:* ${modelo}\n\n` +
+                                 `🖼️ *Referencia:* ${urlFoto}`;
 
-            window.open(`https://wa.me{mensaje}`, '_blank');
+            // 2. Traducimos los espacios a %20 automáticamente
+            const mensajeLimpio = encodeURIComponent(textoMensaje);
+
+            // 3. Abrimos WhatsApp usando las comillas ladeadas (Backticks)
+            // Esto evita el error de "Servidor no encontrado"
+            window.open(`https://wa.me{mensajeLimpio}`, '_blank');
         }
     </script>
+
 </body>
 </html>
-

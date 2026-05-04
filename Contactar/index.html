@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Cotización Oficial - Covering Styles</title>
     <style>
-        :root { --azul-cstyles: #2a75bb; --dark-card: rgba(255, 255, 255, 0.03); }
+        :root { --azul-cstyles: #2a75bb; }
         
         body {
             background: linear-gradient(180deg, #000000 0%, #1a1c1e 100%);
@@ -30,24 +30,17 @@
         .header-seccion p { color: #888; margin-bottom: 40px; font-size: 0.9rem; }
 
         .tarjeta-formulario {
-            background: var(--dark-card); border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 30px; padding: 40px; backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 30px; padding: 40px; backdrop-filter: blur(10px);
             box-shadow: 0 40px 80px rgba(0,0,0,0.6);
         }
 
-        input, select, textarea {
+        input, select {
             background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
             padding: 15px; border-radius: 12px; color: #fff; font-size: 0.9rem; outline: none; transition: 0.3s;
             width: 100%; box-sizing: border-box; margin-bottom: 20px;
         }
-        input:focus, select:focus, textarea:focus { border-color: var(--azul-cstyles); background: rgba(0,0,0,0.8); }
-
-        .zona-carga-foto {
-            border: 2px dashed rgba(42, 117, 187, 0.3); padding: 30px; border-radius: 20px;
-            margin-bottom: 30px; cursor: pointer; transition: 0.3s;
-        }
-        .zona-carga-foto:hover { background: rgba(42, 117, 187, 0.05); border-color: var(--azul-cstyles); }
-        .zona-carga-foto span { font-size: 2rem; display: block; margin-bottom: 10px; }
+        input:focus, select:focus { border-color: var(--azul-cstyles); background: rgba(0,0,0,0.8); }
 
         .btn-enviar {
             width: 100%; background: var(--azul-cstyles); color: white; border: none;
@@ -65,46 +58,43 @@
 
     <main class="contenedor-principal">
         <div class="header-seccion">
-            <h1>Cotización Oficial</h1>
-            <p>Tus datos y fotos llegarán directamente a nuestro equipo técnico</p>
+            <h1>Cotización Técnica</h1>
+            <p>Ingresa tus datos y nos pondremos en contacto a la brevedad</p>
         </div>
 
         <div class="tarjeta-formulario">
-            <!-- ESTRUCTURA EXACTA SEGÚN TU CAPTURA -->
-            <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
-    
-    <!-- Tu Clave Directa -->
-    <input type="hidden" name="access_key" value="0318e171-2b9a-481a-8648-9ca0a0de109a">
+            <!-- Formulario de Texto Directo -->
+            <form action="https://web3forms.com" method="POST">
+                
+                <!-- Tu Access Key -->
+                <input type="hidden" name="access_key" value="0318e171-2b9a-481a-8648-9ca0a0de109a">
+                
+                <!-- Configuración de respuesta -->
+                <input type="hidden" name="from_name" value="CStyles Web">
+                <input type="hidden" name="subject" value="Nueva Cotización Recibida">
+                <input type="hidden" name="redirect" value="https://web3forms.com">
 
-    <input type="text" name="nombre" placeholder="Tu Nombre" required>
-    <input type="tel" name="whatsapp" placeholder="WhatsApp" required>
-    <input type="text" name="vehiculo" placeholder="Modelo y Año" required>
-    
-    <select name="diseno" required>
-        <option value="">Selecciona Diseño</option>
-        <option value="BI-01">BI-01</option>
-        <option value="BI-02">BI-02</option>
-        <option value="Clasico">Clásico</option>
-    </select>
+                <input type="text" name="Nombre_Cliente" placeholder="Tu Nombre" required>
+                <input type="tel" name="WhatsApp" placeholder="WhatsApp de Contacto" required>
+                <input type="text" name="Vehiculo" placeholder="Modelo y Año del Auto" required>
+                
+                <select name="Diseno_Interes" required>
+                    <option value="" disabled selected>Selecciona el Diseño</option>
+                    <option value="BI-01">Bicolor BI-01</option>
+                    <option value="BI-02">Bicolor BI-02</option>
+                    <option value="BI-03">Bicolor BI-03</option>
+                    <option value="Clasico">Diseño Clásico</option>
+                    <option value="Tela">Tela Automotriz</option>
+                </select>
 
-    <!-- La foto: el nombre DEBE ser "attachment" -->
-    <input type="file" name="attachment" accept="image/*" required>
+                <p style="font-size: 0.75rem; color: #666; margin-bottom: 20px;">
+                    *Al enviar, procesaremos tu solicitud y te contactaremos por WhatsApp para coordinar la plantilla.
+                </p>
 
-    <button type="submit" class="btn-enviar">ENVIAR COTIZACIÓN 🚀</button>
-</form>
-
+                <button type="submit" class="btn-enviar">Solicitar Cotización 🚀</button>
+            </form>
         </div>
     </main>
 
-    <script>
-        function validarArchivo() {
-            const input = document.getElementById('file-upload');
-            const texto = document.getElementById('file-name');
-            if (input.files.length > 0) {
-                texto.innerText = "✅ Foto lista: " + input.files[0].name;
-                texto.style.color = "#25d366";
-            }
-        }
-    </script>
 </body>
 </html>

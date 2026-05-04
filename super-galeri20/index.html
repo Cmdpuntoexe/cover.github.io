@@ -33,17 +33,15 @@
         }
         .menu-superior a:hover { color: #fff; background: rgba(255,255,255,0.05); }
 
-        /* 2. CONTENEDOR CON EL AIRE JUSTO */
+        /* 2. CABECERA */
         .seccion-disenos {
-            padding: 110px 20px 40px; /* Le dimos 30px más de aire arriba */
-            max-width: 1200px;
+            padding: 110px 20px 40px;
+            max-width: 1250px;
             margin: 0 auto;
             text-align: center;
         }
 
-        .contenedor-cabecera {
-            margin-bottom: 45px; /* Espacio cómodo antes de las fotos */
-        }
+        .contenedor-cabecera { margin-bottom: 45px; }
 
         .titulo-principal {
             font-size: 1.8rem; 
@@ -58,16 +56,19 @@
         .linea-decorativa {
             width: 120px; height: 3px;
             background: var(--azul-cstyles);
-            margin: 12px auto 0;
+            margin: 10px auto 0;
             border-radius: 5px;
             box-shadow: 0 0 10px var(--azul-cstyles);
         }
 
-        /* 3. GRID DE TARJETAS */
+        /* 3. GRID DE TARJETAS (4 EN FILA Y MÁS DELGADAS) */
         .grid-disenos {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(4, 1fr); 
             gap: 30px;
+            margin: 30px auto;
+            max-width: 1150px;
+            width: 100%;
         }
 
         .tarjeta {
@@ -88,21 +89,54 @@
         }
 
         .img-contenedor {
-            width: 100%; height: 210px; background: rgba(0,0,0,0.4);
+            width: 100%; height: 180px; background: rgba(0,0,0,0.4);
             overflow: hidden;
         }
         .img-contenedor img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
         .tarjeta:hover .img-contenedor img { opacity: 1; transform: scale(1.1); }
 
-        .info-tarjeta { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-        .info-tarjeta h3 { font-size: 1.1rem; letter-spacing: 2px; margin: 0 0 12px 0; text-transform: uppercase; font-weight: 800; color: #fff; }
-        .info-tarjeta p { font-size: 0.85rem; color: #b8b8b8; line-height: 1.6; margin-bottom: 25px; }
+        .info-tarjeta { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .info-tarjeta h3 { font-size: 0.95rem; letter-spacing: 2px; margin: 0 0 10px 0; text-transform: uppercase; font-weight: 800; color: #fff; }
+        .info-tarjeta p { font-size: 0.75rem; color: #b8b8b8; line-height: 1.5; margin-bottom: 20px; }
 
         .btn-ver {
             margin-top: auto; text-decoration: none; color: #fff; border: 1px solid rgba(255,255,255,0.15);
-            padding: 14px; border-radius: 12px; font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s;
+            padding: 12px; border-radius: 10px; font-size: 0.65rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s;
         }
         .tarjeta:hover .btn-ver { background: var(--azul-cstyles); border-color: var(--azul-cstyles); }
+
+        /* 4. CIERRE (FOOTER) */
+        .footer-catalogo {
+            margin-top: 80px;
+            padding-bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo-footer {
+            width: 140px;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(42, 117, 187, 0.3));
+        }
+
+        .frase-cierre {
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            color: #ffffff;
+            font-weight: 900;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .linea-final {
+            width: 60px; height: 3px;
+            background: var(--azul-cstyles);
+            margin-top: 25px; border-radius: 5px;
+            box-shadow: 0 0 10px var(--azul-cstyles);
+        }
 
         .btn-flotante-wa {
             position: fixed; bottom: 30px; right: 30px;
@@ -111,50 +145,14 @@
             box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 1000;
         }
 
-        @media (max-width: 768px) {
-            .seccion-disenos { padding: 100px 15px 40px; }
-            .titulo-principal { font-size: 1.5rem; letter-spacing: 4px; }
+        @media (max-width: 1050px) {
+            .grid-disenos { grid-template-columns: repeat(2, 1fr); max-width: 700px; }
         }
 
-        .footer-catalogo {
-    margin-top: 80px; /* Espacio después de las tarjetas */
-    padding-bottom: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.logo-footer {
-    width: 140px; /* Tamaño ideal para el cierre */
-    height: auto;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 0 10px rgba(42, 117, 187, 0.3)); /* Brillo sutil azul */
-    transition: transform 0.3s ease;
-}
-
-.logo-footer:hover {
-    transform: scale(1.05);
-}
-
-.frase-cierre {
-    font-size: 0.75rem;
-    letter-spacing: 5px;
-    color: #ffffff;
-    font-weight: 900;
-    text-transform: uppercase;
-    opacity: 0.7; /* Para que no compita con el título principal */
-}
-
-.linea-final {
-    width: 60px;
-    height: 3px;
-    background: var(--azul-cstyles);
-    margin-top: 25px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px var(--azul-cstyles);
-}
-
+        @media (max-width: 650px) {
+            .seccion-disenos { padding: 100px 15px 40px; }
+            .grid-disenos { grid-template-columns: 1fr; max-width: 320px; }
+        }
     </style>
 </head>
 <body>
@@ -176,7 +174,6 @@
         </div>
 
         <div class="grid-disenos">
-            <!-- TARJETAS SIN CAMBIOS -->
             <div class="tarjeta">
                 <div class="img-contenedor"><img src="/dp1.jpg" alt="Personalizar"></div>
                 <div class="info-tarjeta">
@@ -213,13 +210,13 @@
                 </div>
             </div>
         </div>
-        <!-- CIERRE DEL CATÁLOGO -->
-<div class="footer-catalogo">
-    <img src="/imajen2.png" alt="Logo CStyles" class="logo-footer">
-    <p class="frase-cierre">EXCLUSIVIDAD Y CALIDAD EN CADA DETALLE</p>
-    <div class="linea-final"></div>
-</div>
 
+        <!-- CIERRE DEL CATÁLOGO CON LOGO ORIGINAL -->
+        <div class="footer-catalogo">
+            <img src="/imajen2.png" alt="Logo CStyles" class="logo-footer">
+            <p class="frase-cierre">EXCLUSIVIDAD Y CALIDAD EN CADA DETALLE</p>
+            <div class="linea-final"></div>
+        </div>
     </main>
 
     <a href="https://wa.me" class="btn-flotante-wa" target="_blank">
@@ -228,3 +225,4 @@
 
 </body>
 </html>
+

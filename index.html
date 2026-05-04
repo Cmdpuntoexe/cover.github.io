@@ -23,9 +23,36 @@
             overflow: hidden;
         }
 
+        /* CUADRO AZUL PERIMETRAL (MARCO NEÓN) */
+        .marco-neon {
+            border: 2px solid var(--azul-cstyles);
+            padding: 60px 80px;
+            border-radius: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: inset 0 0 20px rgba(42, 117, 187, 0.2), 
+                        0 0 20px rgba(42, 117, 187, 0.2);
+            animation: parpadeoMarco 4s infinite alternate;
+            opacity: 0;
+            transform: scale(1.1);
+            animation: aparecerMarco 1.5s ease-out 0.5s forwards, parpadeoMarco 4s infinite 2s;
+        }
+
+        @keyframes aparecerMarco {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes parpadeoMarco {
+            0%, 100% { border-color: var(--azul-cstyles); box-shadow: 0 0 20px rgba(42, 117, 187, 0.2); }
+            50% { border-color: #4a9eff; box-shadow: 0 0 40px rgba(42, 117, 187, 0.5); }
+            52% { border-color: var(--azul-cstyles); }
+            54% { border-color: #4a9eff; }
+        }
+
         .contenedor-central {
             text-align: center;
-            padding: 20px;
         }
 
         /* ANIMACIÓN DE ENTRADA DEL TÍTULO */
@@ -39,17 +66,17 @@
             text-shadow: 0 0 20px rgba(42, 117, 187, 0.6);
             opacity: 0;
             filter: blur(10px);
-            animation: entradaRevelado 2s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+            animation: entradaRevelado 2s cubic-bezier(0.2, 0, 0.2, 1) 0.8s forwards;
         }
 
         @keyframes entradaRevelado {
-            0% { opacity: 0; filter: blur(20px); letter-spacing: 30px; transform: scale(0.9); }
-            100% { opacity: 1; filter: blur(0); letter-spacing: 12px; transform: scale(1); }
+            0% { opacity: 0; filter: blur(20px); letter-spacing: 30px; }
+            100% { opacity: 1; filter: blur(0); letter-spacing: 12px; }
         }
 
         /* BOTÓN CON EFECTO DE PULSO */
         .btn-whatsapp-inicio {
-            display: inline-flex; /* Cambiado para alinear icono y texto mejor */
+            display: inline-flex;
             align-items: center;
             gap: 10px;
             margin-top: 50px;
@@ -65,13 +92,10 @@
             box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
             text-transform: uppercase;
             opacity: 0;
-            animation: aparecerBoton 1s ease 1.5s forwards, pulsoSutil 2s infinite 3s;
+            animation: aparecerBoton 1s ease 2s forwards, pulsoSutil 2s infinite 3s;
         }
 
-        /* REDUCCIÓN DEL LOGO DE WHATSAPP */
-        .logo-wa-small {
-            font-size: 1.1rem; /* Tamaño reducido del ícono */
-        }
+        .logo-wa-small { font-size: 1.1rem; }
 
         @keyframes aparecerBoton {
             from { opacity: 0; transform: translateY(20px); }
@@ -101,7 +125,7 @@
             transition: 0.5s;
             text-transform: uppercase;
             opacity: 0;
-            animation: aparecerBoton 1s ease 2.5s forwards;
+            animation: aparecerBoton 1s ease 3s forwards;
         }
         .link-catalogo:hover { 
             color: var(--azul-cstyles); 
@@ -109,33 +133,26 @@
         }
 
         @media (max-width: 768px) {
+            .marco-neon { padding: 40px 20px; width: 85%; }
             .titulo-principal { font-size: 1.6rem; letter-spacing: 8px; }
-            @keyframes entradaRevelado {
-                0% { opacity: 0; filter: blur(15px); letter-spacing: 15px; }
-                100% { opacity: 1; filter: blur(0); letter-spacing: 6px; }
-            }
             .btn-whatsapp-inicio { padding: 14px 25px; font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="contenedor-central">
-        <h1 class="titulo-principal">COVERING STYLES</h1>
-        
-        <a href="https://wa.me" class="btn-whatsapp-inicio">
-            Contactar <span class="logo-wa-small">📱</span>
-        </a>
+    <div class="marco-neon">
+        <div class="contenedor-central">
+            <h1 class="titulo-principal">COVERING STYLES</h1>
+            
+            <a href="https://wa.me" class="btn-whatsapp-inicio">
+                CONTACTAR EXPERTO <span class="logo-wa-small">📱</span>
+            </a>
+        </div>
     </div>
 
-    <!-- El botón para entrar sin WhatsApp -->
     <a href="/super-galeri20/" class="link-catalogo">VER CATÁLOGO DISEÑOS</a>
 
 </body>
 </html>
 
-    <!-- El botón para entrar sin WhatsApp -->
-    <a href="/super-galeri20/" class="link-catalogo">VER CATÁLOGO DISEÑOS</a>
-
-</body>
-</html>

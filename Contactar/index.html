@@ -64,20 +64,21 @@
         </form>
     </div>
 
-    <script>
-        function actualizarLink() {
-            const modelo = document.getElementById('modeloSelect').value;
-            const inputLink = document.getElementById('inputLink');
-            const txtLink = document.getElementById('txtLink');
-            
-            // Generamos la URL de la foto que ya tienes en GitHub
-            // Ejemplo: ://fundascs.com
-            const urlCompleta = `https://fundascs.com{modelo}.png`;
-            
-            inputLink.value = urlCompleta;
-            txtLink.innerText = urlCompleta;
-            txtLink.style.color = "#2a75bb";
-        }
-    </script>
+<script>
+    function actualizarLink() {
+        const select = document.getElementById('modeloSelect');
+        const modeloCod = select.value; // Esto tomará "BI-01", "BI-03", etc.
+        const inputLink = document.getElementById('inputLink');
+        const txtLink = document.getElementById('txtLink');
+        
+        // Ajusta la extensión (.png o .jpg) según como tengas tus fotos en el servidor
+        const urlCompleta = `https://fundascs.com{modeloCod}.png`;
+        
+        inputLink.value = urlCompleta;
+        txtLink.innerText = urlCompleta;
+        txtLink.style.color = "#2a75bb";
+    }
+</script>
+>
 </body>
 </html>

@@ -49,21 +49,28 @@
 
         /* BOTÓN CON EFECTO DE PULSO */
         .btn-whatsapp-inicio {
-            display: inline-block;
+            display: inline-flex; /* Cambiado para alinear icono y texto mejor */
+            align-items: center;
+            gap: 10px;
             margin-top: 50px;
             background: var(--wa-green);
             color: white;
             text-decoration: none;
-            padding: 18px 45px;
+            padding: 16px 35px;
             border-radius: 50px;
             font-weight: 900;
-            font-size: 1.1rem;
+            font-size: 1rem;
             letter-spacing: 2px;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
             text-transform: uppercase;
             opacity: 0;
             animation: aparecerBoton 1s ease 1.5s forwards, pulsoSutil 2s infinite 3s;
+        }
+
+        /* REDUCCIÓN DEL LOGO DE WHATSAPP */
+        .logo-wa-small {
+            font-size: 1.1rem; /* Tamaño reducido del ícono */
         }
 
         @keyframes aparecerBoton {
@@ -88,9 +95,9 @@
             bottom: 40px;
             color: #444;
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: bold;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             transition: 0.5s;
             text-transform: uppercase;
             opacity: 0;
@@ -107,7 +114,7 @@
                 0% { opacity: 0; filter: blur(15px); letter-spacing: 15px; }
                 100% { opacity: 1; filter: blur(0); letter-spacing: 6px; }
             }
-            .btn-whatsapp-inicio { padding: 15px 30px; font-size: 0.9rem; }
+            .btn-whatsapp-inicio { padding: 14px 25px; font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -117,9 +124,15 @@
         <h1 class="titulo-principal">COVERING STYLES</h1>
         
         <a href="https://wa.me" class="btn-whatsapp-inicio">
-            CONTACTAR EXPERTO 📱
+            CONTACTAR EXPERTO <span class="logo-wa-small">📱</span>
         </a>
     </div>
+
+    <!-- El botón para entrar sin WhatsApp -->
+    <a href="/galeria/" class="link-catalogo">VER CATÁLOGO DISEÑOS</a>
+
+</body>
+</html>
 
     <!-- El botón para entrar sin WhatsApp -->
     <a href="/galeria/" class="link-catalogo">VER CATÁLOGO DISEÑOS</a>

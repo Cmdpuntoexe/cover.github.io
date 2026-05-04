@@ -12,45 +12,60 @@
 
         body, html {
             margin: 0; padding: 0; width: 100%; min-height: 100vh;
-            background: #000000;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                url('/Misxto2.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             display: flex; justify-content: center; align-items: center;
             font-family: 'Segoe UI', Roboto, sans-serif;
-            /* Eliminamos overflow hidden para permitir deslizar */
             overflow-x: hidden; 
         }
 
-        /* MARCO NEÓN CORREGIDO PARA MÓVIL */
         .marco-neon {
             border: 1px solid rgba(42, 117, 187, 0.5);
-            padding: 50px 30px; /* Reducido para que quepa en teléfonos */
+            padding: 40px 30px;
             border-radius: 4px;
             display: flex; flex-direction: column; align-items: center;
-            box-shadow: inset 0 0 15px rgba(42, 117, 187, 0.1), 0 0 25px rgba(0,0,0,0.5);
-            width: 85%; /* Asegura que no se salga de la pantalla */
-            max-width: 600px;
+            background: rgba(0, 0, 0, 0.4); 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            width: 85%;
+            max-width: 550px;
             margin: 20px;
             animation: entradaMarco 1.2s ease-out forwards;
         }
 
         @keyframes entradaMarco {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .titulo-principal {
             color: var(--azul-cstyles);
-            font-size: clamp(1.5rem, 8vw, 3.5rem); /* Ajuste automático de tamaño */
+            font-size: clamp(1.6rem, 7vw, 3rem);
             font-weight: 900;
             letter-spacing: 10px;
             text-transform: uppercase;
             margin: 0;
             text-align: center;
-            text-shadow: 0 0 20px rgba(42, 117, 187, 0.5);
+            text-shadow: 0 0 20px rgba(42, 117, 187, 0.6);
+        }
+
+        /* TEXTO DESCRIPTIVO PEQUEÑO Y ELEGANTE */
+        .texto-descripcion {
+            color: #b8b8b8;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin: 25px 0;
+            font-weight: 400;
+            text-align: center;
+            max-width: 90%;
         }
 
         .btn-contacto-nuevo {
-            margin-top: 40px;
-            background: transparent;
+            background: rgba(0,0,0,0.6);
             color: white;
             text-decoration: none;
             padding: 14px 30px;
@@ -61,14 +76,12 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
 
         .btn-contacto-nuevo:hover {
             background: var(--azul-cstyles);
-            box-shadow: 0 0 20px var(--azul-cstyles);
+            box-shadow: 0 0 25px var(--azul-cstyles);
             color: #000;
         }
 
@@ -80,8 +93,9 @@
         }
 
         .link-catalogo {
-            margin-top: 40px;
-            color: #666; text-decoration: none;
+            margin-top: 30px;
+            color: #666;
+            text-decoration: none;
             font-size: 0.7rem; letter-spacing: 3px;
             text-transform: uppercase;
             transition: 0.4s;
@@ -91,8 +105,9 @@
         .link-catalogo:hover { color: #fff; border-color: var(--azul-cstyles); }
 
         @media (max-width: 600px) {
-            .marco-neon { padding: 40px 15px; }
+            .marco-neon { padding: 35px 20px; }
             .titulo-principal { letter-spacing: 5px; }
+            .texto-descripcion { font-size: 0.75rem; line-height: 1.5; }
             .btn-contacto-nuevo { width: 100%; justify-content: center; box-sizing: border-box; }
         }
     </style>
@@ -100,9 +115,14 @@
 <body>
 
     <div class="marco-neon">
-        <h1 class="titulo-principal">COVERING STYLES</h1>
+        <h1 class="titulo-principal">Covering Styles</h1>
         
-        <a href="https://wa.me" class="btn-contacto-nuevo">
+        <div class="texto-descripcion">
+            Somos un emprendimiento dedicado a la protección y cuidado del interior de los vehículos. 
+            Nos enfocamos en ofrecer soluciones prácticas para quienes usan su auto a diario y quieren mantenerlo en buen estado.
+        </div>
+        
+        <a href="https://wa.me/961960385" class="btn-contacto-nuevo">
             <div class="status-dot"></div>
             CONTACTAR
         </a>
@@ -112,3 +132,4 @@
 
 </body>
 </html>
+

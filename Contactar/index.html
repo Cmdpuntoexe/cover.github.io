@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotizar - Covering Styles</title>
+    <title>Cotización Técnica - CStyles</title>
     <style>
-        :root { --azul: #2a75bb; --wa: #25d366; }
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 0; }
+        :root { --azul: #2a75bb; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; }
         .nav { padding: 20px; border-bottom: 1px solid #333; font-weight: 900; letter-spacing: 3px; color: var(--azul); }
         .tarjeta { 
-            max-width: 450px; margin: 50px auto; padding: 30px; 
+            max-width: 500px; margin: 50px auto; padding: 35px; 
             background: #111; border-radius: 25px; border: 1px solid #333;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
         input, select { 
             width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 12px; 
-            background: #000; border: 1px solid #444; color: #fff; box-sizing: border-box; outline: none;
+            background: #000; border: 1px solid #444; color: #fff; box-sizing: border-box;
         }
-        input:focus { border-color: var(--azul); }
         .btn-enviar { 
-            width: 100%; padding: 18px; background: var(--wa); color: #fff; 
+            width: 100%; padding: 18px; background: var(--azul); color: #fff; 
             border: none; border-radius: 50px; font-weight: 900; cursor: pointer; 
-            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+            text-transform: uppercase; transition: 0.3s;
         }
-        .btn-enviar:hover { transform: scale(1.03); background: #1ebd59; }
+        .btn-enviar:hover { transform: scale(1.02); background: #1e5a91; }
+        .foto-preview { 
+            background: rgba(42, 117, 187, 0.1); padding: 15px; 
+            border-radius: 12px; margin-bottom: 20px; font-size: 0.8rem; color: #888;
+        }
     </style>
 </head>
 <body>
@@ -31,48 +33,50 @@
     <div class="nav">CSTYLES</div>
 
     <div class="tarjeta">
-        <h2 style="color: var(--azul); letter-spacing: 2px;">SOLICITUD DE COTIZACIÓN</h2>
-        <p style="color: #888; font-size: 0.85rem; margin-bottom: 30px;">Completa los datos para coordinar tu diseño</p>
+        <h2 style="letter-spacing: 2px;">SOLICITUD DE DISEÑO</h2>
+        <p style="color: #666; font-size: 0.85rem; margin-bottom: 30px;">Recibirás la confirmación en tu correo electrónico</p>
 
-        <form id="formCstyles">
-            <input type="text" id="nombre" placeholder="Tu Nombre" required>
-            <input type="text" id="auto" placeholder="Vehículo y Año" required>
+        <form action="https://web3forms.com" method="POST">
             
-            <select id="modelo" required>
-                <option value="" disabled selected>Selecciona un Diseño</option>
+            <input type="hidden" name="access_key" value="0318e171-2b9a-481a-8648-9ca0a0de109a">
+            <input type="hidden" name="subject" value="Nueva Cotización con Referencia de Imagen">
+
+            <input type="text" name="Nombre_Cliente" placeholder="Tu Nombre" required>
+            <input type="tel" name="WhatsApp" placeholder="WhatsApp de contacto" required>
+            <input type="text" name="Vehiculo" placeholder="Modelo y Año del Auto" required>
+            
+            <select name="Modelo_Elegido" id="modeloSelect" onchange="actualizarLink()" required>
+                <option value="" disabled selected>Selecciona el Diseño</option>
                 <option value="BI-01">Bicolor BI-01</option>
                 <option value="BI-02">Bicolor BI-02</option>
                 <option value="BI-03">Bicolor BI-03</option>
                 <option value="Clasico">Diseño Clásico</option>
-                <option value="Tela">Tela Automotriz</option>
             </select>
 
-            <button type="button" onclick="enviarWA()" class="btn-enviar">Continuar a WhatsApp 📱</button>
+            <!-- CAMPO OCULTO QUE ENVÍA EL LINK DE LA FOTO -->
+            <input type="hidden" name="Link_Referencia_Foto" id="inputLink">
+
+            <div class="foto-preview">
+                <strong>Referencia:</strong> <span id="txtLink">Selecciona un modelo para ver el link</span>
+            </div>
+
+            <button type="submit" class="btn-enviar">Enviar Solicitud 🚀</button>
         </form>
     </div>
 
     <script>
-        function enviarWA() {
-            const nombre = document.getElementById('nombre').value;
-            const auto = document.getElementById('auto').value;
-            const modelo = document.getElementById('modelo').value;
-
-            if(!nombre || !auto || !modelo) {
-                alert("Por favor, completa todos los campos.");
-                return;
-            }
-
-            // Construimos el mensaje con los códigos %20 (espacio) y %0A (salto de línea)
-            const mensaje = encodeURIComponent(
-                `*SOLICITUD DE COTIZACIÓN CStyles*%0A%0A` +
-                `👤 *Nombre:* ${nombre}%0A` +
-                `🚗 *Vehículo:* ${auto}%0A` +
-                `🎨 *Diseño:* ${modelo}%0A%0A` +
-                `_Hola, me interesa cotizar este diseño para mi auto._`
-            );
-
-            // Tu número de WhatsApp configurado sin espacios ni signos +
-            window.open(`https://wa.me{mensaje}`, '_blank');
+        function actualizarLink() {
+            const modelo = document.getElementById('modeloSelect').value;
+            const inputLink = document.getElementById('inputLink');
+            const txtLink = document.getElementById('txtLink');
+            
+            // Generamos la URL de la foto que ya tienes en GitHub
+            // Ejemplo: ://fundascs.com
+            const urlCompleta = `https://fundascs.com{modelo}.png`;
+            
+            inputLink.value = urlCompleta;
+            txtLink.innerText = urlCompleta;
+            txtLink.style.color = "#2a75bb";
         }
     </script>
 </body>

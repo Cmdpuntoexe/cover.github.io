@@ -15,6 +15,9 @@
             color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
+            /* Flexbox para poder mover el logo al final en móvil */
+            display: flex;
+            flex-direction: column;
         }
 
         /* 1. MENÚ SUPERIOR */
@@ -33,16 +36,18 @@
         }
         .menu-superior a:hover { color: #fff; background: rgba(255,255,255,0.05); }
 
-        /* 2. CABECERA CON LOGO A LA DERECHA */
+        /* 2. CABECERA */
         .seccion-disenos {
-            padding: 100px 20px 60px;
-            max-width: 1200px;
+            padding: 110px 20px 40px;
+            max-width: 1150px; /* Alineado con el ancho de las tarjetas */
             margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .contenedor-cabecera {
             display: flex;
-            justify-content: space-between; /* Título a la izquierda, logo a la derecha */
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 50px;
             width: 100%;
@@ -56,22 +61,19 @@
             margin: 0;
             color: #2a75bb !important;
             text-shadow: 0 0 15px rgba(42, 117, 187, 0.4);
-            text-align: left;
         }
 
-        .logo-top-derecha {
-            width: 120px; /* Tamaño elegante para la esquina */
+        .logo-cstyles {
+            width: 130px;
             height: auto;
             filter: drop-shadow(0 0 10px rgba(42, 117, 187, 0.3));
         }
 
-        /* 3. GRID DE TARJETAS (4 EN FILA) */
+        /* 3. GRID DE TARJETAS */
         .grid-disenos {
             display: grid;
             grid-template-columns: repeat(4, 1fr); 
             gap: 25px;
-            margin: 0 auto;
-            max-width: 1150px;
             width: 100%;
         }
 
@@ -92,10 +94,7 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 15px rgba(42, 117, 187, 0.3);
         }
 
-        .img-contenedor {
-            width: 100%; height: 180px; background: rgba(0,0,0,0.4);
-            overflow: hidden;
-        }
+        .img-contenedor { width: 100%; height: 180px; background: rgba(0,0,0,0.4); overflow: hidden; }
         .img-contenedor img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
         .tarjeta:hover .img-contenedor img { opacity: 1; transform: scale(1.1); }
 
@@ -118,13 +117,39 @@
 
         /* AJUSTES RESPONSIVE */
         @media (max-width: 1050px) {
-            .grid-disenos { grid-template-columns: repeat(2, 1fr); max-width: 700px; }
+            .grid-disenos { grid-template-columns: repeat(2, 1fr); max-width: 700px; margin: 0 auto; }
         }
 
         @media (max-width: 650px) {
-            .contenedor-cabecera { flex-direction: column; text-align: center; gap: 20px; }
-            .titulo-principal { text-align: center; font-size: 1.5rem; }
-            .grid-disenos { grid-template-columns: 1fr; max-width: 320px; }
+            /* En móvil, el logo pasa al final del contenedor principal */
+            .contenedor-cabecera { justify-content: center; margin-bottom: 30px; }
+            .logo-cstyles { order: 2; margin-top: 50px; width: 150px; margin-bottom: 40px; }
+            .titulo-principal { order: 1; text-align: center; font-size: 1.4rem; }
+            
+            /* Cambiamos el comportamiento del contenedor para que el logo baje */
+            .seccion-disenos { 
+                display: flex; 
+                flex-direction: column; 
+                padding-top: 90px;
+            }
+            .grid-disenos { order: 2; grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+            .contenedor-cabecera { order: 1; }
+            
+            /* Creamos un contenedor fantasma para el logo al final */
+            .seccion-disenos::after {
+                content: "";
+                background: url('/imajen2.png') no-repeat center;
+                background-size: contain;
+                width: 140px;
+                height: 80px;
+                align-self: center;
+                margin-top: 40px;
+                margin-bottom: 60px;
+                order: 3;
+                filter: drop-shadow(0 0 10px rgba(42, 117, 187, 0.3));
+            }
+            /* Ocultamos el logo de arriba en móvil */
+            .logo-top { display: none; }
         }
     </style>
 </head>
@@ -141,10 +166,10 @@
     </header>
 
     <main class="seccion-disenos">
-        <!-- CABECERA: TÍTULO IZQUIERDA, LOGO DERECHA -->
         <div class="contenedor-cabecera">
             <h1 class="titulo-principal">NUESTROS DISEÑOS</h1>
-            <img src="/imajen2.png" alt="Logo CStyles" class="logo-top-derecha">
+            <!-- Logo que solo se ve en computadora arriba a la derecha -->
+            <img src="/imajen2.png" alt="Logo CStyles" class="logo-cstyles logo-top">
         </div>
 
         <div class="grid-disenos">
@@ -192,4 +217,3 @@
 
 </body>
 </html>
-

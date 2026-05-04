@@ -71,33 +71,28 @@
 
         <div class="tarjeta-formulario">
             <!-- ESTRUCTURA EXACTA SEGÚN TU CAPTURA -->
-            <form action="https://web3forms.com" method="POST" enctype="multipart/form-data">
-                
-                <!-- Tu clave de acceso -->
-                <input type="hidden" name="access_key" value="0318e171-2b9a-481a-8648-9ca0a0de109a">
-                
-                <input type="text" name="nombre" placeholder="Tu Nombre" required>
-                <input type="tel" name="whatsapp" placeholder="WhatsApp (569...)" required>
-                <input type="text" name="vehiculo" placeholder="Modelo y Año del Auto" required>
-                
-                <select name="diseno_elegido" required>
-                    <option value="" disabled selected>Selecciona el Diseño</option>
-                    <option value="BI-01">Bicolor BI-01</option>
-                    <option value="BI-02">Bicolor BI-02</option>
-                    <option value="BI-03">Bicolor BI-03</option>
-                    <option value="Clasico">Diseño Clásico</option>
-                    <option value="Tela">Tela Automotriz</option>
-                </select>
+            <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+    
+    <!-- Tu Clave Directa -->
+    <input type="hidden" name="access_key" value="0318e171-2b9a-481a-8648-9ca0a0de109a">
 
-                <!-- Campo para la foto (attachment es el nombre que pide Web3Forms) -->
-                <div class="zona-carga-foto" onclick="document.getElementById('file-upload').click()">
-                    <span>📸</span>
-                    <p id="file-name">Subir foto de tus asientos actuales</p>
-                    <input type="file" name="attachment" id="file-upload" accept="image/*" style="display:none" onchange="validarArchivo()">
-                </div>
+    <input type="text" name="nombre" placeholder="Tu Nombre" required>
+    <input type="tel" name="whatsapp" placeholder="WhatsApp" required>
+    <input type="text" name="vehiculo" placeholder="Modelo y Año" required>
+    
+    <select name="diseno" required>
+        <option value="">Selecciona Diseño</option>
+        <option value="BI-01">BI-01</option>
+        <option value="BI-02">BI-02</option>
+        <option value="Clasico">Clásico</option>
+    </select>
 
-                <button type="submit" class="btn-enviar">Enviar Solicitud 🚀</button>
-            </form>
+    <!-- La foto: el nombre DEBE ser "attachment" -->
+    <input type="file" name="attachment" accept="image/*" required>
+
+    <button type="submit" class="btn-enviar">ENVIAR COTIZACIÓN 🚀</button>
+</form>
+
         </div>
     </main>
 

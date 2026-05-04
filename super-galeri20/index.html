@@ -33,70 +33,45 @@
         }
         .menu-superior a:hover { color: #fff; background: rgba(255,255,255,0.05); }
 
-        /* 2. CONTENEDOR PRINCIPAL */
+        /* 2. CABECERA (LOGO Y TÍTULO) */
         .seccion-disenos {
-            padding: 140px 20px 60px;
+            padding: 120px 20px 60px;
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
         }
 
-        .contenedor-titulo {
-            display: inline-block;
-            margin-bottom: 60px;
+        .contenedor-cabecera {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
         }
 
-    .contenedor-cabecera {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 40px; /* Espacio antes de que empiecen las tarjetas */
-}
+        .logo-catalogo {
+            width: 220px; /* LOGO MÁS GRANDE */
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(42, 117, 187, 0.5));
+            transition: transform 0.4s ease;
+        }
 
-.logo-catalogo {
-    width: 120px; /* Tamaño ideal para que no tape todo */
-    height: auto;
-    margin-bottom: 15px; /* Espacio entre el logo y el título */
-    filter: drop-shadow(0 0 10px rgba(42, 117, 187, 0.3));
-    transition: transform 0.4s ease;
-}
-
-.logo-catalogo:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 15px rgba(42, 117, 187, 0.6));
-}
-
-/* Ajuste del título para que no quede tan separado */
-.titulo-principal {
-    font-size: 1.6rem; /* Lo bajamos un poquito más para que armonice con el logo */
-    letter-spacing: 4px;
-    margin-top: 0;
-}
- 
-    
-    /* El espaciado de letras también lo bajamos un poco de 8px a 5px */
-    letter-spacing: 5px; 
-    
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 30px; /* Reduje el margen para que las fotos suban más */
-    color: var(--azul-cstyles);
-    text-shadow: 0 0 15px rgba(42, 117, 187, 0.4);
-    filter: drop-shadow(0 0 5px rgba(42, 117, 187, 0.2));
+        .titulo-principal {
+            font-size: 1.8rem; 
+            letter-spacing: 6px; 
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 0;
+            color: #2a75bb !important; /* AZUL FORZADO */
+            text-shadow: 0 0 15px rgba(42, 117, 187, 0.4);
         }
 
         .linea-decorativa {
-            width: 0; height: 3px;
+            width: 200px; height: 3px;
             background: var(--azul-cstyles);
             margin: 10px auto 0;
             border-radius: 5px;
-            animation: expandirLinea 1.5s ease forwards;
             box-shadow: 0 0 10px var(--azul-cstyles);
-        }
-
-        @keyframes expandirLinea {
-            from { width: 0; }
-            to { width: 100%; }
         }
 
         /* 3. GRID DE TARJETAS */
@@ -104,6 +79,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
+            margin-top: 50px;
         }
 
         .tarjeta {
@@ -131,48 +107,25 @@
         .tarjeta:hover .img-contenedor img { opacity: 1; transform: scale(1.1); }
 
         .info-tarjeta { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-
-        .info-tarjeta h3 {
-            font-size: 1.1rem; letter-spacing: 3px; margin: 0 0 12px 0;
-            text-transform: uppercase; font-weight: 800; color: #fff;
-        }
-
+        .info-tarjeta h3 { font-size: 1.1rem; letter-spacing: 3px; margin: 0 0 12px 0; text-transform: uppercase; font-weight: 800; color: #fff; }
         .info-tarjeta p { font-size: 0.85rem; color: #b8b8b8; line-height: 1.6; margin-bottom: 25px; }
 
         .btn-ver {
-            margin-top: auto;
-            text-decoration: none;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: 0.3s;
+            margin-top: auto; text-decoration: none; color: #fff; border: 1px solid rgba(255,255,255,0.15);
+            padding: 14px; border-radius: 12px; font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s;
         }
+        .tarjeta:hover .btn-ver { background: var(--azul-cstyles); border-color: var(--azul-cstyles); }
 
-        .tarjeta:hover .btn-ver {
-            background: var(--azul-cstyles);
-            border-color: var(--azul-cstyles);
-            box-shadow: 0 5px 15px rgba(42, 117, 187, 0.4);
-        }
-
-        /* 4. BOTÓN FLOTANTE WA */
         .btn-flotante-wa {
             position: fixed; bottom: 30px; right: 30px;
             background: var(--wa-green); color: #fff; padding: 16px 32px;
             border-radius: 50px; text-decoration: none; font-weight: 900;
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-            z-index: 1000; transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 1000;
         }
-        .btn-flotante-wa:hover { transform: scale(1.1) translateY(-5px); background: #1ebd59; }
 
         @media (max-width: 768px) {
-            .menu-superior a span { display: none; }
-            .titulo-principal { font-size: 1.7rem; letter-spacing: 4px; }
-            .btn-flotante-wa { padding: 12px 24px; font-size: 0.8rem; bottom: 20px; right: 20px; }
+            .titulo-principal { font-size: 1.4rem; letter-spacing: 4px; }
+            .logo-catalogo { width: 160px; }
         }
     </style>
 </head>
@@ -180,28 +133,23 @@
 
     <header class="menu-superior">
         <nav>
-            <a href="/">Inicio <span>🏠</span></a>
-            <a href="/galeria" style="color:white; border-bottom: 2px solid var(--azul-cstyles);">Catálogo <span>📂</span></a>
-            <a href="/clasico/">Clásico <span>✨</span></a>
-            <a href="/tela-automotriz/">Tela <span>🧵</span></a>
-            <a href="/bicolor/">Bicolor <span>🌗</span></a>
+            <a href="/">Inicio</a>
+            <a href="/galeria" style="color:white; border-bottom: 2px solid var(--azul-cstyles);">Catálogo</a>
+            <a href="/clasico/">Clásico</a>
+            <a href="/tela-automotriz/">Tela</a>
+            <a href="/bicolor/">Bicolor</a>
         </nav>
     </header>
 
-<main class="seccion-disenos">
-    <div class="contenedor-cabecera">
-        <!-- Tu Logo aquí -->
-        <img src="/imajen2.png" alt="Logo CStyles" class="logo-catalogo">
-        
-        <div class="contenedor-titulo">
+    <main class="seccion-disenos">
+        <div class="contenedor-cabecera">
+            <img src="/imajen2.png" alt="Logo CStyles" class="logo-catalogo">
             <h1 class="titulo-principal">NUESTROS DISEÑOS</h1>
             <div class="linea-decorativa"></div>
         </div>
-    </div>
-    ...
 
         <div class="grid-disenos">
-            <!-- PERSONALIZADOS -->
+            <!-- TARJETA 1 -->
             <div class="tarjeta">
                 <div class="img-contenedor"><img src="/dp1.jpg" alt="Personalizar"></div>
                 <div class="info-tarjeta">
@@ -211,7 +159,7 @@
                 </div>
             </div>
 
-            <!-- CLÁSICO -->
+            <!-- TARJETA 2 -->
             <div class="tarjeta">
                 <div class="img-contenedor"><img src="/clasico1.jpg" alt="Clásico"></div>
                 <div class="info-tarjeta">
@@ -220,8 +168,8 @@
                     <a href="/clasico/" class="btn-ver">Ver Catálogo</a>
                 </div>
             </div>
-
-            <!-- TELA -->
+            
+            <!-- TARJETA 3 -->
             <div class="tarjeta">
                 <div class="img-contenedor"><img src="/Misxto2.jpg" alt="Tela"></div>
                 <div class="info-tarjeta">
@@ -231,7 +179,7 @@
                 </div>
             </div>
 
-            <!-- BICOLOR -->
+            <!-- TARJETA 4 -->
             <div class="tarjeta">
                 <div class="img-contenedor"><img src="/bicolor1.png" alt="Bicolor"></div>
                 <div class="info-tarjeta">
@@ -249,3 +197,4 @@
 
 </body>
 </html>
+

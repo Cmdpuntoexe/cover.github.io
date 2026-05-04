@@ -46,11 +46,19 @@
             margin-bottom: 60px;
         }
 
-        .titulo-principal {
-            font-size: 2.5rem; letter-spacing: 8px; font-weight: 900;
-            text-transform: uppercase; margin: 0;
-            color: var(--azul-cstyles);
-            text-shadow: 0 0 20px rgba(42, 117, 187, 0.5);
+       .titulo-principal {
+    /* Antes estaba en 2.5rem, lo bajamos a 1.8rem para que sea más sutil */
+    font-size: 1.8rem; 
+    
+    /* El espaciado de letras también lo bajamos un poco de 8px a 5px */
+    letter-spacing: 5px; 
+    
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 30px; /* Reduje el margen para que las fotos suban más */
+    color: var(--azul-cstyles);
+    text-shadow: 0 0 15px rgba(42, 117, 187, 0.4);
+    filter: drop-shadow(0 0 5px rgba(42, 117, 187, 0.2));
         }
 
         .linea-decorativa {

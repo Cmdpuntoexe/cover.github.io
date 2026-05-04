@@ -3,29 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotización Técnica - CStyles</title>
+    <title>Cotizar - Covering Styles</title>
     <style>
-        :root { --azul: #2a75bb; }
+        :root { --azul: #2a75bb; --wa: #25d366; }
         body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; }
         .nav { padding: 20px; border-bottom: 1px solid #333; font-weight: 900; letter-spacing: 3px; color: var(--azul); }
         .tarjeta { 
-            max-width: 500px; margin: 50px auto; padding: 35px; 
+            max-width: 450px; margin: 50px auto; padding: 30px; 
             background: #111; border-radius: 25px; border: 1px solid #333;
         }
         input, select { 
             width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 12px; 
-            background: #000; border: 1px solid #444; color: #fff; box-sizing: border-box;
+            background: #000; border: 1px solid #444; color: #fff; box-sizing: border-box; outline: none;
         }
-        .btn-enviar { 
-            width: 100%; padding: 18px; background: var(--azul); color: #fff; 
+        .btn-wa { 
+            width: 100%; padding: 18px; background: var(--wa); color: #fff; 
             border: none; border-radius: 50px; font-weight: 900; cursor: pointer; 
             text-transform: uppercase; transition: 0.3s;
         }
-        .btn-enviar:hover { transform: scale(1.02); background: #1e5a91; }
-        .foto-preview { 
-            background: rgba(42, 117, 187, 0.1); padding: 15px; 
-            border-radius: 12px; margin-bottom: 20px; font-size: 0.8rem; color: #888;
-        }
+        .referencia-preview { font-size: 0.7rem; color: #555; margin-bottom: 20px; word-break: break-all; }
     </style>
 </head>
 <body>
@@ -33,52 +29,61 @@
     <div class="nav">CSTYLES</div>
 
     <div class="tarjeta">
-        <h2 style="letter-spacing: 2px;">SOLICITUD DE DISEÑO</h2>
-        <p style="color: #666; font-size: 0.85rem; margin-bottom: 30px;">Recibirás la confirmación en tu correo electrónico</p>
+        <h2 style="color: var(--azul); letter-spacing: 2px;">COTIZACIÓN RÁPIDA</h2>
+        <p style="color: #888; font-size: 0.85rem; margin-bottom: 30px;">Recibirás la respuesta en tu WhatsApp</p>
 
-        <form action="https://web3forms.com" method="POST">
+        <form id="formCstyles">
+            <input type="text" id="nombre" placeholder="Tu Nombre" required>
+            <input type="text" id="auto" placeholder="Vehículo y Año" required>
             
-            <input type="hidden" name="access_key" value="0318e171-2b9a-481a-8648-9ca0a0de109a">
-            <input type="hidden" name="subject" value="Nueva Cotización con Referencia de Imagen">
-
-            <input type="text" name="Nombre_Cliente" placeholder="Tu Nombre" required>
-            <input type="tel" name="WhatsApp" placeholder="WhatsApp de contacto" required>
-            <input type="text" name="Vehiculo" placeholder="Modelo y Año del Auto" required>
-            
-            <select name="Modelo_Elegido" id="modeloSelect" onchange="actualizarLink()" required>
-                <option value="" disabled selected>Selecciona el Diseño</option>
-                <option value="BI-01">Bicolor BI-01</option>
-                <option value="BI-02">Bicolor BI-02</option>
-                <option value="BI-03">Bicolor BI-03</option>
-                <option value="Clasico">Diseño Clásico</option>
+            <select id="modelo" onchange="mostrarRuta()" required>
+                <option value="" disabled selected>Selecciona un Diseño</option>
+                <!-- Usamos nombres sin espacios para las rutas de las fotos -->
+                <option value="bicolor1.png">Bicolor BI-01</option>
+                <option value="bicolor2.png">Bicolor BI-02</option>
+                <option value="2Bicolor.jpg">Bicolor BI-03</option>
+                <option value="clasico1.jpg">Diseño Clásico</option>
             </select>
 
-            <!-- CAMPO OCULTO QUE ENVÍA EL LINK DE LA FOTO -->
-            <input type="hidden" name="Link_Referencia_Foto" id="inputLink">
+            <div class="referencia-preview" id="previewRuta">Link de referencia aparecerá aquí</div>
 
-            <div class="foto-preview">
-                <strong>Referencia:</strong> <span id="txtLink">Selecciona un modelo para ver el link</span>
-            </div>
-
-            <button type="submit" class="btn-enviar">Enviar Solicitud 🚀</button>
+            <button type="button" onclick="enviarWA()" class="btn-wa">Enviar a WhatsApp 📱</button>
         </form>
     </div>
 
-<script>
-    function actualizarLink() {
-        const select = document.getElementById('modeloSelect');
-        const modeloCod = select.value; // Esto tomará "BI-01", "BI-03", etc.
-        const inputLink = document.getElementById('inputLink');
-        const txtLink = document.getElementById('txtLink');
-        
-        // Ajusta la extensión (.png o .jpg) según como tengas tus fotos en el servidor
-        const urlCompleta = `https://fundascs.com{modeloCod}.png`;
-        
-        inputLink.value = urlCompleta;
-        txtLink.innerText = urlCompleta;
-        txtLink.style.color = "#2a75bb";
-    }
-</script>
->
+    <script>
+        function mostrarRuta() {
+            const modelo = document.getElementById('modelo').value;
+            const preview = document.getElementById('previewRuta');
+            preview.innerText = `Referencia: https://fundascs.com{modelo}`;
+        }
+
+        function enviarWA() {
+            const nombre = document.getElementById('nombre').value;
+            const auto = document.getElementById('auto').value;
+            const modelo = document.getElementById('modelo').value;
+
+            if(!nombre || !auto || !modelo) {
+                alert("Por favor, completa los campos.");
+                return;
+            }
+
+            // URL de la foto sin espacios
+            const urlFoto = `https://fundascs.com{modelo}`;
+
+            // Construimos el mensaje usando %20 para reemplazar los espacios
+            // Así la URL de WhatsApp nunca se rompe
+            const mensaje = encodeURIComponent(
+                `*SOLICITUD%20DE%20COTIZACIÓN%20CStyles*%0A%0A` +
+                `👤%20*Nombre:*%20${nombre}%0A` +
+                `🚗%20*Auto:*%20${auto}%0A` +
+                `🎨%20*Diseño:*%20${modelo}%0A%0A` +
+                `🖼️%20*Ver%20Foto:*%20${urlFoto}`
+            );
+
+            window.open(`https://wa.me{mensaje}`, '_blank');
+        }
+    </script>
 </body>
 </html>
+

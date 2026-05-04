@@ -3,155 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CStyles - Covering Styles</title>
+    <title>Nuestros Diseños - Covering Styles</title>
     <style>
-        /* 1. ESTILOS GLOBALES Y ANIMACIÓN */
-        @keyframes aparecer {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        :root { --azul-cstyles: #2a75bb; --wa-green: #25d366; }
 
         body {
-            background: linear-gradient(180deg, #000000 0%, #373d42 100%);
+            background: linear-gradient(180deg, #000000 0%, #1a1c1e 100%);
             background-attachment: fixed;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            overflow-x: hidden;
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             color: #ffffff;
-        }
-
-        /* 2. MENÚ SUPERIOR PREMIUM */
-        .menu-superior {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid #444;
-            z-index: 2000;
-            display: flex;
-        }
-
-        .menu-superior nav {
-            display: flex;
-            width: 100%;
-        }
-
-        .menu-superior a {
-            flex: 1;
-            color: #b8b8b8;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-            text-transform: uppercase;
-        }
-
-        .menu-superior a:hover {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.05);
-            border-bottom: 3px solid #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        /* 3. PRESENTACIÓN CENTRAL */
-        .hero-presentacion {
             min-height: 100vh;
+            overflow-x: hidden;
+            /* Flexbox para poder mover el logo al final en móvil */
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 100px 20px 60px;
-            box-sizing: border-box;
-            animation: aparecer 1.5s ease-out;
         }
 
-        .texto-presentacion h1 {
-            font-size: clamp(2rem, 8vw, 3.5rem);
-            letter-spacing: 12px;
-            margin: 0;
+        /* 1. MENÚ SUPERIOR */
+        .menu-superior {
+            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+            background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 2000;
+            display: flex; justify-content: center;
+        }
+        .menu-superior nav { display: flex; width: 100%; max-width: 1200px; }
+        .menu-superior a {
+            flex: 1; color: #b8b8b8; text-decoration: none; font-size: 0.7rem;
+            font-weight: bold; letter-spacing: 2px; display: flex;
+            justify-content: center; align-items: center; gap: 8px;
+            transition: 0.3s; text-transform: uppercase;
+        }
+        .menu-superior a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+
+        /* 2. CABECERA */
+        .seccion-disenos {
+            padding: 110px 20px 40px;
+            max-width: 1150px; /* Alineado con el ancho de las tarjetas */
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .contenedor-cabecera {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            width: 100%;
+        }
+
+        .titulo-principal {
+            font-size: 1.8rem; 
+            letter-spacing: 6px; 
             font-weight: 900;
             text-transform: uppercase;
-            text-shadow: 0 0 30px rgba(255,255,255,0.2);
+            margin: 0;
+            color: #2a75bb !important;
+            text-shadow: 0 0 15px rgba(42, 117, 187, 0.4);
         }
 
-        .lema-principal {
-            color: #b8b8b8;
-            font-size: 1.1rem;
-            letter-spacing: 5px;
-            margin-top: 15px;
-            margin-bottom: 40px;
-            text-transform: uppercase;
+        .logo-cstyles {
+            width: 130px;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(42, 117, 187, 0.3));
         }
 
-        /* 4. BOTÓN WHATSAPP */
-        .boton-whatsapp-central {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: #25d366;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border: 2px solid #25d366;
-            padding: 15px 45px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            margin-bottom: 50px;
-            background: transparent;
+        /* 3. GRID DE TARJETAS */
+        .grid-disenos {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 25px;
+            width: 100%;
         }
 
-        .boton-whatsapp-central:hover {
-            background: #25d366;
-            color: #000;
-            box-shadow: 0 0 30px rgba(37, 211, 102, 0.4);
-            transform: scale(1.05);
-        }
-
-        /* 5. BLOQUE DE TEXTO PROFESIONAL */
-        .descripcion-detallada {
-            max-width: 750px;
-            line-height: 1.9;
-            color: #cccccc;
-            font-size: 1.05rem;
-            padding: 30px;
+        .tarjeta {
             background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 20px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
         }
 
-        .enfoque {
-            color: #ffffff;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-top: 1px solid #444;
-            padding-top: 25px;
-            margin-top: 25px;
+        .tarjeta:hover {
+            transform: translateY(-8px);
+            border-color: var(--azul-cstyles);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 15px rgba(42, 117, 187, 0.3);
         }
 
-        .enfoque strong {
-            color: #25d366;
-            font-weight: 800;
+        .img-contenedor { width: 100%; height: 180px; background: rgba(0,0,0,0.4); overflow: hidden; }
+        .img-contenedor img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
+        .tarjeta:hover .img-contenedor img { opacity: 1; transform: scale(1.1); }
+
+        .info-tarjeta { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; text-align: center;}
+        .info-tarjeta h3 { font-size: 0.9rem; letter-spacing: 2px; margin: 0 0 10px 0; text-transform: uppercase; font-weight: 800; color: #fff; }
+        .info-tarjeta p { font-size: 0.75rem; color: #b8b8b8; line-height: 1.5; margin-bottom: 20px; }
+
+        .btn-ver {
+            margin-top: auto; text-decoration: none; color: #fff; border: 1px solid rgba(255,255,255,0.15);
+            padding: 12px; border-radius: 10px; font-size: 0.65rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s;
+        }
+        .tarjeta:hover .btn-ver { background: var(--azul-cstyles); border-color: var(--azul-cstyles); }
+
+        .btn-flotante-wa {
+            position: fixed; bottom: 30px; right: 30px;
+            background: var(--wa-green); color: #fff; padding: 15px 30px;
+            border-radius: 50px; text-decoration: none; font-weight: 900;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 1000;
         }
 
-        @media (max-width: 768px) {
-            .menu-superior a span { display: none; }
-            .menu-superior a { font-size: 0.7rem; letter-spacing: 1px; }
-            .texto-presentacion h1 { letter-spacing: 5px; }
-            .lema-principal { font-size: 0.8rem; letter-spacing: 2px; }
-            .descripcion-detallada { font-size: 0.95rem; padding: 20px; }
+        /* AJUSTES RESPONSIVE */
+        @media (max-width: 1050px) {
+            .grid-disenos { grid-template-columns: repeat(2, 1fr); max-width: 700px; margin: 0 auto; }
+        }
+
+        @media (max-width: 650px) {
+            /* En móvil, el logo pasa al final del contenedor principal */
+            .contenedor-cabecera { justify-content: center; margin-bottom: 30px; }
+            .logo-cstyles { order: 2; margin-top: 50px; width: 150px; margin-bottom: 40px; }
+            .titulo-principal { order: 1; text-align: center; font-size: 1.4rem; }
+            
+            /* Cambiamos el comportamiento del contenedor para que el logo baje */
+            .seccion-disenos { 
+                display: flex; 
+                flex-direction: column; 
+                padding-top: 90px;
+            }
+            .grid-disenos { order: 2; grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+            .contenedor-cabecera { order: 1; }
+            
+            /* Creamos un contenedor fantasma para el logo al final */
+            .seccion-disenos::after {
+                content: "";
+                background: url('/imajen2.png') no-repeat center;
+                background-size: contain;
+                width: 140px;
+                height: 80px;
+                align-self: center;
+                margin-top: 40px;
+                margin-bottom: 60px;
+                order: 3;
+                filter: drop-shadow(0 0 10px rgba(42, 117, 187, 0.3));
+            }
+            /* Ocultamos el logo de arriba en móvil */
+            .logo-top { display: none; }
         }
     </style>
 </head>
@@ -159,30 +157,63 @@
 
     <header class="menu-superior">
         <nav>
-            <a href="/super-galeri20/">Catálogo <span>📂</span></a>
-            <a href="/catalogo/">Plantillas <span>📏</span></a>
+            <a href="/">Inicio</a>
+            <a href="/galeria" style="color:white; border-bottom: 2px solid var(--azul-cstyles);">Catálogo</a>
+            <a href="/clasico/">Clásico</a>
+            <a href="/tela-automotriz/">Tela</a>
+            <a href="/bicolor/">Bicolor</a>
         </nav>
     </header>
 
-    <div class="hero-presentacion">
-        <div class="texto-presentacion">
-            <h1>COVERING STYLES</h1>
-            <p class="lema-principal">Protección y Estética Automotriz</p>
-            
-            <!-- RECUERDA: Agrega tu número de teléfono después de wa.me/ -->
-            <a href="https://wa.me/56961960385?text=Hola%20me%20interesa%20mas%20informacion%20sobre%20fundas%20de%20auto%0AGracias!" class="boton-whatsapp-central" target="_blank">
-                <span>📱</span> ESCRÍBENOS POR WHATSAPP
-            </a>
+    <main class="seccion-disenos">
+        <div class="contenedor-cabecera">
+            <h1 class="titulo-principal">NUESTROS DISEÑOS</h1>
+            <!-- Logo que solo se ve en computadora arriba a la derecha -->
+            <img src="/imajen2.png" alt="Logo CStyles" class="logo-cstyles logo-top">
+        </div>
 
-            <div class="descripcion-detallada">
-                <p>Somos un emprendimiento dedicado a la protección y cuidado del interior de los vehículos. 
-                Nos enfocamos en ofrecer soluciones prácticas para quienes usan su auto a diario y quieren mantenerlo en buen estado.</p>
-                
-                <p class="enfoque">Materiales resistentes para situaciones reales: <br>
-                <strong>familias • trabajo • mascotas • uso constante</strong></p>
+        <div class="grid-disenos">
+            <div class="tarjeta">
+                <div class="img-contenedor"><img src="/dp1.jpg" alt="Personalizar"></div>
+                <div class="info-tarjeta">
+                    <h3>Personalizados</h3>
+                    <p>Crea un diseño exclusivo combinando los colores que más te gusten.</p>
+                    <a href="/estilos-personalizados/" class="btn-ver">Ver Catálogo</a>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <div class="img-contenedor"><img src="/clasico1.jpg" alt="Clásico"></div>
+                <div class="info-tarjeta">
+                    <h3>Diseño Clásico</h3>
+                    <p>El balance perfecto entre elegancia y sobriedad para tu interior.</p>
+                    <a href="/clasico/" class="btn-ver">Ver Catálogo</a>
+                </div>
+            </div>
+            
+            <div class="tarjeta">
+                <div class="img-contenedor"><img src="/Misxto2.jpg" alt="Tela"></div>
+                <div class="info-tarjeta">
+                    <h3>Tela Automotriz</h3>
+                    <p>Materiales originales de alta durabilidad y confort térmico.</p>
+                    <a href="/tela-automotriz/" class="btn-ver">Ver Catálogo</a>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <div class="img-contenedor"><img src="/bicolor1.png" alt="Bicolor"></div>
+                <div class="info-tarjeta">
+                    <h3>Diseño Bicolor</h3>
+                    <p>Estilo deportivo con contrastes modernos que resaltan cada detalle.</p>
+                    <a href="/bicolor/" class="btn-ver">Ver Catálogo</a>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <a href="https://wa.me" class="btn-flotante-wa" target="_blank">
+        COTIZAR AHORA 📱
+    </a>
 
 </body>
 </html>

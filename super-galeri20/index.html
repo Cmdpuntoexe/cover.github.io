@@ -33,16 +33,16 @@
         }
         .menu-superior a:hover { color: #fff; background: rgba(255,255,255,0.05); }
 
-        /* 2. CONTENEDOR AJUSTADO HACIA ARRIBA */
+        /* 2. CONTENEDOR CON EL AIRE JUSTO */
         .seccion-disenos {
-            padding: 80px 20px 40px; /* Reducido de 120px a 80px para subir todo */
+            padding: 110px 20px 40px; /* Le dimos 30px más de aire arriba */
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
         }
 
         .contenedor-cabecera {
-            margin-bottom: 30px; /* Menos espacio antes de las fotos */
+            margin-bottom: 45px; /* Espacio cómodo antes de las fotos */
         }
 
         .titulo-principal {
@@ -51,14 +51,14 @@
             font-weight: 900;
             text-transform: uppercase;
             margin: 0;
-            color: #2a75bb !important; /* Azul CStyles */
+            color: #2a75bb !important;
             text-shadow: 0 0 15px rgba(42, 117, 187, 0.4);
         }
 
         .linea-decorativa {
-            width: 150px; height: 3px;
+            width: 120px; height: 3px;
             background: var(--azul-cstyles);
-            margin: 10px auto 0;
+            margin: 12px auto 0;
             border-radius: 5px;
             box-shadow: 0 0 10px var(--azul-cstyles);
         }
@@ -67,8 +67,7 @@
         .grid-disenos {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
+            gap: 30px;
         }
 
         .tarjeta {
@@ -89,32 +88,32 @@
         }
 
         .img-contenedor {
-            width: 100%; height: 200px; background: rgba(0,0,0,0.4);
+            width: 100%; height: 210px; background: rgba(0,0,0,0.4);
             overflow: hidden;
         }
         .img-contenedor img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
         .tarjeta:hover .img-contenedor img { opacity: 1; transform: scale(1.1); }
 
-        .info-tarjeta { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .info-tarjeta h3 { font-size: 1rem; letter-spacing: 2px; margin: 0 0 10px 0; text-transform: uppercase; font-weight: 800; color: #fff; }
-        .info-tarjeta p { font-size: 0.8rem; color: #b8b8b8; line-height: 1.5; margin-bottom: 20px; }
+        .info-tarjeta { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .info-tarjeta h3 { font-size: 1.1rem; letter-spacing: 2px; margin: 0 0 12px 0; text-transform: uppercase; font-weight: 800; color: #fff; }
+        .info-tarjeta p { font-size: 0.85rem; color: #b8b8b8; line-height: 1.6; margin-bottom: 25px; }
 
         .btn-ver {
             margin-top: auto; text-decoration: none; color: #fff; border: 1px solid rgba(255,255,255,0.15);
-            padding: 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s;
+            padding: 14px; border-radius: 12px; font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s;
         }
         .tarjeta:hover .btn-ver { background: var(--azul-cstyles); border-color: var(--azul-cstyles); }
 
         .btn-flotante-wa {
-            position: fixed; bottom: 25px; right: 25px;
-            background: var(--wa-green); color: #fff; padding: 14px 28px;
+            position: fixed; bottom: 30px; right: 30px;
+            background: var(--wa-green); color: #fff; padding: 15px 30px;
             border-radius: 50px; text-decoration: none; font-weight: 900;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); z-index: 1000;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 1000;
         }
 
         @media (max-width: 768px) {
-            .seccion-disenos { padding: 75px 15px 30px; }
-            .titulo-principal { font-size: 1.3rem; letter-spacing: 4px; }
+            .seccion-disenos { padding: 100px 15px 40px; }
+            .titulo-principal { font-size: 1.5rem; letter-spacing: 4px; }
         }
     </style>
 </head>
@@ -137,6 +136,7 @@
         </div>
 
         <div class="grid-disenos">
+            <!-- TARJETAS SIN CAMBIOS -->
             <div class="tarjeta">
                 <div class="img-contenedor"><img src="/dp1.jpg" alt="Personalizar"></div>
                 <div class="info-tarjeta">
@@ -181,4 +181,3 @@
 
 </body>
 </html>
-

@@ -7,97 +7,93 @@
     <style>
         :root {
             --azul-cstyles: #2a75bb;
-            --wa-green: #25d366; /* Lo usaremos solo para detalles */
+            --wa-green: #25d366;
         }
 
         body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
+            margin: 0; padding: 0; width: 100%; min-height: 100vh;
             background: #000000;
             display: flex; justify-content: center; align-items: center;
             font-family: 'Segoe UI', Roboto, sans-serif;
-            overflow: hidden;
+            /* Eliminamos overflow hidden para permitir deslizar */
+            overflow-x: hidden; 
         }
 
-        /* MARCO NEÓN INTEGRADO */
+        /* MARCO NEÓN CORREGIDO PARA MÓVIL */
         .marco-neon {
-            border: 1px solid rgba(42, 117, 187, 0.3);
-            padding: 60px 80px;
-            border-radius: 2px; /* Esquinas más rectas para que se vea serio */
+            border: 1px solid rgba(42, 117, 187, 0.5);
+            padding: 50px 30px; /* Reducido para que quepa en teléfonos */
+            border-radius: 4px;
             display: flex; flex-direction: column; align-items: center;
-            box-shadow: 0 0 40px rgba(0,0,0,1), inset 0 0 20px rgba(42, 117, 187, 0.1);
-            animation: entradaMarco 1.5s ease-out forwards;
-            position: relative;
+            box-shadow: inset 0 0 15px rgba(42, 117, 187, 0.1), 0 0 25px rgba(0,0,0,0.5);
+            width: 85%; /* Asegura que no se salga de la pantalla */
+            max-width: 600px;
+            margin: 20px;
+            animation: entradaMarco 1.2s ease-out forwards;
         }
 
         @keyframes entradaMarco {
-            from { opacity: 0; width: 0%; border-color: transparent; }
-            to { opacity: 1; width: auto; border-color: rgba(42, 117, 187, 0.5); }
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .titulo-principal {
             color: var(--azul-cstyles);
-            font-size: 3.5rem;
+            font-size: clamp(1.5rem, 8vw, 3.5rem); /* Ajuste automático de tamaño */
             font-weight: 900;
-            letter-spacing: 12px;
+            letter-spacing: 10px;
             text-transform: uppercase;
             margin: 0;
+            text-align: center;
             text-shadow: 0 0 20px rgba(42, 117, 187, 0.5);
-            animation: reveal 2s ease-out;
         }
 
-        @keyframes reveal {
-            from { letter-spacing: 25px; filter: blur(10px); opacity: 0; }
-            to { letter-spacing: 12px; filter: blur(0); opacity: 1; }
-        }
-
-        /* NUEVO BOTÓN QUE SÍ CUADRA (Estilo Fantasía Azul) */
         .btn-contacto-nuevo {
-            margin-top: 45px;
+            margin-top: 40px;
             background: transparent;
             color: white;
             text-decoration: none;
-            padding: 14px 40px;
+            padding: 14px 30px;
             border: 1px solid var(--azul-cstyles);
             border-radius: 4px;
             font-weight: bold;
-            font-size: 0.9rem;
-            letter-spacing: 3px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            transition: all 0.4s ease;
+            transition: 0.3s;
             display: flex;
             align-items: center;
-            gap: 12px;
-            position: relative;
-            overflow: hidden;
+            gap: 10px;
         }
 
         .btn-contacto-nuevo:hover {
             background: var(--azul-cstyles);
-            box-shadow: 0 0 30px var(--azul-cstyles);
-            color: #000; /* Letras negras al brillar para contraste */
+            box-shadow: 0 0 20px var(--azul-cstyles);
+            color: #000;
         }
 
-        /* Pequeño punto verde de "En línea" para indicar WhatsApp */
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 8px; height: 8px;
             background: var(--wa-green);
             border-radius: 50%;
             box-shadow: 0 0 10px var(--wa-green);
         }
 
         .link-catalogo {
-            position: fixed; bottom: 30px;
-            color: #555; text-decoration: none;
-            font-size: 0.7rem; letter-spacing: 4px;
-            transition: 0.4s; text-transform: uppercase;
+            margin-top: 40px;
+            color: #666; text-decoration: none;
+            font-size: 0.7rem; letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: 0.4s;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 5px;
         }
-        .link-catalogo:hover { color: var(--azul-cstyles); text-shadow: 0 0 10px var(--azul-cstyles); }
+        .link-catalogo:hover { color: #fff; border-color: var(--azul-cstyles); }
 
-        @media (max-width: 768px) {
-            .marco-neon { padding: 40px 20px; width: 85%; }
-            .titulo-principal { font-size: 1.5rem; letter-spacing: 6px; }
-            .btn-contacto-nuevo { font-size: 0.75rem; padding: 12px 25px; }
+        @media (max-width: 600px) {
+            .marco-neon { padding: 40px 15px; }
+            .titulo-principal { letter-spacing: 5px; }
+            .btn-contacto-nuevo { width: 100%; justify-content: center; box-sizing: border-box; }
         }
     </style>
 </head>
@@ -110,9 +106,9 @@
             <div class="status-dot"></div>
             CONTACTAR EXPERTO
         </a>
-    </div>
 
-    <a href="/galeria/" class="link-catalogo">VER CATÁLOGO DISEÑOS</a>
+        <a href="/galeria/" class="link-catalogo">VER CATÁLOGO DISEÑOS</a>
+    </div>
 
 </body>
 </html>

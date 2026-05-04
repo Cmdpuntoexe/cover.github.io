@@ -33,27 +33,16 @@
         }
         .menu-superior a:hover { color: #fff; background: rgba(255,255,255,0.05); }
 
-        /* 2. CABECERA (LOGO Y TÍTULO) */
+        /* 2. CONTENEDOR AJUSTADO HACIA ARRIBA */
         .seccion-disenos {
-            padding: 120px 20px 60px;
+            padding: 80px 20px 40px; /* Reducido de 120px a 80px para subir todo */
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
         }
 
         .contenedor-cabecera {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        .logo-catalogo {
-            width: 220px; /* LOGO MÁS GRANDE */
-            height: auto;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 15px rgba(42, 117, 187, 0.5));
-            transition: transform 0.4s ease;
+            margin-bottom: 30px; /* Menos espacio antes de las fotos */
         }
 
         .titulo-principal {
@@ -62,12 +51,12 @@
             font-weight: 900;
             text-transform: uppercase;
             margin: 0;
-            color: #2a75bb !important; /* AZUL FORZADO */
+            color: #2a75bb !important; /* Azul CStyles */
             text-shadow: 0 0 15px rgba(42, 117, 187, 0.4);
         }
 
         .linea-decorativa {
-            width: 200px; height: 3px;
+            width: 150px; height: 3px;
             background: var(--azul-cstyles);
             margin: 10px auto 0;
             border-radius: 5px;
@@ -78,8 +67,8 @@
         .grid-disenos {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            gap: 25px;
+            margin-top: 20px;
         }
 
         .tarjeta {
@@ -94,38 +83,38 @@
         }
 
         .tarjeta:hover {
-            transform: translateY(-12px);
+            transform: translateY(-8px);
             border-color: var(--azul-cstyles);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 20px rgba(42, 117, 187, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 15px rgba(42, 117, 187, 0.3);
         }
 
         .img-contenedor {
-            width: 100%; height: 220px; background: rgba(0,0,0,0.4);
+            width: 100%; height: 200px; background: rgba(0,0,0,0.4);
             overflow: hidden;
         }
         .img-contenedor img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
         .tarjeta:hover .img-contenedor img { opacity: 1; transform: scale(1.1); }
 
-        .info-tarjeta { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-        .info-tarjeta h3 { font-size: 1.1rem; letter-spacing: 3px; margin: 0 0 12px 0; text-transform: uppercase; font-weight: 800; color: #fff; }
-        .info-tarjeta p { font-size: 0.85rem; color: #b8b8b8; line-height: 1.6; margin-bottom: 25px; }
+        .info-tarjeta { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .info-tarjeta h3 { font-size: 1rem; letter-spacing: 2px; margin: 0 0 10px 0; text-transform: uppercase; font-weight: 800; color: #fff; }
+        .info-tarjeta p { font-size: 0.8rem; color: #b8b8b8; line-height: 1.5; margin-bottom: 20px; }
 
         .btn-ver {
             margin-top: auto; text-decoration: none; color: #fff; border: 1px solid rgba(255,255,255,0.15);
-            padding: 14px; border-radius: 12px; font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s;
+            padding: 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s;
         }
         .tarjeta:hover .btn-ver { background: var(--azul-cstyles); border-color: var(--azul-cstyles); }
 
         .btn-flotante-wa {
-            position: fixed; bottom: 30px; right: 30px;
-            background: var(--wa-green); color: #fff; padding: 16px 32px;
+            position: fixed; bottom: 25px; right: 25px;
+            background: var(--wa-green); color: #fff; padding: 14px 28px;
             border-radius: 50px; text-decoration: none; font-weight: 900;
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 1000;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); z-index: 1000;
         }
 
         @media (max-width: 768px) {
-            .titulo-principal { font-size: 1.4rem; letter-spacing: 4px; }
-            .logo-catalogo { width: 160px; }
+            .seccion-disenos { padding: 75px 15px 30px; }
+            .titulo-principal { font-size: 1.3rem; letter-spacing: 4px; }
         }
     </style>
 </head>
@@ -143,13 +132,11 @@
 
     <main class="seccion-disenos">
         <div class="contenedor-cabecera">
-            <img src="/imajen2.png" alt="Logo CStyles" class="logo-catalogo">
             <h1 class="titulo-principal">NUESTROS DISEÑOS</h1>
             <div class="linea-decorativa"></div>
         </div>
 
         <div class="grid-disenos">
-            <!-- TARJETA 1 -->
             <div class="tarjeta">
                 <div class="img-contenedor"><img src="/dp1.jpg" alt="Personalizar"></div>
                 <div class="info-tarjeta">
@@ -159,7 +146,6 @@
                 </div>
             </div>
 
-            <!-- TARJETA 2 -->
             <div class="tarjeta">
                 <div class="img-contenedor"><img src="/clasico1.jpg" alt="Clásico"></div>
                 <div class="info-tarjeta">
@@ -169,7 +155,6 @@
                 </div>
             </div>
             
-            <!-- TARJETA 3 -->
             <div class="tarjeta">
                 <div class="img-contenedor"><img src="/Misxto2.jpg" alt="Tela"></div>
                 <div class="info-tarjeta">
@@ -179,7 +164,6 @@
                 </div>
             </div>
 
-            <!-- TARJETA 4 -->
             <div class="tarjeta">
                 <div class="img-contenedor"><img src="/bicolor1.png" alt="Bicolor"></div>
                 <div class="info-tarjeta">

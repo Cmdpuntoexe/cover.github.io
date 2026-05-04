@@ -1,78 +1,115 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cotización</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cotización Oficial - Covering Styles</title>
+    <style>
+        :root { --azul-cstyles: #2a75bb; --dark-card: rgba(255, 255, 255, 0.03); }
+        
+        body {
+            background: linear-gradient(180deg, #000000 0%, #1a1c1e 100%);
+            background-attachment: fixed;
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+        }
 
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #0f0f0f;
-  color: #fff;
-  padding: 20px;
-}
+        .nav-cotizar {
+            width: 100%; height: 70px; background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .nav-cotizar a { color: var(--azul-cstyles); text-decoration: none; font-weight: 900; letter-spacing: 3px; font-size: 1.2rem; }
 
-form {
-  max-width: 500px;
-  margin: auto;
-  background: #1a1a1a;
-  padding: 20px;
-  border-radius: 10px;
-}
+        .contenedor-principal { max-width: 600px; margin: 50px auto; padding: 0 20px; text-align: center; }
 
-h2 {
-  text-align: center;
-}
+        .header-seccion h1 { font-size: 2.2rem; letter-spacing: 5px; font-weight: 900; color: var(--azul-cstyles); text-transform: uppercase; margin-bottom: 10px; }
+        .header-seccion p { color: #888; margin-bottom: 40px; font-size: 0.9rem; }
 
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 5px;
-}
+        .tarjeta-formulario {
+            background: var(--dark-card); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 30px; padding: 40px; backdrop-filter: blur(15px);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+        }
 
-button {
-  width: 100%;
-  padding: 12px;
-  background: #00c853;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-}
+        input, select, textarea {
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px; border-radius: 12px; color: #fff; font-size: 0.9rem; outline: none; transition: 0.3s;
+            width: 100%; box-sizing: border-box; margin-bottom: 20px;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--azul-cstyles); background: rgba(0,0,0,0.8); }
 
-button:hover {
-  background: #00a844;
-}
-</style>
+        .zona-carga-foto {
+            border: 2px dashed rgba(42, 117, 187, 0.3); padding: 30px; border-radius: 20px;
+            margin-bottom: 30px; cursor: pointer; transition: 0.3s;
+        }
+        .zona-carga-foto:hover { background: rgba(42, 117, 187, 0.05); border-color: var(--azul-cstyles); }
+        .zona-carga-foto span { font-size: 2rem; display: block; margin-bottom: 10px; }
 
+        .btn-enviar {
+            width: 100%; background: var(--azul-cstyles); color: white; border: none;
+            padding: 20px; border-radius: 15px; font-size: 1rem; font-weight: 900;
+            letter-spacing: 2px; cursor: pointer; transition: 0.4s; text-transform: uppercase;
+        }
+        .btn-enviar:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(42, 117, 187, 0.4); }
+
+        @media (max-width: 600px) { .header-seccion h1 { font-size: 1.6rem; } }
+    </style>
 </head>
 <body>
 
-<form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+    <nav class="nav-cotizar"><a href="/">CSTYLES</a></nav>
 
-  <!-- TU ACCESS KEY YA PUESTA -->
-  <input type="hidden" name="access_key" value="0318e171-2b9a-481a-8648-9ca0a0de109a">
+    <main class="contenedor-principal">
+        <div class="header-seccion">
+            <h1>Cotización Oficial</h1>
+            <p>Tus datos y fotos llegarán directamente a nuestro equipo técnico</p>
+        </div>
 
-  <h2>Solicitar Cotización</h2>
+        <div class="tarjeta-formulario">
+            <!-- ESTRUCTURA EXACTA SEGÚN TU CAPTURA -->
+            <form action="https://web3forms.com" method="POST" enctype="multipart/form-data">
+                
+                <!-- Tu clave de acceso -->
+                <input type="hidden" name="access_key" value="0318e171-2b9a-481a-8648-9ca0a0de109a">
+                
+                <input type="text" name="nombre" placeholder="Tu Nombre" required>
+                <input type="tel" name="whatsapp" placeholder="WhatsApp (569...)" required>
+                <input type="text" name="vehiculo" placeholder="Modelo y Año del Auto" required>
+                
+                <select name="diseno_elegido" required>
+                    <option value="" disabled selected>Selecciona el Diseño</option>
+                    <option value="BI-01">Bicolor BI-01</option>
+                    <option value="BI-02">Bicolor BI-02</option>
+                    <option value="BI-03">Bicolor BI-03</option>
+                    <option value="Clasico">Diseño Clásico</option>
+                    <option value="Tela">Tela Automotriz</option>
+                </select>
 
-  <input type="text" name="nombre" placeholder="Nombre completo" required>
+                <!-- Campo para la foto (attachment es el nombre que pide Web3Forms) -->
+                <div class="zona-carga-foto" onclick="document.getElementById('file-upload').click()">
+                    <span>📸</span>
+                    <p id="file-name">Subir foto de tus asientos actuales</p>
+                    <input type="file" name="attachment" id="file-upload" accept="image/*" style="display:none" onchange="validarArchivo()">
+                </div>
 
-  <input type="text" name="contacto" placeholder="Teléfono o correo" required>
+                <button type="submit" class="btn-enviar">Enviar Solicitud 🚀</button>
+            </form>
+        </div>
+    </main>
 
-  <input type="text" name="auto" placeholder="Marca, modelo y año del vehículo" required>
-
-  <textarea name="detalle" placeholder="Ejemplo: 1 negro / 2 rojo / costura blanca"></textarea>
-
-  <label>Subir imagen del asiento</label>
-  <input type="file" name="archivo" accept="image/*" required>
-
-  <button type="submit">Enviar cotización</button>
-
-</form>
-
+    <script>
+        function validarArchivo() {
+            const input = document.getElementById('file-upload');
+            const texto = document.getElementById('file-name');
+            if (input.files.length > 0) {
+                texto.innerText = "✅ Foto lista: " + input.files[0].name;
+                texto.style.color = "#25d366";
+            }
+        }
+    </script>
 </body>
 </html>

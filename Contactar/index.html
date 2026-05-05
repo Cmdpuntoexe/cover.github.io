@@ -6,7 +6,6 @@
     <title>Cotización Oficial - Covering Styles</title>
     <style>
         :root { --azul-cstyles: #2a75bb; --wa-green: #25d366; }
-        
         body {
             background: linear-gradient(180deg, #000000 0%, #1a1c1e 100%);
             background-attachment: fixed;
@@ -14,11 +13,8 @@
             font-family: 'Segoe UI', Roboto, sans-serif;
             color: #ffffff;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: flex; flex-direction: column; align-items: center;
         }
-
         .nav-cotizar {
             width: 100%; height: 70px; background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -26,47 +22,32 @@
             position: sticky; top: 0; z-index: 1000;
         }
         .nav-cotizar a { color: var(--azul-cstyles); text-decoration: none; font-weight: 900; letter-spacing: 3px; font-size: 1.2rem; }
-
         .contenedor-principal { max-width: 500px; width: 90%; margin: 50px auto; text-align: center; }
-
         .tarjeta-formulario {
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.08);
             border-radius: 30px; padding: 40px; backdrop-filter: blur(10px);
             box-shadow: 0 40px 80px rgba(0,0,0,0.6);
         }
-
-        label { display: block; text-align: left; font-size: 0.7rem; color: #888; margin-bottom: 5px; padding-left: 5px; text-transform: uppercase; letter-spacing: 1px; }
-
+        label { display: block; text-align: left; font-size: 0.7rem; color: #888; margin-bottom: 5px; padding-left: 5px; text-transform: uppercase; }
         input, select {
             background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
             padding: 15px; border-radius: 12px; color: #fff; font-size: 0.9rem; outline: none; transition: 0.3s;
             width: 100%; box-sizing: border-box; margin-bottom: 20px;
         }
         input:focus, select:focus { border-color: var(--azul-cstyles); background: rgba(0,0,0,0.8); }
-
-        /* Vista previa */
-        #contenedor-preview { display: none; margin-bottom: 20px; animation: fadeIn 0.4s ease; }
-        #img-preview { width: 100%; max-width: 220px; border-radius: 15px; border: 2px solid var(--azul-cstyles); box-shadow: 0 10px 30px rgba(42, 117, 187, 0.3); }
-
+        #contenedor-preview { display: none; margin-bottom: 20px; }
+        #img-preview { width: 100%; max-width: 220px; border-radius: 15px; border: 2px solid var(--azul-cstyles); }
         .btn-enviar {
             width: 100%; background: var(--wa-green); color: white; border: none;
             padding: 20px; border-radius: 50px; font-size: 1rem; font-weight: 900;
             letter-spacing: 2px; cursor: pointer; transition: 0.4s; text-transform: uppercase;
         }
-        .btn-enviar:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3); background: #1ebd59; }
-
-        .referencia-preview {
-            background: rgba(42, 117, 187, 0.1); padding: 15px; border-radius: 12px;
-            margin-bottom: 20px; font-size: 0.7rem; color: #666; word-break: break-all;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
-
+        .btn-enviar:hover { transform: translateY(-3px); background: #1ebd59; }
         .btn-inicio-flotante {
             position: fixed; bottom: 30px; left: 30px; background: rgba(0, 0, 0, 0.6);
             border: 1px solid var(--azul-cstyles); backdrop-filter: blur(10px); color: white;
             text-decoration: none; padding: 12px 20px; border-radius: 50px; display: flex; align-items: center; gap: 10px;
-            z-index: 1000; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            z-index: 1000;
         }
     </style>
 </head>
@@ -76,7 +57,7 @@
 
     <main class="contenedor-principal">
         <h1 style="color: var(--azul-cstyles); font-weight: 900; letter-spacing: 3px; font-size: 1.8rem;">SOLICITUD DE DISEÑO</h1>
-        <p style="color: #666; font-size: 0.85rem; margin-bottom: 30px;">Identifica tu código en el catálogo y solicítalo aquí</p>
+        <p style="color: #666; font-size: 0.85rem; margin-bottom: 30px;">Recibirás respuesta inmediata en tu WhatsApp</p>
 
         <div class="tarjeta-formulario">
             <label>Tus Datos</label>
@@ -99,13 +80,8 @@
             </select>
 
             <div id="contenedor-preview">
-                <label>Confirmación Visual:</label>
+                <label>Vista Previa:</label>
                 <img id="img-preview" src="" alt="Vista previa">
-            </div>
-
-            <div class="referencia-preview">
-                <strong>Link de Referencia:</strong><br>
-                <span id="txtLink">Esperando selección...</span>
             </div>
 
             <button type="button" onclick="enviarWhatsApp()" class="btn-enviar">ENVIAR A WHATSAPP 📱</button>
@@ -113,7 +89,6 @@
     </main>
 
     <script>
-        // Sincronizado con tus archivos y tus códigos visuales (CL-01, BI-01, etc)
         const catalogo = {
             "clasico": Array.from({length: 23}, (_, i) => {
                 const num = (i + 1).toString().padStart(2, '0');
@@ -139,7 +114,6 @@
             const cat = document.getElementById('categoria').value;
             const modSelect = document.getElementById('modelo');
             modSelect.innerHTML = '<option value="" disabled selected>Busca tu código...</option>';
-            
             if (catalogo[cat]) {
                 catalogo[cat].forEach(item => {
                     let opt = document.createElement('option');
@@ -153,45 +127,36 @@
 
         function actualizarLinkVisual() {
             const archivo = document.getElementById('modelo').value;
-            const txtLink = document.getElementById('txtLink');
             const preview = document.getElementById('img-preview');
             const contenedor = document.getElementById('contenedor-preview');
-
             if (archivo) {
-                const urlCompleta = `https://fundascs.com{archivo}`;
-                txtLink.innerText = urlCompleta;
-                preview.src = `/${archivo}`; // Carga la imagen desde la raíz de tu sitio
+                preview.src = `/${archivo}`;
                 contenedor.style.display = "block";
             }
-function enviarWhatsApp() {
-    const nombre = document.getElementById('nombre').value;
-    const auto = document.getElementById('auto').value;
-    const modSelect = document.getElementById('modelo');
-    const archivo = modSelect.value;
-    const codigoVisual = modSelect.options[modSelect.selectedIndex]?.text;
+        }
 
-    if(!nombre || !auto || !archivo) {
-        alert("Por favor, completa todos los datos.");
-        return;
-    }
+        function enviarWhatsApp() {
+            const nombre = document.getElementById('nombre').value;
+            const auto = document.getElementById('auto').value;
+            const modSelect = document.getElementById('modelo');
+            const archivo = modSelect.value;
+            const codigoVisual = modSelect.options[modSelect.selectedIndex]?.text;
 
-    const tel = "56961960385"; 
-    // CORRECCIÓN AQUÍ: Agregamos el $ antes de {archivo}
-    const msj = `*NUEVA COTIZACIÓN CSTYLES*\n\n👤 *Cliente:* ${nombre}\n🚗 *Vehículo:* ${auto}\n🎨 *Diseño:* ${codigoVisual}\n🖼️ *Foto:* https://fundascs.com{archivo}`;
-    
-    window.open(`https://wa.me{tel}?text=${encodeURIComponent(msj)}`, '_blank');
-}
+            if(!nombre || !auto || !archivo) {
+                alert("Por favor, completa todos los campos.");
+                return;
+            }
 
+            const tel = "56961960385"; 
+            const urlFoto = `https://fundascs.com{archivo}`;
+            const msj = `*NUEVA COTIZACIÓN CSTYLES*\n\n👤 *Cliente:* ${nombre}\n🚗 *Vehículo:* ${auto}\n🎨 *Diseño:* ${codigoVisual}\n🖼️ *Referencia:* ${urlFoto}`;
+            
+            window.open(`https://wa.me{tel}?text=${encodeURIComponent(msj)}`, '_blank');
+        }
     </script>
 
     <a href="https://fundascs.com" class="btn-inicio-flotante">
-        <span>🏠</span><span style="font-size: 0.7rem; font-weight: 900; letter-spacing: 2px;">VOLVER AL CATÁLOGO</span>
-    </a>
-</body>
-</html>
-://fundascs.com" class="btn-inicio-flotante">
         <span>🏠</span><span style="font-size: 0.7rem; font-weight: 900; letter-spacing: 2px;">INICIO</span>
     </a>
 </body>
 </html>
-

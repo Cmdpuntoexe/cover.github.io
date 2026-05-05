@@ -42,6 +42,20 @@
         }
         input:focus, select:focus { border-color: var(--azul-cstyles); background: rgba(0,0,0,0.8); }
 
+        /* Estilos de la miniatura */
+        #contenedor-preview {
+            display: none;
+            margin-bottom: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        #img-preview {
+            width: 100%;
+            max-width: 220px;
+            border-radius: 15px;
+            border: 2px solid var(--azul-cstyles);
+            box-shadow: 0 10px 30px rgba(42, 117, 187, 0.3);
+        }
+
         .btn-enviar {
             width: 100%; background: var(--wa-green); color: white; border: none;
             padding: 20px; border-radius: 50px; font-size: 1rem; font-weight: 900;
@@ -53,53 +67,16 @@
             background: rgba(42, 117, 187, 0.1); padding: 15px; border-radius: 12px;
             margin-bottom: 20px; font-size: 0.75rem; color: #888; word-break: break-all;
         }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         .btn-inicio-flotante {
-    position: fixed;
-    bottom: 30px;
-    left: 30px; /* Al lado opuesto de WhatsApp */
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid var(--azul-cstyles);
-    backdrop-filter: blur(10px);
-    color: white;
-    text-decoration: none;
-    padding: 12px 20px;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 1000;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-}
-
-.btn-inicio-flotante:hover {
-    transform: scale(1.1) translateY(-5px);
-    background: var(--azul-cstyles);
-    box-shadow: 0 15px 30px rgba(42, 117, 187, 0.4);
-}
-
-.icono-home {
-    font-size: 1.2rem;
-}
-
-.texto-home {
-    font-size: 0.7rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-}
-
-/* En celulares lo hacemos un globito circular para que no estorbe */
-@media (max-width: 600px) {
-    .btn-inicio-flotante {
-        padding: 15px;
-        bottom: 20px;
-        left: 20px;
-    }
-    .texto-home {
-        display: none; /* Solo queda el ícono en móvil */
-    }
-}
-
+            position: fixed; bottom: 30px; left: 30px;
+            background: rgba(0, 0, 0, 0.6); border: 1px solid var(--azul-cstyles);
+            backdrop-filter: blur(10px); color: white; text-decoration: none;
+            padding: 12px 20px; border-radius: 50px; display: flex; align-items: center; gap: 10px;
+            z-index: 1000; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
     </style>
 </head>
 <body>
@@ -116,11 +93,17 @@
             
             <select id="modelo" onchange="actualizarLinkVisual()" required>
                 <option value="" disabled selected>Selecciona el Diseño</option>
-                <option value="bicolor1.png">Bicolor BI-01</option>
-                <option value="bicolor2.png">Bicolor BI-02</option>
-                <option value="2Bicolor.jpg">Bicolor BI-03</option>
+                <option value="dp1.jpg">Personalizados</option>
                 <option value="clasico1.jpg">Diseño Clásico</option>
+                <option value="Misxto2.jpg">Tela Automotriz</option>
+                <option value="bicolor1.png">Diseño Bicolor</option>
             </select>
+
+            <!-- VISTA PREVIA DE IMAGEN -->
+            <div id="contenedor-preview">
+                <p style="font-size: 0.7rem; color: #888; margin-bottom: 10px; text-transform: uppercase;">Vista previa:</p>
+                <img id="img-preview" src="" alt="Cargando diseño...">
+            </div>
 
             <div class="referencia-preview">
                 <strong>Link de Referencia:</strong><br>
@@ -132,49 +115,51 @@
     </main>
 
     <script>
-        // Esta función solo actualiza lo que el cliente ve en pantalla
         function actualizarLinkVisual() {
             const modelo = document.getElementById('modelo').value;
             const txtLink = document.getElementById('txtLink');
-            const urlCompleta = `https://fundascs.com{modelo}`;
-            txtLink.innerText = urlCompleta;
-            txtLink.style.color = "#2a75bb";
+            const contenedorPreview = document.getElementById('contenedor-preview');
+            const imgPreview = document.getElementById('img-preview');
+
+            if (modelo) {
+                const urlCompleta = `https://fundascs.com{modelo}`;
+                txtLink.innerText = urlCompleta;
+                txtLink.style.color = "#2a75bb";
+                
+                // Actualizar y mostrar la imagen
+                imgPreview.src = `/${modelo}`;
+                contenedorPreview.style.display = "block";
+            }
         }
 
-        // Esta es la función que hace la magia del envío
         function enviarWhatsApp() {
             const nombre = document.getElementById('nombre').value;
             const auto = document.getElementById('auto').value;
-            const modelo = document.getElementById('modelo').value;
+            const modeloSelect = document.getElementById('modelo');
+            const modeloArchivo = modeloSelect.value;
+            const modeloNombre = modeloSelect.options[modeloSelect.selectedIndex].text;
 
-            if(!nombre || !auto || !modelo) {
+            if(!nombre || !auto || !modeloArchivo) {
                 alert("Por favor, completa todos los campos antes de enviar.");
                 return;
             }
 
-            const urlFoto = `https://fundascs.com{modelo}`;
+            const urlFoto = `https://fundascs.com{modeloArchivo}`;
+            const numeroTel = "569XXXXXXXX"; // <-- REEMPLAZA CON TU NÚMERO AQUÍ
 
-            // 1. Creamos el texto normal
             const textoMensaje = `*NUEVA COTIZACIÓN CStyles*\n\n` +
                                  `👤 *Nombre:* ${nombre}\n` +
                                  `🚗 *Vehículo:* ${auto}\n` +
-                                 `🎨 *Diseño:* ${modelo}\n\n` +
+                                 `🎨 *Diseño:* ${modeloNombre}\n\n` +
                                  `🖼️ *Referencia:* ${urlFoto}`;
 
-            // 2. Traducimos los espacios a %20 automáticamente
-            const mensajeLimpio = encodeURIComponent(textoMensaje);
-
-            // 3. Abrimos WhatsApp usando las comillas ladeadas (Backticks)
-            // Esto evita el error de "Servidor no encontrado"
-            window.open(`https://wa.me{mensajeLimpio}`, '_blank');
+            window.open(`https://wa.me{numeroTel}?text=${encodeURIComponent(textoMensaje)}`, '_blank');
         }
     </script>
 
-    <!-- BOTÓN FLOTANTE PARA VOLVER AL INICIO -->
-<a href="https://fundascs.com" class="btn-inicio-flotante" title="Ir al Inicio">
-    <span class="icono-home">🏠</span>
-    <span class="texto-home">CStyles</span>
-</a>
+    <a href="https://fundascs.com" class="btn-inicio-flotante">
+        <span>🏠</span><span style="font-size: 0.7rem; font-weight: 900; letter-spacing: 2px;">CStyles</span>
+    </a>
 
 </body>
 </html>

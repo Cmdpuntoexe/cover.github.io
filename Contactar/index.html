@@ -46,7 +46,7 @@
 
         /* Vista previa */
         #contenedor-preview { display: none; margin-bottom: 20px; animation: fadeIn 0.4s ease; }
-        #img-preview { width: 100%; max-width: 200px; border-radius: 15px; border: 2px solid var(--azul-cstyles); box-shadow: 0 10px 30px rgba(42, 117, 187, 0.3); }
+        #img-preview { width: 100%; max-width: 220px; border-radius: 15px; border: 2px solid var(--azul-cstyles); box-shadow: 0 10px 30px rgba(42, 117, 187, 0.3); }
 
         .btn-enviar {
             width: 100%; background: var(--wa-green); color: white; border: none;
@@ -76,7 +76,7 @@
 
     <main class="contenedor-principal">
         <h1 style="color: var(--azul-cstyles); font-weight: 900; letter-spacing: 3px; font-size: 1.8rem;">SOLICITUD DE DISEÑO</h1>
-        <p style="color: #666; font-size: 0.85rem; margin-bottom: 30px;">Recibirás respuesta inmediata en tu WhatsApp</p>
+        <p style="color: #666; font-size: 0.85rem; margin-bottom: 30px;">Identifica tu código en el catálogo y solicítalo aquí</p>
 
         <div class="tarjeta-formulario">
             <label>Tus Datos</label>
@@ -86,25 +86,25 @@
             <label>1. Categoría de Diseño</label>
             <select id="categoria" onchange="cambiarModelos()" required>
                 <option value="" disabled selected>Selecciona una categoría...</option>
-                <option value="bicolor">Diseño Bicolor</option>
-                <option value="clasico">Diseño Clásico</option>
-                <option value="diamante">Diseño Diamante</option>
-                <option value="especial">Diseños Especiales</option>
-                <option value="tela">Telas y Mixtos</option>
+                <option value="clasico">Línea Clásica (CL)</option>
+                <option value="bicolor">Línea Bicolor (BI)</option>
+                <option value="diamante">Línea Diamante (DM)</option>
+                <option value="especial">Edición Especial (ES)</option>
+                <option value="tela">Telas y Mixtos (TL/MX)</option>
             </select>
 
-            <label>2. Modelo Específico</label>
+            <label>2. Código de Catálogo</label>
             <select id="modelo" onchange="actualizarLinkVisual()" disabled required>
                 <option value="">Elige primero la categoría...</option>
             </select>
 
             <div id="contenedor-preview">
-                <label>Vista Previa:</label>
+                <label>Confirmación Visual:</label>
                 <img id="img-preview" src="" alt="Vista previa">
             </div>
 
             <div class="referencia-preview">
-                <strong>Enlace de Referencia:</strong><br>
+                <strong>Link de Referencia:</strong><br>
                 <span id="txtLink">Esperando selección...</span>
             </div>
 
@@ -113,22 +113,32 @@
     </main>
 
     <script>
-        // Catálogo basado en tus archivos reales
+        // Sincronizado con tus archivos y tus códigos visuales (CL-01, BI-01, etc)
         const catalogo = {
-            "bicolor": Array.from({length: 21}, (_, i) => ({ n: `Bicolor ${i+1}`, a: `bicolor${i+1}.png` })),
-            "clasico": Array.from({length: 23}, (_, i) => ({ n: `Clásico ${i+1}`, a: `clasico${i+1}.jpg` })),
-            "diamante": Array.from({length: 4}, (_, i) => ({ n: `Diamante ${i+1}`, a: `diamante${i+1}.jpg` })),
-            "especial": Array.from({length: 9}, (_, i) => ({ n: `Especial ${i+1}`, a: `especial${i+1}.jpg` })),
+            "clasico": Array.from({length: 23}, (_, i) => {
+                const num = (i + 1).toString().padStart(2, '0');
+                return { n: `Código CL-${num}`, a: `clasico${i+1}.jpg` };
+            }),
+            "bicolor": Array.from({length: 21}, (_, i) => {
+                const num = (i + 1).toString().padStart(2, '0');
+                return { n: `Código BI-${num}`, a: `bicolor${i+1}.png` };
+            }),
+            "diamante": Array.from({length: 4}, (_, i) => {
+                return { n: `Código DM-0${i+1}`, a: `diamante${i+1}.jpg` };
+            }),
+            "especial": Array.from({length: 9}, (_, i) => {
+                return { n: `Código ES-0${i+1}`, a: `especial${i+1}.jpg` };
+            }),
             "tela": [
-                { n: "Mixto 1", a: "mixto1.jpg" }, { n: "Mixto 2", a: "mixto2.jpg" },
-                { n: "Tela 1", a: "tela1.jpg" }, { n: "Tela 2", a: "tela2.jpg" }, { n: "Tela 3", a: "tela3.jpg" }
+                { n: "Mixto MX-01", a: "mixto1.jpg" }, { n: "Mixto MX-02", a: "mixto2.jpg" },
+                { n: "Tela TL-01", a: "tela1.jpg" }, { n: "Tela TL-02", a: "tela2.jpg" }, { n: "Tela TL-03", a: "tela3.jpg" }
             ]
         };
 
         function cambiarModelos() {
             const cat = document.getElementById('categoria').value;
             const modSelect = document.getElementById('modelo');
-            modSelect.innerHTML = '<option value="" disabled selected>Selecciona el diseño...</option>';
+            modSelect.innerHTML = '<option value="" disabled selected>Busca tu código...</option>';
             
             if (catalogo[cat]) {
                 catalogo[cat].forEach(item => {
@@ -150,7 +160,7 @@
             if (archivo) {
                 const urlCompleta = `https://fundascs.com{archivo}`;
                 txtLink.innerText = urlCompleta;
-                preview.src = `/${archivo}`;
+                preview.src = `/${archivo}`; // Carga la imagen desde la raíz de tu sitio
                 contenedor.style.display = "block";
             }
         }
@@ -160,21 +170,26 @@
             const auto = document.getElementById('auto').value;
             const modSelect = document.getElementById('modelo');
             const archivo = modSelect.value;
-            const nombreDiseno = modSelect.options[modSelect.selectedIndex]?.text;
+            const codigoVisual = modSelect.options[modSelect.selectedIndex]?.text;
 
             if(!nombre || !auto || !archivo) {
                 alert("Por favor, completa todos los datos.");
                 return;
             }
 
-            const tel = "569XXXXXXXX"; // <-- PON TU NÚMERO AQUÍ
-            const msj = `*COTIZACIÓN CSTYLES*\n\n👤 *Cliente:* ${nombre}\n🚗 *Vehículo:* ${auto}\n🎨 *Diseño:* ${nombreDiseno}\n🖼️ *Referencia:* https://fundascs.com{archivo}`;
+            const tel = "569XXXXXXXX"; // <-- REEMPLAZA CON TU NÚMERO AQUÍ
+            const msj = `*NUEVA COTIZACIÓN CSTYLES*\n\n👤 *Cliente:* ${nombre}\n🚗 *Vehículo:* ${auto}\n🎨 *Diseño:* ${codigoVisual}\n🖼️ *Foto:* https://fundascs.com{archivo}`;
             
             window.open(`https://wa.me{tel}?text=${encodeURIComponent(msj)}`, '_blank');
         }
     </script>
 
     <a href="https://fundascs.com" class="btn-inicio-flotante">
+        <span>🏠</span><span style="font-size: 0.7rem; font-weight: 900; letter-spacing: 2px;">VOLVER AL CATÁLOGO</span>
+    </a>
+</body>
+</html>
+://fundascs.com" class="btn-inicio-flotante">
         <span>🏠</span><span style="font-size: 0.7rem; font-weight: 900; letter-spacing: 2px;">INICIO</span>
     </a>
 </body>

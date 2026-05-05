@@ -163,25 +163,25 @@
                 preview.src = `/${archivo}`; // Carga la imagen desde la raíz de tu sitio
                 contenedor.style.display = "block";
             }
-        }
+function enviarWhatsApp() {
+    const nombre = document.getElementById('nombre').value;
+    const auto = document.getElementById('auto').value;
+    const modSelect = document.getElementById('modelo');
+    const archivo = modSelect.value;
+    const codigoVisual = modSelect.options[modSelect.selectedIndex]?.text;
 
-        function enviarWhatsApp() {
-            const nombre = document.getElementById('nombre').value;
-            const auto = document.getElementById('auto').value;
-            const modSelect = document.getElementById('modelo');
-            const archivo = modSelect.value;
-            const codigoVisual = modSelect.options[modSelect.selectedIndex]?.text;
+    if(!nombre || !auto || !archivo) {
+        alert("Por favor, completa todos los datos.");
+        return;
+    }
 
-            if(!nombre || !auto || !archivo) {
-                alert("Por favor, completa todos los datos.");
-                return;
-            }
+    const tel = "56961960385"; 
+    // CORRECCIÓN AQUÍ: Agregamos el $ antes de {archivo}
+    const msj = `*NUEVA COTIZACIÓN CSTYLES*\n\n👤 *Cliente:* ${nombre}\n🚗 *Vehículo:* ${auto}\n🎨 *Diseño:* ${codigoVisual}\n🖼️ *Foto:* https://fundascs.com{archivo}`;
+    
+    window.open(`https://wa.me{tel}?text=${encodeURIComponent(msj)}`, '_blank');
+}
 
-            const tel = "569XXXXXXXX"; // <-- REEMPLAZA CON TU NÚMERO AQUÍ
-            const msj = `*NUEVA COTIZACIÓN CSTYLES*\n\n👤 *Cliente:* ${nombre}\n🚗 *Vehículo:* ${auto}\n🎨 *Diseño:* ${codigoVisual}\n🖼️ *Foto:* https://fundascs.com{archivo}`;
-            
-            window.open(`https://wa.me{tel}?text=${encodeURIComponent(msj)}`, '_blank');
-        }
     </script>
 
     <a href="https://fundascs.com" class="btn-inicio-flotante">

@@ -156,7 +156,7 @@ function enviarWhatsApp() {
                 "👤 *Cliente:* " + nombre + "\n" +
                 "🚗 *Vehículo:* " + auto + "\n" +
                 "🎨 *Diseño:* " + nombreBonito + "\n" + 
-                "🖼️ *Referencia:* https://fundascs.com" + archivo;
+                "🖼️ *Referencia:* https://fundascs.com/" + archivo;
     
     const linkFinal = "https://api.whatsapp.com/send/?phone=56961960385&text" + tel + "&text=" + encodeURIComponent(msj);
     window.open(linkFinal, '_blank');

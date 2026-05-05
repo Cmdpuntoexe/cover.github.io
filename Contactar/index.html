@@ -155,8 +155,10 @@
                         "🎨 *Diseño:* " + codigoVisual + "\n" +
                         "🖼️ *Referencia:* " + urlFoto;
             
-            const linkFinal = "https://whatsapp.com" + tel + "&text=" + encodeURIComponent(msj);
+            const linkFinal = "https://api.whatsapp.com/send/?phone=" + tel + "&text=" + encodeURIComponent(msj);
             window.open(linkFinal, '_blank');
+
+            
         }
     </script>
 

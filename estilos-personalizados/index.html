@@ -7,6 +7,8 @@
     <style>
         :root { --azul-cstyles: #2a75bb; --wa-green: #25d366; --gold: #d4af37; }
         
+        html { scroll-behavior: smooth; }
+
         body {
             background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
             background-attachment: fixed;
@@ -14,211 +16,139 @@
             font-family: 'Segoe UI', Roboto, sans-serif;
             color: #ffffff;
             min-height: 100vh;
-            overflow-y: auto; 
         }
 
-        .btn-volver {
-            position: fixed; top: 15px; left: 15px;
-            color: #b8b8b8; text-decoration: none;
-            font-size: 0.7rem; letter-spacing: 2px;
-            text-transform: uppercase; border: 1px solid rgba(255,255,255,0.15);
-            padding: 8px 15px; border-radius: 5px;
-            z-index: 100; background: rgba(0,0,0,0.7);
+        /* NAVEGACIÓN (Igual a las otras páginas) */
+        .nav-principal {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky; top: 0; z-index: 1000;
         }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 15px 20px;
+        }
+        .instagram-link-top {
+            color: #ffffff; text-decoration: none; font-size: 0.85rem;
+            font-weight: 600; letter-spacing: 1px; transition: 0.3s; opacity: 0.8;
+        }
+        .nav-links a {
+            color: #fff; text-decoration: none; margin-left: 20px;
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+            transition: 0.3s; opacity: 0.7;
+        }
+        .nav-links a.active { opacity: 1; color: var(--azul-cstyles); }
 
-        .tarjeta-personalizado {
+        /* TARJETA DE DISEÑO */
+        .tarjeta-detalle {
             display: flex; width: 95%; max-width: 1100px; 
-            min-height: 80vh;
-            margin: 60px auto; background: rgba(255, 255, 255, 0.03);
+            min-height: 80vh; margin: 40px auto;
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 30px; border: 1px solid rgba(255,255,255,0.08);
             overflow: hidden; backdrop-filter: blur(15px);
             box-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
+        /* SECCIÓN IZQUIERDA (IMAGEN) */
         .seccion-preview {
-            flex: 1.2; padding: 40px; background: rgba(0,0,0,0.2);
+            flex: 1.2; background: rgba(0,0,0,0.2); padding: 40px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-
         .img-principal {
             width: 100%; max-width: 400px; border-radius: 20px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.6);
             border: 1px solid rgba(42, 117, 187, 0.3);
-            transition: transform 0.5s ease;
+            transition: 0.5s;
         }
         .img-principal:hover { transform: scale(1.03); }
 
+        /* SECCIÓN DERECHA (PASOS E INFO) */
         .seccion-info {
             flex: 1; padding: 45px; display: flex; flex-direction: column;
+            background: rgba(0, 0, 0, 0.25); border-left: 1px solid rgba(255,255,255,0.05);
             align-items: center; text-align: center; justify-content: center;
-            background: rgba(0, 0, 0, 0.25);
-            border-left: 1px solid rgba(255,255,255,0.05);
         }
 
-        .logo-personalizados {
-            width: 190px; 
-            height: auto; 
-            margin-bottom: 30px; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
-        }
-        .logo-personalizados:hover {
-            transform: scale(1.1) rotate(-3deg);
-            filter: brightness(1.2) drop-shadow(0 0 20px rgba(42, 117, 187, 0.6));
-        }
-
+        .logo-pequeno { width: 140px; margin-bottom: 20px; opacity: 0.9; }
+        .tagline { letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 10px; }
+        
+        /* ESTILO DE PASOS */
+        .pasos-container { width: 100%; max-width: 300px; margin: 25px 0; }
         .paso-item {
-            margin-bottom: 20px; width: 100%; max-width: 300px;
-            text-align: left; padding-left: 15px;
+            text-align: left; padding-left: 15px; margin-bottom: 20px;
             border-left: 3px solid var(--azul-cstyles);
         }
+        .paso-n { font-size: 0.65rem; color: var(--azul-cstyles); font-weight: bold; letter-spacing: 1px; }
+        .paso-txt { font-size: 1.1rem; font-weight: 800; margin-top: 3px; letter-spacing: 1px; }
 
-        .paso-titulo { font-size: 0.65rem; letter-spacing: 2px; color: var(--azul-cstyles); font-weight: bold; }
-        .paso-desc { font-size: 1.1rem; font-weight: 800; margin: 3px 0; letter-spacing: 1px; }
-
-        .btn-personalizar {
+        .btn-wa-personalizar {
             background: var(--wa-green); color: white; text-decoration: none;
-            padding: 18px 40px; border-radius: 50px; font-weight: 900;
-            margin-top: 25px; transition: 0.3s; font-size: 0.9rem;
+            padding: 18px 45px; border-radius: 50px; font-weight: 900;
+            transition: 0.3s; font-size: 0.9rem; text-transform: uppercase;
             box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
             display: inline-block;
         }
-        .btn-personalizar:hover { transform: translateY(-3px); background: #1ebd59; box-shadow: 0 15px 25px rgba(37, 211, 102, 0.3); }
+        .btn-wa-personalizar:hover { transform: translateY(-3px); background: #1ebd59; }
 
         @media (max-width: 900px) {
-            .tarjeta-personalizado { flex-direction: column; height: auto; margin-top: 80px; }
-            .seccion-info { border-left: none; padding: 40px 20px; }
-            .logo-personalizados { width: 140px; }
+            .tarjeta-detalle { flex-direction: column; height: auto; margin-top: 70px; }
+            .seccion-info { padding: 40px 20px; border-left: none; order: 1; }
+            .seccion-preview { padding: 40px 20px; order: 2; }
             .img-principal { max-width: 300px; }
         }
-        .instagram-link-top {
-    color: #ffffff; /* Color blanco inicial */
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    opacity: 0.8;
-}
-
-.instagram-link-top:hover {
-    opacity: 1;
-    color: var(--azul-cstyles); /* Cambia a tu azul al pasar el mouse */
-    transform: translateX(5px); /* Se mueve un poquito a la derecha */
-    text-shadow: 0 0 10px rgba(42, 117, 187, 0.5);
-}
-
-.ig-icon {
-    font-size: 0.9rem;
-    margin-right: 5px;
-}
-        /* Estilos del Menú */
-.nav-principal {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-}
-
-.nav-logo {
-    color: var(--azul-cstyles);
-    text-decoration: none;
-    font-weight: 900;
-    letter-spacing: 3px;
-    font-size: 1.2rem;
-}
-
-.nav-links a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 20px;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: 0.3s;
-    opacity: 0.7;
-}
-
-.nav-links a:hover, .nav-links a.active {
-    opacity: 1;
-    color: var(--azul-cstyles);
-}
-
-@media (max-width: 600px) {
-    .nav-container { flex-direction: column; gap: 10px; }
-    .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .nav-links a { margin: 0 5px; font-size: 0.7rem; }
-}
-
-
     </style>
 </head>
 <body>
-        <!-- Barra de Navegación CStyles -->
+
 <nav class="nav-principal">
     <div class="nav-container">
-<!-- Enlace exacto a tu Instagram -->
-<a href="https://www.instagram.com/covering_styles?igsh=aXg1dnh5MHpqOHFh" target="_blank" class="instagram-link-top">
-    📸 @covering_styles
-</a>
-
+        <a href="https://instagram.com" target="_blank" class="instagram-link-top">@covering_styles</a>
         <div class="nav-links">
             <a href="/clasico/">Clásico</a>
-            <a href="/tela-automotriz/">Tela Automotriz</a>
+            <a href="/tela-automotriz/">Telas</a>
             <a href="/bicolor/">Bicolor</a>
             <a href="/estilos-personalizados/" class="active">Personalizados</a>
         </div>
     </div>
 </nav>
 
-    <div class="tarjeta-personalizado">
-        <div class="seccion-preview">
-            <!-- Tu imagen de ejemplo real -->
-            <img src="/especial3.jpg" alt="Funda Personalizada" class="img-principal">
-            <p style="margin-top: 20px; font-size: 0.75rem; color: #888; letter-spacing: 1px;">CALIDAD PROFESIONAL</p>
-        </div>
-
-        <div class="seccion-info">
-            <!-- Tu logo imajen2.png -->
-            <img src="/imajen2.png" alt="Logo CStyles" class="logo-personalizados">
-
-            <div style="letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 5px;">CATÁLOGO EXCLUSIVO</div>
-            <h1 style="font-size: 1.8rem; margin: 0 0 30px 0; letter-spacing: 2px; font-weight: 900;">PERSONALIZADOS</h1>
-
-            <div class="paso-item">
-                <div class="paso-titulo">PASO 1</div>
-                <div class="paso-desc">Elige tu modelo</div>
-            </div>
-
-            <div class="paso-item" style="border-color: #fff;">
-                <div class="paso-titulo">PASO 2</div>
-                <div class="paso-desc">Envíanos tu foto</div>
-            </div>
-
-            <div class="paso-item">
-                <div class="paso-titulo">PASO 3</div>
-                <div class="paso-desc">¡Listo para entrega!</div>
-            </div>
-
-            <!-- Botón directo a tu número de WhatsApp -->
-            <a href="https://wa.me" class="btn-personalizar">
-                DISEÑAR MI FUNDA 📱
-            </a>
-        </div>
+<div class="tarjeta-detalle">
+    <!-- IMAGEN DE REFERENCIA -->
+    <div class="seccion-preview">
+        <img src="/especial3.jpg" alt="Diseño Personalizado" class="img-principal">
+        <p style="margin-top: 20px; font-size: 0.7rem; color: #666; letter-spacing: 2px;">TU IMAGINACIÓN ES EL LÍMITE</p>
     </div>
+
+    <!-- INFORMACIÓN Y PASOS -->
+    <div class="seccion-info">
+        <img src="/imajen2.png" alt="Logo CStyles" class="logo-pequeno">
+        <div class="tagline">DISEÑOS ÚNICOS</div>
+        <h1 style="font-size: 1.8rem; font-weight: 900; margin: 0; letter-spacing: 2px;">PERSONALIZADOS</h1>
+        
+        <div class="pasos-container">
+            <div class="paso-item">
+                <div class="paso-n">PASO 1</div>
+                <div class="paso-txt">Elige tu modelo</div>
+            </div>
+            <div class="paso-item" style="border-left-color: #fff;">
+                <div class="paso-n">PASO 2</div>
+                <div class="paso-txt">Envíanos tu foto</div>
+            </div>
+            <div class="paso-item">
+                <div class="paso-n">PASO 3</div>
+                <div class="paso-txt">¡Listo para entrega!</div>
+            </div>
+        </div>
+
+        <a href="https://whatsapp.com." 
+           class="btn-wa-personalizar">
+           DISEÑAR MI FUNDA 📱
+        </a>
+    </div>
+</div>
 
 </body>
 </html>

@@ -13,6 +13,7 @@
             font-family: 'Segoe UI', Roboto, sans-serif; color: #ffffff;
             min-height: 100vh; display: flex; flex-direction: column; align-items: center;
         }
+        /* NAVBAR */
         .nav-cotizar {
             width: 100%; height: 70px; background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -26,7 +27,9 @@
             padding: 8px 16px; border-radius: 50px; text-transform: uppercase;
         }
         .link-contacto:hover { color: #fff; border-color: var(--azul-cstyles); background: rgba(42, 117, 187, 0.1); }
+        
         .contenedor-principal { max-width: 500px; width: 90%; margin: 50px auto; text-align: center; }
+        
         .tarjeta-formulario {
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.08);
             border-radius: 30px; padding: 40px; backdrop-filter: blur(10px);
@@ -39,23 +42,27 @@
             width: 100%; box-sizing: border-box; margin-bottom: 20px; font-family: inherit;
         }
         input:focus, select:focus, textarea:focus { border-color: var(--azul-cstyles); background: rgba(0,0,0,0.8); }
+        input:disabled, select:disabled { opacity: 0.3; cursor: not-allowed; }
         
-        /* ESTILO SELECTOR DE ARCHIVOS */
-        .zona-drop {
+        /* ZONA ADJUNTAR FOTO */
+        .zona-foto {
             background: rgba(255,255,255,0.02);
-            border: 2px dashed rgba(42, 117, 187, 0.3);
+            border: 2px dashed rgba(42, 117, 187, 0.4);
             padding: 20px; border-radius: 12px; margin-bottom: 20px;
-            transition: 0.3s; cursor: pointer;
         }
-        .zona-drop:hover { border-color: var(--azul-cstyles); background: rgba(42, 117, 187, 0.05); }
 
+        #contenedor-preview { display: none; margin-bottom: 20px; animation: fadeIn 0.4s ease; }
+        #img-preview { width: 100%; max-width: 220px; border-radius: 15px; border: 2px solid var(--azul-cstyles); }
+        
         .btn-enviar {
             width: 100%; background: #333; color: #666; border: none;
             padding: 20px; border-radius: 50px; font-size: 1rem; font-weight: 900;
-            letter-spacing: 2px; cursor: pointer; transition: 0.4s; text-transform: uppercase;
+            letter-spacing: 2px; cursor: not-allowed; transition: 0.4s; text-transform: uppercase;
         }
-        .btn-enviar.activo { background: var(--wa-green); color: white; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); }
+        .btn-enviar.activo { background: var(--wa-green); color: white; cursor: pointer; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); }
         .btn-enviar.activo:hover { transform: translateY(-3px); background: #1ebd59; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -69,38 +76,144 @@
 
     <main class="contenedor-principal">
         
-        <!-- COTIZADOR (Omitido por brevedad, mantén el que ya tienes) -->
+        <!-- COTIZADOR WHATSAPP -->
+        <h1 style="color: var(--azul-cstyles); font-weight: 900; letter-spacing: 3px; font-size: 1.8rem;">SOLICITUD DE DISEÑO</h1>
+        <p style="color: #666; font-size: 0.85rem; margin-bottom: 30px;">Identifica tu código y solicítalo aquí</p>
 
-        <!-- CONTACTO POR EMAIL CON ADJUNTO (GETFORM) -->
+        <div class="tarjeta-formulario">
+            <label>Tus Datos</label>
+            <input type="text" id="nombre" placeholder="Tu Nombre" oninput="validarFormulario()" required>
+            <input type="text" id="auto" placeholder="Vehículo y Año" oninput="validarFormulario()" required>
+            
+            <label>1. Categoría de Diseño</label>
+            <select id="categoria" onchange="cambiarModelos()" disabled required>
+                <option value="" disabled selected>Primero ingresa tus datos...</option>
+                <option value="clasico">Línea Clásica (CL)</option>
+                <option value="bicolor">Línea Bicolor (BI)</option>
+                <option value="diamante">Línea Diamante (DM)</option>
+                <option value="especial">Edición Especial (ES)</option>
+                <option value="tela">Telas y Mixtos (TL/MX)</option>
+            </select>
+
+            <label>2. Código de Catálogo</label>
+            <select id="modelo" onchange="actualizarLinkVisual()" disabled required>
+                <option value="">Selecciona categoría primero...</option>
+            </select>
+
+            <div id="contenedor-preview">
+                <label>Vista Previa:</label>
+                <img id="img-preview" src="" alt="Vista previa">
+            </div>
+
+            <button type="button" id="btnEnviarWA" onclick="enviarWhatsApp()" class="btn-enviar" disabled>PEDIR POR WHATSAPP 📱</button>
+        </div>
+
+        <!-- CONTACTO POR CORREO (FORMINIT) -->
         <section id="contacto" style="margin-top: 60px;">
-            <div style="letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 10px;">PROYECTOS ESPECIALES</div>
-            <h2 style="color: var(--azul-cstyles); font-size: 1.5rem; letter-spacing: 2px; font-weight: 900; margin-bottom: 30px;">ENVÍANOS TU DISEÑO</h2>
+            <div style="letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 10px;">DISEÑOS ESPECIALES</div>
+            <h2 style="color: var(--azul-cstyles); font-size: 1.5rem; letter-spacing: 2px; font-weight: 900; margin-bottom: 30px;">ENVÍANOS TU FOTO</h2>
             
             <div class="tarjeta-formulario">
-                <!-- ACCIÓN CONFIGURADA CON TU CÓDIGO -->
-                <form action="https://getform.io" method="POST" enctype="multipart/form-data">
+                <form action="https://forminit.com" method="POST" enctype="multipart/form-data">
                     <label>Nombre</label>
-                    <input type="text" name="name" placeholder="Tu nombre" required>
+                    <input type="text" name="nombre" placeholder="Tu nombre" required>
                     
                     <label>Tu Correo</label>
                     <input type="email" name="email" placeholder="tu@correo.com" required>
 
-                    <label style="color: var(--gold);">📸 SUBIR FOTO DE REFERENCIA</label>
-                    <div class="zona-drop">
-                        <input type="file" name="file" accept="image/*" style="border:none; margin:0; background:transparent; font-size:0.8rem;">
-                        <p style="font-size:0.6rem; color:#555; margin-top:10px;">TAMAÑO MÁX: 5MB (JPG/PNG)</p>
+                    <label style="color: var(--gold);">📸 ADJUNTAR IMAGEN DEL DISEÑO</label>
+                    <div class="zona-foto">
+                        <input type="file" name="archivo" accept="image/*" style="border: none; background: transparent; padding: 0; margin-bottom: 0; font-size: 0.8rem; cursor: pointer;">
                     </div>
                     
-                    <label>Detalles del pedido</label>
-                    <textarea name="message" rows="4" placeholder="Cuéntanos sobre tu idea..." required style="resize: none;"></textarea>
+                    <label>Descripción del pedido</label>
+                    <textarea name="mensaje" rows="4" placeholder="Cuéntanos los detalles..." required style="resize: none;"></textarea>
                     
-                    <button type="submit" class="btn-enviar activo">ENVIAR PROYECTO 📧</button>
+                    <button type="submit" class="btn-enviar activo">ENVIAR AHORA 📧</button>
                 </form>
             </div>
         </section>
 
     </main>
 
+    <script>
+        const catalogo = {
+            "clasico": Array.from({length: 23}, (_, i) => {
+                const num = (i + 1).toString().padStart(2, '0');
+                return { n: `Código CL-${num}`, a: `clasico${i+1}.jpg` };
+            }),
+            "bicolor": Array.from({length: 21}, (_, i) => {
+                const num = (i + 1).toString().padStart(2, '0');
+                return { n: `Código BI-${num}`, a: `bicolor${i+1}.png` };
+            }),
+            "diamante": Array.from({length: 4}, (_, i) => {
+                return { n: `Código DM-0${i+1}`, a: `diamante${i+1}.jpg` };
+            }),
+            "especial": Array.from({length: 9}, (_, i) => {
+                return { n: `Código ES-0${i+1}`, a: `especial${i+1}.jpg` };
+            }),
+            "tela": [
+                { n: "Mixto MX-01", a: "mixto1.jpg" }, { n: "Mixto MX-02", a: "mixto2.jpg" },
+                { n: "Tela TL-01", a: "tela1.jpg" }, { n: "Tela TL-02", a: "tela2.jpg" }, { n: "Tela TL-03", a: "tela3.jpg" }
+            ]
+        };
+
+        function validarFormulario() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const auto = document.getElementById('auto').value.trim();
+            const catSelect = document.getElementById('categoria');
+            if (nombre.length > 2 && auto.length > 2) { catSelect.disabled = false; } 
+            else { catSelect.disabled = true; catSelect.value = ""; }
+            actualizarEstadoBoton();
+        }
+
+        function cambiarModelos() {
+            const cat = document.getElementById('categoria').value;
+            const modSelect = document.getElementById('modelo');
+            modSelect.innerHTML = '<option value="" disabled selected>Busca tu código...</option>';
+            if (catalogo[cat]) {
+                catalogo[cat].forEach(item => {
+                    let opt = document.createElement('option');
+                    opt.value = item.a; opt.innerHTML = item.n;
+                    modSelect.appendChild(opt);
+                });
+                modSelect.disabled = false;
+            }
+            actualizarEstadoBoton();
+        }
+
+        function actualizarLinkVisual() {
+            const archivo = document.getElementById('modelo').value;
+            const preview = document.getElementById('img-preview');
+            const contenedor = document.getElementById('contenedor-preview');
+            if (archivo) {
+                preview.src = "/" + archivo;
+                contenedor.style.display = "block";
+            }
+            actualizarEstadoBoton();
+        }
+
+        function actualizarEstadoBoton() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const auto = document.getElementById('auto').value.trim();
+            const modelo = document.getElementById('modelo').value;
+            const btn = document.getElementById('btnEnviarWA');
+            if (nombre && auto && modelo) { btn.disabled = false; btn.classList.add('activo'); } 
+            else { btn.disabled = true; btn.classList.remove('activo'); }
+        }
+
+        function enviarWhatsApp() {
+            const nombre = document.getElementById('nombre').value;
+            const auto = document.getElementById('auto').value;
+            const modSelect = document.getElementById('modelo');
+            const archivo = modSelect.value;
+            const codigoVisual = modSelect.options[modSelect.selectedIndex]?.text;
+            const tel = "56961960385"; 
+            const urlFoto = "https://fundascs.com" + archivo;
+            const msj = "*NUEVA COTIZACIÓN CSTYLES*\n\n" + "👤 *Cliente:* " + nombre + "\n" + "🚗 *Vehículo:* " + auto + "\n" + "🎨 *Diseño:* " + codigoVisual + "\n" + "🖼️ *Referencia:* " + urlFoto;
+            window.open("https://whatsapp.com" + tel + "&text=" + encodeURIComponent(msj), '_blank');
+        }
+    </script>
 </body>
 </html>
 

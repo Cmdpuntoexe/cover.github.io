@@ -7,34 +7,22 @@
     <style>
         :root { --azul-cstyles: #2a75bb; --wa-green: #25d366; --gold: #d4af37; }
         
-        html { scroll-behavior: smooth; }
-
         body {
             background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
-            background-attachment: fixed;
-            margin: 0; padding: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-y: auto;
+            background-attachment: fixed; margin: 0; padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif; color: #ffffff;
+            min-height: 100vh; overflow-y: auto; 
         }
 
-        /* NAVEGACIÓN UNIFICADA */
+        /* NAVEGACIÓN (IDÉNTICA A TU IMAGEN) */
         .nav-principal {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            width: 100%; background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);
             position: sticky; top: 0; z-index: 1000;
         }
         .nav-container {
-            max-width: 1200px; margin: 0 auto;
-            display: flex; justify-content: space-between;
-            align-items: center; padding: 15px 20px;
-        }
-        .instagram-link-top {
-            color: #ffffff; text-decoration: none; font-size: 0.85rem;
-            font-weight: 600; letter-spacing: 1px; transition: 0.3s; opacity: 0.8;
+            max-width: 1200px; margin: 0 auto; display: flex; 
+            justify-content: space-between; align-items: center; padding: 15px 20px;
         }
         .nav-links a {
             color: #fff; text-decoration: none; margin-left: 20px;
@@ -43,61 +31,62 @@
         }
         .nav-links a.active { opacity: 1; color: var(--azul-cstyles); }
 
-        /* TARJETA DE DETALLE (ESTILO UNIFICADO) */
+        /* LA TARJETA (ESTILO DE TU IMAGEN) */
         .tarjeta-detalle {
             display: flex; width: 95%; max-width: 1200px; 
-            min-height: 85vh; margin: 40px auto;
+            min-height: 80vh; margin: 40px auto;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 30px; border: 1px solid rgba(255,255,255,0.08);
             overflow: hidden; backdrop-filter: blur(15px);
             box-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
-        /* SECCIÓN IZQUIERDA (GALERÍA/PREVIEW) */
+        /* GALERÍA IZQUIERDA */
         .seccion-galeria {
-            flex: 1.2; background: rgba(0,0,0,0.2); padding: 40px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            flex: 1.5; background: rgba(0,0,0,0.2); padding: 30px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;
         }
-        .img-principal {
-            width: 100%; max-width: 450px; border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            border: 1px solid rgba(42, 117, 187, 0.3);
-            transition: 0.5s;
+        .contenedor-foto {
+            position: relative; border-radius: 15px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1); height: 160px;
+        }
+        .foto-item { width: 100%; height: 100%; object-fit: cover; }
+        .ref-tag {
+            position: absolute; top: 10px; left: 10px;
+            background: var(--azul-cstyles); color: white;
+            padding: 4px 10px; border-radius: 5px; font-size: 0.6rem; font-weight: 900;
         }
 
-        /* SECCIÓN DERECHA (FORMULARIO) */
+        /* INFO DERECHA (FORMULARIO) */
         .seccion-texto {
-            flex: 0.9; padding: 45px; display: flex; flex-direction: column;
+            flex: 1; padding: 40px; display: flex; flex-direction: column;
             background: rgba(0, 0, 0, 0.25); border-left: 1px solid rgba(255,255,255,0.05);
-            align-items: center; text-align: center; justify-content: center;
+            justify-content: center; align-items: center;
         }
 
-        label { display: block; text-align: left; font-size: 0.7rem; color: #888; margin-bottom: 5px; text-transform: uppercase; width: 100%; }
+        label { display: block; text-align: left; font-size: 0.65rem; color: #888; margin-bottom: 5px; text-transform: uppercase; width: 100%; }
         input, textarea {
             background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
-            padding: 15px; border-radius: 12px; color: #fff; font-size: 0.9rem; outline: none; transition: 0.3s;
-            width: 100%; box-sizing: border-box; margin-bottom: 15px; font-family: inherit;
+            padding: 12px; border-radius: 10px; color: #fff; font-size: 0.85rem; 
+            width: 100%; box-sizing: border-box; margin-bottom: 12px; outline: none;
         }
-        input:focus, textarea:focus { border-color: var(--azul-cstyles); background: rgba(0,0,0,0.8); }
-
+        
         .zona-foto {
-            background: rgba(255,255,255,0.02); border: 2px dashed rgba(42, 117, 187, 0.4);
-            padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center; width: 100%; box-sizing: border-box;
+            background: rgba(255,255,255,0.02); border: 1px dashed var(--azul-cstyles);
+            padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%; box-sizing: border-box;
         }
 
         .btn-enviar {
             width: 100%; background: var(--wa-green); color: white; border: none;
             padding: 18px; border-radius: 50px; font-size: 0.9rem; font-weight: 900;
-            letter-spacing: 2px; cursor: pointer; transition: 0.4s; text-transform: uppercase;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+            cursor: pointer; text-transform: uppercase; transition: 0.3s;
         }
         .btn-enviar:hover { transform: translateY(-3px); background: #1ebd59; }
 
         @media (max-width: 900px) {
-            .tarjeta-detalle { flex-direction: column; height: auto; margin-top: 70px; }
-            .seccion-texto { order: 1; padding: 40px 20px; border-left: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
-            .seccion-galeria { order: 2; padding: 40px 20px; }
-            .img-principal { max-width: 300px; }
+            .tarjeta-detalle { flex-direction: column; height: auto; }
+            .seccion-galeria { grid-template-columns: repeat(2, 1fr); order: 2; }
+            .seccion-texto { order: 1; border-left: none; }
         }
     </style>
 </head>
@@ -105,7 +94,7 @@
 
 <nav class="nav-principal">
     <div class="nav-container">
-        <a href="https://instagram.com" target="_blank" class="instagram-link-top">@covering_styles</a>
+        <a href="/" style="color: var(--azul-cstyles); text-decoration: none; font-weight: 900; letter-spacing: 3px;">CSTYLES</a>
         <div class="nav-links">
             <a href="/clasico/">Clásico</a>
             <a href="/tela-automotriz/">Telas</a>
@@ -116,38 +105,38 @@
 </nav>
 
 <div class="tarjeta-detalle">
-    <!-- LADO IZQUIERDO: PREVIEW -->
+    <!-- GALERÍA COMO LA DE TELAS -->
     <div class="seccion-galeria">
-        <img src="/especial3.jpg" alt="Diseño Personalizado" class="img-principal">
-        <p style="margin-top: 25px; font-size: 0.65rem; color: #888; letter-spacing: 3px; font-weight: 900;">IMAGINACIÓN SIN LÍMITES</p>
+        <div class="contenedor-foto"><img src="/especial1.jpg" class="foto-item"><div class="ref-tag">ES-01</div></div>
+        <div class="contenedor-foto"><img src="/especial2.jpg" class="foto-item"><div class="ref-tag">ES-02</div></div>
+        <div class="contenedor-foto"><img src="/especial3.jpg" class="foto-item"><div class="ref-tag">ES-03</div></div>
+        <div class="contenedor-foto"><img src="/especial4.jpg" class="foto-item"><div class="ref-tag">ES-04</div></div>
+        <div class="contenedor-foto"><img src="/especial5.jpg" class="foto-item"><div class="ref-tag">ES-05</div></div>
+        <div class="contenedor-foto"><img src="/especial6.jpg" class="foto-item"><div class="ref-tag">ES-06</div></div>
     </div>
 
-    <!-- LADO DERECHO: FORMULARIO FORMINIT -->
+    <!-- FORMULARIO FORMINIT A LA DERECHA -->
     <div class="seccion-texto">
-        <img src="/imajen2.png" alt="Logo CStyles" style="width: 130px; margin-bottom: 15px; opacity: 0.9;">
-        <div style="letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 5px;">DISEÑOS ESPECIALES</div>
-        <h2 style="font-size: 1.6rem; font-weight: 900; margin: 0 0 25px 0; letter-spacing: 2px; text-transform: uppercase;">Personaliza tu forro</h2>
+        <div style="letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 5px;">CATÁLOGO ESPECIAL</div>
+        <h2 style="font-size: 1.5rem; font-weight: 900; margin-bottom: 20px; letter-spacing: 2px;">DISEÑO A TU MEDIDA</h2>
         
         <form action="https://forminit.com" method="POST" enctype="multipart/form-data" style="width: 100%;">
-            
-            <!-- Redirección a la página de gracias con el ID correcto -->
             <input type="hidden" name="fi-redirect" value="https://fundascs.com">
-
-            <label>Nombre Completo</label>
+            
+            <label>Nombre</label>
             <input type="text" name="fi-sender-fullName" placeholder="Tu nombre" required>
             
-            <label>Email de contacto</label>
-            <input type="email" name="fi-sender-email" placeholder="tu@correo.com" required>
+            <label>Auto</label>
+            <input type="text" name="fi-sender-vehicle" placeholder="Modelo y Año" required>
 
-            <label style="color: var(--gold);">📸 Adjunta tu foto de referencia</label>
+            <label style="color: var(--gold);">📸 ADJUNTA TU REFERENCIA</label>
             <div class="zona-foto">
-                <input type="file" name="fi-file-referencia" accept="image/*" style="border: none; background: transparent; cursor: pointer; padding: 0; font-size: 0.8rem;">
+                <input type="file" name="fi-file-referencia" accept="image/*" style="font-size: 0.7rem;">
             </div>
 
-            <label>Detalles del pedido</label>
-            <textarea name="fi-text-your-message" rows="3" placeholder="Modelo de auto, colores, etc..." required style="resize: none;"></textarea>
+            <textarea name="fi-text-message" rows="3" placeholder="Detalles adicionales..." required style="resize: none;"></textarea>
 
-            <button type="submit" class="btn-enviar">ENVIAR DISEÑO 📧</button>
+            <button type="submit" class="btn-enviar">ENVIAR DISEÑO</button>
         </form>
     </div>
 </div>

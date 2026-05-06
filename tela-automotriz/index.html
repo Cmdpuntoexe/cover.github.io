@@ -9,7 +9,19 @@
         body { background: linear-gradient(180deg, #000000 0%, #1a1c1e 100%); background-attachment: fixed; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; color: #ffffff; min-height: 100vh; overflow-y: auto; }
         .nav-principal { width: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
-        .instagram-link-top { color: #ffffff; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: 0.3s; opacity: 0.8; padding: 10px; display: inline-block; }
+        }
+
+.instagram-link-top:hover {
+    opacity: 1;
+    color: var(--azul-cstyles); /* Cambia a tu azul al pasar el mouse */
+    transform: translateX(5px); /* Se mueve un poquito a la derecha */
+    text-shadow: 0 0 10px rgba(42, 117, 187, 0.5);
+}
+
+.ig-icon {
+    font-size: 0.9rem;
+    margin-right: 5px;
+}
         .nav-links a { color: #fff; text-decoration: none; margin-left: 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; opacity: 0.7; }
         .nav-links a.active { opacity: 1; color: var(--azul-cstyles); }
         .tarjeta-detalle { display: flex; width: 95%; max-width: 1250px; height: 88vh; background: rgba(255, 255, 255, 0.03); border-radius: 25px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08); margin: 40px auto; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.8); }
@@ -32,12 +44,16 @@
 <body>
 <nav class="nav-principal">
     <div class="nav-container">
-        <a href="https://instagram.com" target="_blank" class="instagram-link-top">📸 @covering_styles</a>
+<!-- Enlace exacto a tu Instagram -->
+<a href="https://www.instagram.com/covering_styles?igsh=aXg1dnh5MHpqOHFh" target="_blank" class="instagram-link-top">
+    📸 @covering_styles
+</a>
+
         <div class="nav-links">
             <a href="/clasico/">Clásico</a>
-            <a href="/tela-automotriz/" class="active">Tela Automotriz</a>
+            <a href="/tela-automotriz/">Tela Automotriz</a>
             <a href="/bicolor/">Bicolor</a>
-            <a href="/estilos-personalizados/">Personalizados</a>
+            <a href="/estilos-personalizados/" class="active">Personalizados</a>
         </div>
     </div>
 </nav>

@@ -9,84 +9,87 @@
         
         body {
             background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
-            background-attachment: fixed; margin: 0; padding: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif; color: #ffffff;
-            min-height: 100vh; overflow-y: auto; 
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: #ffffff; min-height: 100vh;
         }
 
-        /* NAVEGACIÓN (IDÉNTICA A TU IMAGEN) */
+        /* NAVBAR (IGUAL A LA FOTO) */
         .nav-principal {
             width: 100%; background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);
             position: sticky; top: 0; z-index: 1000;
         }
         .nav-container {
-            max-width: 1200px; margin: 0 auto; display: flex; 
-            justify-content: space-between; align-items: center; padding: 15px 20px;
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 15px 20px;
         }
         .nav-links a {
             color: #fff; text-decoration: none; margin-left: 20px;
             font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
-            transition: 0.3s; opacity: 0.7;
+            opacity: 0.7; transition: 0.3s;
         }
         .nav-links a.active { opacity: 1; color: var(--azul-cstyles); }
 
-        /* LA TARJETA (ESTILO DE TU IMAGEN) */
+        /* CONTENEDOR TIPO TARJETA */
         .tarjeta-detalle {
             display: flex; width: 95%; max-width: 1200px; 
-            min-height: 80vh; margin: 40px auto;
+            min-height: 75vh; margin: 40px auto;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 30px; border: 1px solid rgba(255,255,255,0.08);
             overflow: hidden; backdrop-filter: blur(15px);
             box-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
-        /* GALERÍA IZQUIERDA */
+        /* IZQUIERDA: GALERÍA DE FOTOS */
         .seccion-galeria {
-            flex: 1.5; background: rgba(0,0,0,0.2); padding: 30px;
+            flex: 1.4; background: rgba(0,0,0,0.15); padding: 30px;
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;
+            align-content: start;
         }
         .contenedor-foto {
             position: relative; border-radius: 15px; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1); height: 160px;
+            border: 1px solid rgba(255,255,255,0.1); height: 140px;
         }
         .foto-item { width: 100%; height: 100%; object-fit: cover; }
         .ref-tag {
-            position: absolute; top: 10px; left: 10px;
+            position: absolute; top: 8px; left: 8px;
             background: var(--azul-cstyles); color: white;
-            padding: 4px 10px; border-radius: 5px; font-size: 0.6rem; font-weight: 900;
+            padding: 3px 8px; border-radius: 4px; font-size: 0.55rem; font-weight: 900;
         }
 
-        /* INFO DERECHA (FORMULARIO) */
+        /* DERECHA: INFORMACIÓN Y BOTÓN */
         .seccion-texto {
-            flex: 1; padding: 40px; display: flex; flex-direction: column;
-            background: rgba(0, 0, 0, 0.25); border-left: 1px solid rgba(255,255,255,0.05);
-            justify-content: center; align-items: center;
+            flex: 1; padding: 45px; display: flex; flex-direction: column;
+            background: rgba(0, 0, 0, 0.3); border-left: 1px solid rgba(255,255,255,0.05);
+            align-items: center; text-align: center; justify-content: center;
         }
 
-        label { display: block; text-align: left; font-size: 0.65rem; color: #888; margin-bottom: 5px; text-transform: uppercase; width: 100%; }
-        input, textarea {
-            background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px; border-radius: 10px; color: #fff; font-size: 0.85rem; 
-            width: 100%; box-sizing: border-box; margin-bottom: 12px; outline: none;
-        }
+        .cat-premium { letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 10px; }
+        .titulo-seccion { font-size: 1.8rem; font-weight: 900; margin: 0 0 25px 0; letter-spacing: 2px; text-transform: uppercase; }
         
-        .zona-foto {
-            background: rgba(255,255,255,0.02); border: 1px dashed var(--azul-cstyles);
-            padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%; box-sizing: border-box;
+        .descripcion-bloque {
+            text-align: left; background: rgba(255,255,255,0.03);
+            padding: 25px; border-radius: 20px; margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.05); width: 100%; box-sizing: border-box;
         }
+        .descripcion-bloque p { font-size: 0.85rem; line-height: 1.6; color: #ccc; margin: 0 0 15px 0; }
+        .descripcion-bloque ul { padding-left: 15px; margin: 0; }
+        .descripcion-bloque li { font-size: 0.75rem; color: #aaa; margin-bottom: 8px; list-style: disc; }
 
-        .btn-enviar {
+        .btn-asesoria {
             width: 100%; background: var(--wa-green); color: white; border: none;
-            padding: 18px; border-radius: 50px; font-size: 0.9rem; font-weight: 900;
-            cursor: pointer; text-transform: uppercase; transition: 0.3s;
+            padding: 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 900;
+            letter-spacing: 2px; cursor: pointer; transition: 0.4s; text-transform: uppercase;
+            text-decoration: none; text-align: center;
         }
-        .btn-enviar:hover { transform: translateY(-3px); background: #1ebd59; }
+        .btn-asesoria:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); }
 
         @media (max-width: 900px) {
             .tarjeta-detalle { flex-direction: column; height: auto; }
-            .seccion-galeria { grid-template-columns: repeat(2, 1fr); order: 2; }
-            .seccion-texto { order: 1; border-left: none; }
+            .seccion-texto { border-left: none; border-bottom: 1px solid rgba(255,255,255,0.05); order: 1; }
+            .seccion-galeria { order: 2; grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -94,10 +97,10 @@
 
 <nav class="nav-principal">
     <div class="nav-container">
-        <a href="/" style="color: var(--azul-cstyles); text-decoration: none; font-weight: 900; letter-spacing: 3px;">CSTYLES</a>
+        <span style="font-size: 0.8rem; opacity: 0.8;">@covering_styles</span>
         <div class="nav-links">
             <a href="/clasico/">Clásico</a>
-            <a href="/tela-automotriz/">Telas</a>
+            <a href="/telas/">Telas</a>
             <a href="/bicolor/">Bicolor</a>
             <a href="/personalizados/" class="active">Personalizados</a>
         </div>
@@ -105,7 +108,7 @@
 </nav>
 
 <div class="tarjeta-detalle">
-    <!-- GALERÍA COMO LA DE TELAS -->
+    <!-- IZQUIERDA: GALERÍA CON SUS CÓDIGOS -->
     <div class="seccion-galeria">
         <div class="contenedor-foto"><img src="/especial1.jpg" class="foto-item"><div class="ref-tag">ES-01</div></div>
         <div class="contenedor-foto"><img src="/especial2.jpg" class="foto-item"><div class="ref-tag">ES-02</div></div>
@@ -115,31 +118,24 @@
         <div class="contenedor-foto"><img src="/especial6.jpg" class="foto-item"><div class="ref-tag">ES-06</div></div>
     </div>
 
-    <!-- FORMULARIO FORMINIT A LA DERECHA -->
+    <!-- DERECHA: TEXTO INFORMATIVO (COMO LA FOTO) -->
     <div class="seccion-texto">
-        <div style="letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 5px;">CATÁLOGO ESPECIAL</div>
-        <h2 style="font-size: 1.5rem; font-weight: 900; margin-bottom: 20px; letter-spacing: 2px;">DISEÑO A TU MEDIDA</h2>
+        <div class="cat-premium">CATÁLOGO PREMIUM</div>
+        <h2 class="titulo-seccion">PERSONALIZADOS</h2>
         
-        <form action="https://forminit.com" method="POST" enctype="multipart/form-data" style="width: 100%;">
-            <input type="hidden" name="fi-redirect" value="https://fundascs.com">
-            
-            <label>Nombre</label>
-            <input type="text" name="fi-sender-fullName" placeholder="Tu nombre" required>
-            
-            <label>Auto</label>
-            <input type="text" name="fi-sender-vehicle" placeholder="Modelo y Año" required>
+        <div class="descripcion-bloque">
+            <p>Diseños exclusivos creados bajo tus especificaciones técnicas, manteniendo los estándares de calidad original.</p>
+            <ul>
+                <li><strong>Corte Preciso:</strong> Ajuste perfecto según molde original.</li>
+                <li><strong>Personalización:</strong> Elección libre de texturas y colores.</li>
+            </ul>
+        </div>
 
-            <label style="color: var(--gold);">📸 ADJUNTA TU REFERENCIA</label>
-            <div class="zona-foto">
-                <input type="file" name="fi-file-referencia" accept="image/*" style="font-size: 0.7rem;">
-            </div>
-
-            <textarea name="fi-text-message" rows="3" placeholder="Detalles adicionales..." required style="resize: none;"></textarea>
-
-            <button type="submit" class="btn-enviar">ENVIAR DISEÑO</button>
-        </form>
+        <!-- BOTÓN VERDE IDÉNTICO AL DE LA FOTO -->
+        <a href="https://wa.me" class="btn-asesoria">ASESORÍA TÉCNICA</a>
     </div>
 </div>
 
 </body>
 </html>
+

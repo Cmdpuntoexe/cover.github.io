@@ -16,9 +16,10 @@
             font-family: 'Segoe UI', Roboto, sans-serif;
             color: #ffffff;
             min-height: 100vh;
+            overflow-y: auto;
         }
 
-        /* NAVEGACIÓN (Igual a las otras páginas) */
+        /* NAVEGACIÓN UNIFICADA */
         .nav-principal {
             width: 100%;
             background: rgba(0, 0, 0, 0.8);
@@ -42,61 +43,60 @@
         }
         .nav-links a.active { opacity: 1; color: var(--azul-cstyles); }
 
-        /* TARJETA DE DISEÑO */
+        /* TARJETA DE DETALLE (ESTILO UNIFICADO) */
         .tarjeta-detalle {
-            display: flex; width: 95%; max-width: 1100px; 
-            min-height: 80vh; margin: 40px auto;
+            display: flex; width: 95%; max-width: 1200px; 
+            min-height: 85vh; margin: 40px auto;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 30px; border: 1px solid rgba(255,255,255,0.08);
             overflow: hidden; backdrop-filter: blur(15px);
             box-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
-        /* SECCIÓN IZQUIERDA (IMAGEN) */
-        .seccion-preview {
+        /* SECCIÓN IZQUIERDA (GALERÍA/PREVIEW) */
+        .seccion-galeria {
             flex: 1.2; background: rgba(0,0,0,0.2); padding: 40px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         .img-principal {
-            width: 100%; max-width: 400px; border-radius: 20px;
+            width: 100%; max-width: 450px; border-radius: 20px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.6);
             border: 1px solid rgba(42, 117, 187, 0.3);
             transition: 0.5s;
         }
-        .img-principal:hover { transform: scale(1.03); }
 
-        /* SECCIÓN DERECHA (PASOS E INFO) */
-        .seccion-info {
-            flex: 1; padding: 45px; display: flex; flex-direction: column;
+        /* SECCIÓN DERECHA (FORMULARIO) */
+        .seccion-texto {
+            flex: 0.9; padding: 45px; display: flex; flex-direction: column;
             background: rgba(0, 0, 0, 0.25); border-left: 1px solid rgba(255,255,255,0.05);
             align-items: center; text-align: center; justify-content: center;
         }
 
-        .logo-pequeno { width: 140px; margin-bottom: 20px; opacity: 0.9; }
-        .tagline { letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 10px; }
-        
-        /* ESTILO DE PASOS */
-        .pasos-container { width: 100%; max-width: 300px; margin: 25px 0; }
-        .paso-item {
-            text-align: left; padding-left: 15px; margin-bottom: 20px;
-            border-left: 3px solid var(--azul-cstyles);
+        label { display: block; text-align: left; font-size: 0.7rem; color: #888; margin-bottom: 5px; text-transform: uppercase; width: 100%; }
+        input, textarea {
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px; border-radius: 12px; color: #fff; font-size: 0.9rem; outline: none; transition: 0.3s;
+            width: 100%; box-sizing: border-box; margin-bottom: 15px; font-family: inherit;
         }
-        .paso-n { font-size: 0.65rem; color: var(--azul-cstyles); font-weight: bold; letter-spacing: 1px; }
-        .paso-txt { font-size: 1.1rem; font-weight: 800; margin-top: 3px; letter-spacing: 1px; }
+        input:focus, textarea:focus { border-color: var(--azul-cstyles); background: rgba(0,0,0,0.8); }
 
-        .btn-wa-personalizar {
-            background: var(--wa-green); color: white; text-decoration: none;
-            padding: 18px 45px; border-radius: 50px; font-weight: 900;
-            transition: 0.3s; font-size: 0.9rem; text-transform: uppercase;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
-            display: inline-block;
+        .zona-foto {
+            background: rgba(255,255,255,0.02); border: 2px dashed rgba(42, 117, 187, 0.4);
+            padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center; width: 100%; box-sizing: border-box;
         }
-        .btn-wa-personalizar:hover { transform: translateY(-3px); background: #1ebd59; }
+
+        .btn-enviar {
+            width: 100%; background: var(--wa-green); color: white; border: none;
+            padding: 18px; border-radius: 50px; font-size: 0.9rem; font-weight: 900;
+            letter-spacing: 2px; cursor: pointer; transition: 0.4s; text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+        }
+        .btn-enviar:hover { transform: translateY(-3px); background: #1ebd59; }
 
         @media (max-width: 900px) {
             .tarjeta-detalle { flex-direction: column; height: auto; margin-top: 70px; }
-            .seccion-info { padding: 40px 20px; border-left: none; order: 1; }
-            .seccion-preview { padding: 40px 20px; order: 2; }
+            .seccion-texto { order: 1; padding: 40px 20px; border-left: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .seccion-galeria { order: 2; padding: 40px 20px; }
             .img-principal { max-width: 300px; }
         }
     </style>
@@ -110,43 +110,45 @@
             <a href="/clasico/">Clásico</a>
             <a href="/tela-automotriz/">Telas</a>
             <a href="/bicolor/">Bicolor</a>
-            <a href="/estilos-personalizados/" class="active">Personalizados</a>
+            <a href="/personalizados/" class="active">Personalizados</a>
         </div>
     </div>
 </nav>
 
 <div class="tarjeta-detalle">
-    <!-- IMAGEN DE REFERENCIA -->
-    <div class="seccion-preview">
+    <!-- LADO IZQUIERDO: PREVIEW -->
+    <div class="seccion-galeria">
         <img src="/especial3.jpg" alt="Diseño Personalizado" class="img-principal">
-        <p style="margin-top: 20px; font-size: 0.7rem; color: #666; letter-spacing: 2px;">TU IMAGINACIÓN ES EL LÍMITE</p>
+        <p style="margin-top: 25px; font-size: 0.65rem; color: #888; letter-spacing: 3px; font-weight: 900;">IMAGINACIÓN SIN LÍMITES</p>
     </div>
 
-    <!-- INFORMACIÓN Y PASOS -->
-    <div class="seccion-info">
-        <img src="/imajen2.png" alt="Logo CStyles" class="logo-pequeno">
-        <div class="tagline">DISEÑOS ÚNICOS</div>
-        <h1 style="font-size: 1.8rem; font-weight: 900; margin: 0; letter-spacing: 2px;">PERSONALIZADOS</h1>
+    <!-- LADO DERECHO: FORMULARIO FORMINIT -->
+    <div class="seccion-texto">
+        <img src="/imajen2.png" alt="Logo CStyles" style="width: 130px; margin-bottom: 15px; opacity: 0.9;">
+        <div style="letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 5px;">DISEÑOS ESPECIALES</div>
+        <h2 style="font-size: 1.6rem; font-weight: 900; margin: 0 0 25px 0; letter-spacing: 2px; text-transform: uppercase;">Personaliza tu forro</h2>
         
-        <div class="pasos-container">
-            <div class="paso-item">
-                <div class="paso-n">PASO 1</div>
-                <div class="paso-txt">Elige tu modelo</div>
-            </div>
-            <div class="paso-item" style="border-left-color: #fff;">
-                <div class="paso-n">PASO 2</div>
-                <div class="paso-txt">Envíanos tu foto</div>
-            </div>
-            <div class="paso-item">
-                <div class="paso-n">PASO 3</div>
-                <div class="paso-txt">¡Listo para entrega!</div>
-            </div>
-        </div>
+        <form action="https://forminit.com" method="POST" enctype="multipart/form-data" style="width: 100%;">
+            
+            <!-- Redirección a la página de gracias con el ID correcto -->
+            <input type="hidden" name="fi-redirect" value="https://fundascs.com">
 
-        <a href="https://whatsapp.com." 
-           class="btn-wa-personalizar">
-           DISEÑAR MI FUNDA 📱
-        </a>
+            <label>Nombre Completo</label>
+            <input type="text" name="fi-sender-fullName" placeholder="Tu nombre" required>
+            
+            <label>Email de contacto</label>
+            <input type="email" name="fi-sender-email" placeholder="tu@correo.com" required>
+
+            <label style="color: var(--gold);">📸 Adjunta tu foto de referencia</label>
+            <div class="zona-foto">
+                <input type="file" name="fi-file-referencia" accept="image/*" style="border: none; background: transparent; cursor: pointer; padding: 0; font-size: 0.8rem;">
+            </div>
+
+            <label>Detalles del pedido</label>
+            <textarea name="fi-text-your-message" rows="3" placeholder="Modelo de auto, colores, etc..." required style="resize: none;"></textarea>
+
+            <button type="submit" class="btn-enviar">ENVIAR DISEÑO 📧</button>
+        </form>
     </div>
 </div>
 

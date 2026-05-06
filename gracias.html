@@ -16,27 +16,35 @@
         }
         .tarjeta-gracias {
             background: rgba(255, 255, 255, 0.03);
-            padding: 50px; border-radius: 30px;
+            padding: 40px; border-radius: 30px;
             border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(15px); max-width: 400px;
+            backdrop-filter: blur(15px); max-width: 400px; width: 90%;
             box-shadow: 0 40px 80px rgba(0,0,0,0.8);
             animation: fadeIn 1s ease;
         }
-        .icono-exito { font-size: 50px; color: #25d366; margin-bottom: 20px; }
-        h1 { font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 10px; font-weight: 900; }
-        p { color: #888; font-size: 0.9rem; line-height: 1.6; margin-bottom: 30px; }
+
+        /* ESTILO PARA EL LOGO */
+        .logo-gracias {
+            width: 140px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(42, 117, 187, 0.3));
+        }
+
+        .icono-exito { font-size: 40px; color: #25d366; margin-bottom: 10px; }
+        h1 { font-size: 1.6rem; letter-spacing: 2px; margin-bottom: 10px; font-weight: 900; }
+        p { color: #888; font-size: 0.85rem; line-height: 1.6; margin-bottom: 30px; }
         
-        .btn-contenedor { display: flex; flex-direction: column; gap: 15px; }
+        .btn-contenedor { display: flex; flex-direction: column; gap: 12px; }
 
         .btn-volver {
             background: var(--azul-cstyles); color: white; text-decoration: none;
             padding: 15px 30px; border-radius: 50px; font-weight: 900;
-            font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s;
+            font-size: 0.75rem; letter-spacing: 2px; transition: 0.3s;
         }
         .btn-insta {
             background: transparent; color: white; text-decoration: none;
-            padding: 14px 30px; border-radius: 50px; font-weight: 900;
-            font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s;
+            padding: 13px 30px; border-radius: 50px; font-weight: 900;
+            font-size: 0.75rem; letter-spacing: 2px; transition: 0.3s;
             border: 2px solid var(--insta);
         }
         .btn-volver:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(42, 117, 187, 0.4); }
@@ -48,13 +56,16 @@
 <body>
 
     <div class="tarjeta-gracias">
+        <!-- LOGO AÑADIDO -->
+        <img src="/imajen2.png" alt="CStyles Logo" class="logo-gracias">
+        
         <div class="icono-exito">✔</div>
-        <h1>¡MENSAJE RECIBIDO!</h1>
-        <p>Tu solicitud ha sido enviada con éxito. Un asesor técnico revisará tu diseño y te contactará a la brevedad.</p>
+        <h1>¡DISEÑO RECIBIDO!</h1>
+        <p>Tu solicitud ha sido procesada con éxito. Revisaremos la foto de referencia y nos pondremos en contacto contigo.</p>
         
         <div class="btn-contenedor">
             <a href="/" class="btn-volver">VOLVER AL INICIO</a>
-            <a href="https://instagram.com" target="_blank" class="btn-insta">SÍGUENOS EN INSTAGRAM 📸</a>
+            <a href="https://instagram.com" target="_blank" class="btn-insta">VER TRABAJOS EN INSTAGRAM</a>
         </div>
     </div>
 

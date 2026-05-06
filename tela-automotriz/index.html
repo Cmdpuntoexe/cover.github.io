@@ -1,13 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Telas Automotrices - CStyles</title>
+    <style>
+        :root { --azul-cstyles: #2a75bb; --wa-green: #25d366; --gold: #d4af37; }
+        
+        /* DESPLAZAMIENTO SUAVE */
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+            background-attachment: fixed;
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-y: auto; 
+        }
+
+        /* NAVEGACIÓN PRINCIPAL */
+        .nav-principal {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 15px 20px;
+        }
+        .instagram-link-top {
+            color: #ffffff; text-decoration: none; font-size: 0.85rem;
+            font-weight: 600; letter-spacing: 1px; transition: 0.3s; opacity: 0.8;
+        }
+        .instagram-link-top:hover { opacity: 1; color: var(--azul-cstyles); transform: translateX(5px); }
+        
+        .nav-links a {
+            color: #fff; text-decoration: none; margin-left: 20px;
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+            transition: 0.3s; opacity: 0.7;
+        }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--azul-cstyles); }
+
+        /* TARJETA DE DETALLE PRINCIPAL */
+        .tarjeta-detalle {
+            display: flex; width: 95%; max-width: 1250px; 
+            min-height: 85vh; margin: 40px auto;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 30px; border: 1px solid rgba(255,255,255,0.08);
+            overflow: hidden; backdrop-filter: blur(15px);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+        }
+
+        /* SECCIÓN GALERÍA (IZQUIERDA) */
+        .seccion-galeria {
+            flex: 1.6; background: rgba(0,0,0,0.2); padding: 30px;
+            overflow-y: auto; display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px; align-content: start;
+        }
+        .contenedor-foto {
+            position: relative; border-radius: 15px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08); cursor: pointer;
+            transition: 0.3s; height: 160px;
+        }
+        .contenedor-foto:hover { transform: scale(1.03); border-color: var(--azul-cstyles); }
+        .foto-item { width: 100%; height: 100%; object-fit: cover; }
+        .ref-tag {
+            position: absolute; top: 10px; left: 10px;
+            background: var(--azul-cstyles); color: white;
+            padding: 4px 10px; border-radius: 5px; font-size: 0.6rem; font-weight: 900;
+        }
+
+        /* SECCIÓN INFO (DERECHA) */
+        .seccion-texto {
+            flex: 0.8; padding: 45px; display: flex; flex-direction: column;
+            background: rgba(0, 0, 0, 0.25); border-left: 1px solid rgba(255,255,255,0.05);
+            align-items: center; text-align: center; justify-content: center;
+        }
+        .tagline { letter-spacing: 4px; color: var(--gold); font-size: 0.6rem; font-weight: bold; margin-bottom: 10px; }
+        .bloque-info {
+            text-align: left; background: rgba(255,255,255,0.03);
+            padding: 20px; border-radius: 20px; margin: 20px 0;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .btn-wa-modal {
+            background: var(--wa-green); color: white; text-decoration: none;
+            padding: 16px 35px; border-radius: 50px; font-weight: 900;
+            transition: 0.3s; font-size: 0.85rem; text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+        }
+        .btn-wa-modal:hover { transform: translateY(-3px); background: #1ebd59; }
+
+        /* MODAL SLIDER */
+        #modalImg {
+            display: none; position: fixed; z-index: 2000; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.97);
+            flex-direction: column; justify-content: center; align-items: center;
+        }
+        .contenedor-slider { position: relative; width: 90%; max-width: 800px; display: flex; align-items: center; justify-content: center; }
+        .modal-contenido { max-width: 100%; max-height: 70vh; border-radius: 15px; border: 1px solid rgba(42, 117, 187, 0.3); }
+        .btn-nav {
+            position: absolute; background: rgba(255,255,255,0.1); color: white;
+            border: none; font-size: 2rem; padding: 15px; cursor: pointer; border-radius: 50%;
+        }
+        .prev { left: -70px; } .next { right: -70px; }
+        #descVariante { color: #b8b8b8; font-size: 0.85rem; margin-top: 15px; max-width: 80%; text-align: center; line-height: 1.4; }
+
+        /* RESPONSIVO */
+        @media (max-width: 900px) {
+            .tarjeta-detalle { flex-direction: column; height: auto; margin-top: 70px; }
+            .seccion-texto { order: 1; padding: 40px 20px; border-left: none; }
+            .seccion-galeria { order: 2; height: auto; grid-template-columns: repeat(2, 1fr); padding: 20px; }
+            .btn-nav { padding: 10px; font-size: 1.2rem; }
+            .prev { left: 5px; } .next { right: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav-principal">
+    <div class="nav-container">
+        <a href="https://instagram.com" target="_blank" class="instagram-link-top">@covering_styles</a>
+        <div class="nav-links">
+            <a href="/clasico/">Clásico</a>
+            <a href="/tela-automotriz/" class="active">Telas</a>
+            <a href="/bicolor/">Bicolor</a>
+            <a href="/estilos-personalizados/">Personalizados</a>
+        </div>
+    </div>
+</nav>
+
+<!-- MODAL DE IMAGEN -->
+<div id="modalImg">
+    <span style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;" onclick="cerrarVista()">&times;</span>
+    <div class="contenedor-slider">
+        <button class="btn-nav prev" onclick="cambiarFoto(-1)">❮</button>
+        <img class="modal-contenido" id="imgGrande">
+        <button class="btn-nav next" onclick="cambiarFoto(1)">❯</button>
+    </div>
+    <div id="modalRef" style="background:var(--azul-cstyles); padding:8px 25px; border-radius:50px; font-weight:900; margin-top:15px; letter-spacing:1px;"></div>
+    <p id="descVariante"></p>
+    <a href="#" id="waLinkModal" class="btn-wa-modal" target="_blank">Consultar Disponibilidad</a>
+</div>
+
+<div class="tarjeta-detalle">
+    <div class="seccion-galeria" id="contenedorTelas"></div>
+    <div class="seccion-texto">
+        <div class="tagline">CATÁLOGO PREMIUM</div>
+        <h2 style="font-size: 1.8rem; font-weight: 900; margin: 0 0 10px 0; letter-spacing: 2px;">TELA AUTOMOTRIZ</h2>
+        <div class="bloque-info">
+            <p style="margin-top:0;">Textiles de alta ingeniería diseñados para resistir el uso rudo y mantener la frescura.</p>
+            <ul style="font-size: 0.8rem; color: #b8b8b8; padding-left: 15px;">
+                <li><strong>Alta Resistencia:</strong> Certificación de durabilidad.</li>
+                <li><strong>Transpirabilidad:</strong> Confort térmico superior.</li>
+            </ul>
+        </div>
+        <a href="https://wa.me" class="btn-wa-modal" style="width: 85%; text-align: center;">ASESORÍA TÉCNICA</a>
+    </div>
+</div>
+
 <script>
     const miNumero = "56961960385";
-    
-    // AQUÍ ESTÁN TUS DESCRIPCIONES ORIGINALES COMPLETAS
+
+    // CATÁLOGO CON TUS DESCRIPCIONES ORIGINALES
     const telas = [
         { 
             ref: "TELA-01", 
-            fotos: [
-                { ruta: "/mixto1.jpg", desc: "Diseño Mixto (Policuero-Genero): Tela Automotriz en la parte central de la funda con un corte horizontal y dos lineas Ligeramente arqueadas en la pieza inferior." }
-            ] 
+            fotos: [{ ruta: "/mixto1.jpg", desc: "Diseño Mixto (Policuero-Genero): Tela Automotriz en la parte central de la funda con un corte horizontal y dos lineas Ligeramente arqueadas en la pieza inferior." }] 
         }, 
         { 
             ref: "TELA-02", 
@@ -26,51 +191,31 @@
         },
         { 
             ref: "TELA-04", 
-            fotos: [
-                { ruta: "/mixto8.jpg", desc: "Diseño Mixto (Policuero-Genero): Pieza cental con corte horizontal, laterales en policuero beige. -bordes y tapas en negro" }
-            ] 
+            fotos: [{ ruta: "/mixto8.jpg", desc: "Diseño Mixto (Policuero-Genero): Pieza cental con corte horizontal, laterales en policuero beige. -bordes y tapas en negro" }] 
         },
         { 
             ref: "TELA-05", 
-            fotos: [
-                { ruta: "/mixto4.jpg", desc: "Diseño mixto (Policuero-Genero): Tela Automotriz en todo el frente con un corte en el area central y costura doble vertical en la pieza inferio. Pieza central superior con dos cortes en vertical." }
-            ] 
+            fotos: [{ ruta: "/mixto4.jpg", desc: "Diseño mixto (Policuero-Genero): Tela Automotriz en todo el frente con un corte en el area central y costura doble vertical en la pieza inferio. Pieza central superior con dos cortes en vertical." }] 
         },
         { 
             ref: "TELA-06", 
-            fotos: [
-                { ruta: "/mixto5.jpg", desc: "Diseño Mixto (Policuero-Genero): Pieza cental con corte horizontal, -Asiento en policuero con pieza central con corte Horizontal y costura en flecha. -Espaldar con pieza central y corte horizontal mas genero en pieza inferior." }
-            ] 
+            fotos: [{ ruta: "/mixto5.jpg", desc: "Diseño Mixto (Policuero-Genero): Pieza cental con corte horizontal, -Asiento en policuero con pieza central con corte Horizontal y costura en flecha. -Espaldar con pieza central y corte horizontal mas genero en pieza inferior." }] 
         }
     ];
 
-    let telaActual = 0;
-    let fotoActual = 0;
+    let telaActual = 0; let fotoActual = 0;
     const contenedor = document.getElementById("contenedorTelas");
 
-    // Generar la galería
     telas.forEach((t, index) => {
         const div = document.createElement("div");
         div.className = "contenedor-foto";
         div.onclick = () => abrirModal(index);
-        
-        // Usamos la primera foto de cada grupo para la miniatura
-        const img = document.createElement("img");
-        img.src = t.fotos[0].ruta;
-        img.className = "foto-item";
-        
-        const tag = document.createElement("div");
-        tag.className = "ref-tag";
-        tag.innerText = t.ref;
-        
-        div.appendChild(img);
-        div.appendChild(tag);
+        div.innerHTML = `<img src="${t.fotos[0].ruta}" class="foto-item"><div class="ref-tag">${t.ref}</div>`;
         contenedor.appendChild(div);
     });
 
     function abrirModal(index) {
-        telaActual = index;
-        fotoActual = 0;
+        telaActual = index; fotoActual = 0;
         actualizarModal();
         document.getElementById("modalImg").style.display = "flex";
     }
@@ -82,29 +227,21 @@
     }
 
     function actualizarModal() {
-        const t = telas[telaActual];
-        const v = t.fotos[fotoActual];
-        
+        const t = telas[telaActual]; const v = t.fotos[fotoActual];
         document.getElementById("imgGrande").src = v.ruta;
         document.getElementById("modalRef").innerText = t.ref + " - OPCIÓN " + (fotoActual + 1);
         document.getElementById("descVariante").innerText = v.desc;
         
-        // El mensaje de WhatsApp ahora incluye la descripción técnica completa
-        const msg = encodeURIComponent("Hola CStyles, consulto por " + t.ref + " (Opción " + (fotoActual + 1) + "): " + v.desc);
+        const msg = encodeURIComponent("Hola CStyles, consulto por la " + t.ref + " (Opción " + (fotoActual + 1) + "): " + v.desc);
         document.getElementById("waLinkModal").href = "https://whatsapp.com" + miNumero + "&text=" + msg;
         
-        // Mostrar flechas solo si hay más de una foto
         const btns = document.querySelectorAll('.btn-nav');
         btns.forEach(b => b.style.display = t.fotos.length > 1 ? 'block' : 'none');
     }
 
-    function cerrarVista() { 
-        document.getElementById("modalImg").style.display = "none"; 
-    }
-
-    // Cerrar al hacer clic fuera de la imagen
-    window.onclick = function(e) { 
-        if(e.target == document.getElementById("modalImg")) cerrarVista(); 
-    }
+    function cerrarVista() { document.getElementById("modalImg").style.display = "none"; }
+    window.onclick = function(e) { if(e.target == document.getElementById("modalImg")) cerrarVista(); }
 </script>
+</body>
+</html>
 
